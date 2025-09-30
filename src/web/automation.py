@@ -31,6 +31,7 @@ class WebAutomation:
     ICABBI_PORTAL_URL = "https://silvertopcorporate.business.icabbi.com/trips/all-trips"
     ICABBI_CREATE_URL = "https://silvertopcorporate.business.icabbi.com/create-v2"
     BROWSER_STATE_FILE = "browser_state.json"
+    USER_DATA_DIR = "browser_data"
     METRO_LOCATIONS_FILE = "metro-locations.json"
 
     def __init__(self):
@@ -40,7 +41,11 @@ class WebAutomation:
         self.context = None
         self.page = None
         self.browser_state_path = Path(self.BROWSER_STATE_FILE)
+        self.user_data_dir = Path(self.USER_DATA_DIR)
         self.metro_locations = self._load_metro_locations()
+
+        # Create user data directory if it doesn't exist
+        self.user_data_dir.mkdir(exist_ok=True)
 
     def _save_browser_state(self):
         """Save browser authentication state to file."""
@@ -138,18 +143,36 @@ class WebAutomation:
             # Initialize Playwright if not already done
             if not self.playwright:
                 self.playwright = sync_playwright().start()
-                self.browser = self.playwright.chromium.launch(headless=False)
 
-                # Load saved browser state if available
-                saved_state = self._load_browser_state()
-                if saved_state:
-                    logger.info("Using saved browser authentication state")
-                    self.context = self.browser.new_context(storage_state=saved_state)
-                else:
-                    logger.info("Creating new browser context")
-                    self.context = self.browser.new_context()
+                # Try to use persistent context first (best for session persistence)
+                try:
+                    logger.info("Launching browser with persistent context for automatic login")
+                    self.context = self.playwright.chromium.launch_persistent_context(
+                        user_data_dir=str(self.user_data_dir),
+                        headless=False,
+                        args=['--disable-blink-features=AutomationControlled'],  # Hide automation
+                        viewport={'width': 1280, 'height': 720}
+                    )
+                    self.page = self.context.pages[0] if self.context.pages else self.context.new_page()
+                    logger.info("Using persistent browser context - login session will be saved")
 
-                self.page = self.context.new_page()
+                except Exception as e:
+                    logger.warning(f"Could not use persistent context: {e}")
+                    logger.info("Falling back to regular browser with state file")
+
+                    # Fallback to regular browser with state file
+                    self.browser = self.playwright.chromium.launch(headless=False)
+
+                    # Load saved browser state if available
+                    saved_state = self._load_browser_state()
+                    if saved_state:
+                        logger.info("Using saved browser authentication state")
+                        self.context = self.browser.new_context(storage_state=saved_state)
+                    else:
+                        logger.info("Creating new browser context")
+                        self.context = self.browser.new_context()
+
+                    self.page = self.context.new_page()
 
             # Navigate to portal
             logger.info(f"Opening iCabbi portal: {self.ICABBI_PORTAL_URL}")
@@ -212,6 +235,41 @@ class WebAutomation:
             # Wait for the form to process the input
             time.sleep(1)
 
+            # Check if mobile number exists and fill it
+            mobile_number = first_booking.get('Mobile', '')
+            if mobile_number and str(mobile_number).strip() and str(mobile_number).lower() != 'nan':
+                # Clean the mobile number - remove all spaces
+                mobile_clean = str(mobile_number).replace(' ', '').strip()
+
+                # Remove +61 prefix and convert to local format (0...)
+                if mobile_clean.startswith('+61'):
+                    mobile_clean = '0' + mobile_clean[3:]  # Replace +61 with 0
+                    logger.info(f"Converted international format to local: {mobile_number} → {mobile_clean}")
+                elif mobile_clean.startswith('61') and len(mobile_clean) >= 11:
+                    # Handle 61412345678 format (without +)
+                    mobile_clean = '0' + mobile_clean[2:]
+                    logger.info(f"Converted international format to local: {mobile_number} → {mobile_clean}")
+                else:
+                    logger.info(f"Mobile number found: {mobile_number} (cleaned: {mobile_clean})")
+
+                try:
+                    # Find the mobile input field by placeholder text (IDs change dynamically)
+                    mobile_field = self.page.wait_for_selector('input[placeholder="Enter phone number"]', timeout=5000)
+
+                    # Click and fill the mobile number
+                    mobile_field.click()
+                    mobile_field.fill('')
+                    mobile_field.type(mobile_clean, delay=50)
+
+                    logger.info(f"Successfully filled mobile number: {mobile_clean}")
+                    time.sleep(0.5)  # Brief wait after filling
+
+                except Exception as e:
+                    logger.warning(f"Could not fill mobile number (field may not exist): {e}")
+                    # Continue anyway - mobile field is optional
+            else:
+                logger.info("No mobile number found in booking data")
+
             # Wait for the Next button to become enabled (it starts disabled)
             logger.info("Waiting for Next button to become enabled...")
             next_button = self.page.wait_for_selector('button:has-text("Next"):not([disabled])', timeout=10000)
@@ -250,13 +308,74 @@ class WebAutomation:
             # Fill date and time
             self._fill_date_time(booking_date, booking_time)
 
-            # Click Next button
-            logger.info("Clicking Next button...")
+            # Click Next button to proceed to step 3
+            logger.info("Clicking Next button to proceed to step 3...")
             next_button = self.page.wait_for_selector('button:has-text("Next"):not([disabled])', timeout=10000)
             next_button.click()
 
-            logger.info("Successfully completed booking form step 2")
-            logger.info("Continue with the booking process in the browser")
+            logger.info("Successfully completed booking form step 2 (Address/Date/Time)")
+
+            # Step 3: Intermediate page - just click Next
+            logger.info("Waiting for step 3 (intermediate page) to load...")
+            time.sleep(3)  # Wait 3 seconds for page to fully load
+
+            logger.info("Step 3 page loaded, clicking Next button...")
+            try:
+                next_button = self.page.wait_for_selector('button:has-text("Next"):not([disabled])', timeout=10000)
+                next_button.click()
+                logger.info("Successfully clicked Next button on step 3")
+                time.sleep(2)  # Wait for next page to load
+            except Exception as e:
+                logger.error(f"Error clicking Next button on step 3: {e}")
+                raise
+
+            logger.info("Successfully completed step 3 (intermediate page)")
+
+            # Step 4: Fill final booking form fields
+            logger.info("Waiting for step 4 (final booking form) to load...")
+            time.sleep(3)  # Wait 3 seconds for page to fully load
+
+            logger.info("Step 4 page loaded, filling booking details...")
+
+            # Fill "Ordered By" field with "Metro" (IDs change dynamically, use section title)
+            try:
+                logger.info("Filling 'Ordered By' field with 'Metro'...")
+
+                # Find the section with title "Ordered By" and get its input field
+                # Look for h5 with text "Ordered By", then find the input in the same row
+                ordered_by_section = self.page.locator('h5.section-title:has-text("Ordered By")')
+
+                # Get the parent row and find the input field within it
+                ordered_by_row = ordered_by_section.locator('..').locator('..')
+                ordered_by_input = ordered_by_row.locator('input[type="text"]').first
+
+                # Wait for the field to be visible
+                ordered_by_input.wait_for(state='visible', timeout=10000)
+
+                # Click and fill the field
+                ordered_by_input.click()
+                ordered_by_input.fill('')
+                ordered_by_input.type('Metro', delay=100)
+
+                logger.info("Successfully filled 'Metro' in Ordered By field")
+                time.sleep(1)
+            except Exception as e:
+                logger.error(f"Error filling Ordered By field: {e}")
+                raise
+
+            # Step 5: Click "Book now" button to complete the booking
+            logger.info("Clicking 'Book now' button to complete booking...")
+            try:
+                # Wait for the button to be enabled (not disabled)
+                book_button = self.page.wait_for_selector('button:has-text("Book now"):not([disabled])', timeout=10000)
+                book_button.click()
+                logger.info("Successfully clicked 'Book now' button")
+                time.sleep(2)  # Wait for booking confirmation
+            except Exception as e:
+                logger.error(f"Error clicking 'Book now' button: {e}")
+                raise
+
+            logger.info("Booking creation completed successfully!")
             return True
 
         except Exception as e:
@@ -384,140 +503,16 @@ class WebAutomation:
 
             logger.info(f"Setting date: {date_str}, time: {time_str}")
 
-            # Parse the date components for the date picker
+            # Parse the date components for Vue.js date picker
             day = dt.day
             month = dt.month
             year = dt.year
 
-            # First, explore the Vue structure to understand the component
-            logger.info("Exploring Vue.js date picker structure...")
-            explore_result = self.page.evaluate("""
-            (() => {
-                const results = {
-                    inputFound: false,
-                    vueInstances: [],
-                    dataProperties: {},
-                    methods: []
-                };
-
-                // Find the date input more specifically
-                // Look for the input that's in the Date section (after h5 with "Date" text)
-                let dateInput = null;
-
-                // Strategy 1: Find by looking for Date section
-                const headers = document.querySelectorAll('h5.section-title');
-                for (const header of headers) {
-                    if (header.textContent.includes('Date')) {
-                        // Found the Date header, now find the input in the same parent
-                        const parent = header.closest('.col');
-                        if (parent) {
-                            dateInput = parent.querySelector('input[readonly][type="text"]');
-                            if (dateInput) {
-                                results.foundBy = 'date-section';
-                                break;
-                            }
-                        }
-                    }
-                }
-
-                // Strategy 2: Find by ID if we know it
-                if (!dateInput) {
-                    dateInput = document.querySelector('#input-95');
-                    if (dateInput) {
-                        results.foundBy = 'id';
-                    }
-                }
-
-                // Strategy 3: Find all readonly inputs and filter
-                if (!dateInput) {
-                    const allReadonly = document.querySelectorAll('input[readonly][type="text"]');
-                    // The date input should NOT be in a multiselect
-                    for (const input of allReadonly) {
-                        const parent = input.closest('.multiselect');
-                        if (!parent) {
-                            // This is not in a multiselect, likely the date field
-                            dateInput = input;
-                            results.foundBy = 'not-multiselect';
-                            break;
-                        }
-                    }
-                }
-
-                if (!dateInput) {
-                    return { success: false, error: 'Date input not found', results };
-                }
-
-                results.inputFound = true;
-                results.inputId = dateInput.id;
-                results.currentValue = dateInput.value;
-
-                // Walk up the DOM tree and collect all Vue instances
-                let element = dateInput;
-                let level = 0;
-
-                while (element && level < 10) {
-                    if (element.__vue__) {
-                        const vue = element.__vue__;
-                        const instanceInfo = {
-                            level: level,
-                            tag: element.tagName,
-                            className: element.className,
-                            componentName: vue.$options?.name || 'Unknown',
-                            hasData: !!vue.$data,
-                            hasParent: !!vue.$parent
-                        };
-
-                        // Check for date-related properties
-                        const dateProps = [];
-                        if (vue.$data) {
-                            for (const key in vue.$data) {
-                                if (key.toLowerCase().includes('date') ||
-                                    key.toLowerCase().includes('value') ||
-                                    key.toLowerCase().includes('picker')) {
-                                    dateProps.push({
-                                        key: key,
-                                        value: vue.$data[key],
-                                        type: typeof vue.$data[key]
-                                    });
-                                }
-                            }
-                        }
-
-                        // Check direct properties
-                        for (const key of ['value', 'internalValue', 'lazyValue', 'date', 'selectedDate']) {
-                            if (vue.hasOwnProperty(key)) {
-                                dateProps.push({
-                                    key: key,
-                                    value: vue[key],
-                                    type: typeof vue[key],
-                                    direct: true
-                                });
-                            }
-                        }
-
-                        instanceInfo.dateProps = dateProps;
-                        results.vueInstances.push(instanceInfo);
-                    }
-                    element = element.parentElement;
-                    level++;
-                }
-
-                return { success: true, results };
-            })()
-            """)
-
-            logger.info(f"Vue exploration result: {explore_result}")
-
-            # Now try multiple strategies to set the date
-            logger.info("Attempting to set date using multiple strategies...")
-
-            # Strategy 1: Direct Vue instance property setting with multiple formats
+            # Set the date field using Vue.js component updates
             js_set_date = f"""
             (() => {{
-                // Find the date input more specifically (same logic as exploration)
+                // Find the date input by section header (avoids multiselect inputs)
                 let dateInput = null;
-
-                // Strategy 1: Find by Date section
                 const headers = document.querySelectorAll('h5.section-title');
                 for (const header of headers) {{
                     if (header.textContent.includes('Date')) {{
@@ -529,132 +524,58 @@ class WebAutomation:
                     }}
                 }}
 
-                // Strategy 2: Find by ID
                 if (!dateInput) {{
-                    dateInput = document.querySelector('#input-95');
+                    return {{ success: false, error: 'Date input not found' }};
                 }}
-
-                // Strategy 3: Find readonly input NOT in multiselect
-                if (!dateInput) {{
-                    const allReadonly = document.querySelectorAll('input[readonly][type="text"]');
-                    for (const input of allReadonly) {{
-                        const parent = input.closest('.multiselect');
-                        if (!parent) {{
-                            dateInput = input;
-                            break;
-                        }}
-                    }}
-                }}
-
-                if (!dateInput) {{
-                    return {{ success: false, error: 'Date input not found', strategy: 'none' }};
-                }}
-
-                const strategies = [];
-                let successStrategy = null;
 
                 // Date formats to try
                 const isoDate = '{year}-{month:02d}-{day:02d}';
                 const displayDate = '{date_str}';
-                const usDate = '{month}/{day}/{year}';
 
-                // Walk up to find Vue instances
+                // Update Vue.js component data model
                 let element = dateInput;
                 let level = 0;
 
-                while (element && level < 10 && !successStrategy) {{
+                while (element && level < 10) {{
                     if (element.__vue__) {{
                         const vue = element.__vue__;
 
-                        // Strategy 1a: Try setting $data properties
+                        // Try setting Vue data properties
                         if (vue.$data) {{
                             for (const key in vue.$data) {{
                                 if (key.toLowerCase().includes('date') ||
                                     key.toLowerCase().includes('value') ||
                                     key.toLowerCase().includes('picker')) {{
-
-                                    // Try ISO format
                                     vue.$data[key] = isoDate;
-                                    strategies.push({{
-                                        strategy: '1a-data-iso',
-                                        level: level,
-                                        property: key,
-                                        value: isoDate
-                                    }});
-
-                                    // Try display format
                                     vue.$data[key] = displayDate;
-                                    strategies.push({{
-                                        strategy: '1a-data-display',
-                                        level: level,
-                                        property: key,
-                                        value: displayDate
-                                    }});
                                 }}
                             }}
                         }}
 
-                        // Strategy 1b: Try direct properties
-                        const directProps = ['value', 'internalValue', 'lazyValue', 'date', 'selectedDate', 'pickerDate'];
-                        for (const prop of directProps) {{
+                        // Try direct Vue properties
+                        const props = ['value', 'internalValue', 'lazyValue', 'date', 'selectedDate', 'pickerDate'];
+                        for (const prop of props) {{
                             if (vue.hasOwnProperty(prop)) {{
-                                // Try ISO format
                                 vue[prop] = isoDate;
-                                strategies.push({{
-                                    strategy: '1b-direct-iso',
-                                    level: level,
-                                    property: prop,
-                                    value: isoDate
-                                }});
-
-                                // Try display format
                                 vue[prop] = displayDate;
-                                strategies.push({{
-                                    strategy: '1b-direct-display',
-                                    level: level,
-                                    property: prop,
-                                    value: displayDate
-                                }});
                             }}
                         }}
 
-                        // Strategy 1c: Try emitting input event
+                        // Emit Vue events
                         if (vue.$emit) {{
                             vue.$emit('input', isoDate);
-                            strategies.push({{
-                                strategy: '1c-emit-iso',
-                                level: level,
-                                value: isoDate
-                            }});
-
                             vue.$emit('input', displayDate);
-                            strategies.push({{
-                                strategy: '1c-emit-display',
-                                level: level,
-                                value: displayDate
-                            }});
                         }}
 
-                        // Strategy 1d: Try calling methods
+                        // Call Vue methods if available
                         if (typeof vue.setValue === 'function') {{
                             vue.setValue(isoDate);
-                            strategies.push({{
-                                strategy: '1d-method-setValue',
-                                level: level,
-                                value: isoDate
-                            }});
                         }}
-
                         if (typeof vue.updateValue === 'function') {{
                             vue.updateValue(isoDate);
-                            strategies.push({{
-                                strategy: '1d-method-updateValue',
-                                level: level,
-                                value: isoDate
-                            }});
                         }}
 
-                        // Force update
+                        // Force Vue to update
                         if (vue.$forceUpdate) {{
                             vue.$forceUpdate();
                         }}
@@ -663,7 +584,7 @@ class WebAutomation:
                     level++;
                 }}
 
-                // Strategy 2: Set input value directly and trigger events
+                // Set input value directly and trigger DOM events
                 dateInput.removeAttribute('readonly');
                 dateInput.value = displayDate;
                 dateInput.dispatchEvent(new Event('input', {{ bubbles: true, cancelable: true }}));
@@ -671,33 +592,24 @@ class WebAutomation:
                 dateInput.dispatchEvent(new Event('blur', {{ bubbles: true, cancelable: true }}));
                 dateInput.setAttribute('readonly', 'readonly');
 
-                strategies.push({{
-                    strategy: '2-direct-input',
-                    value: displayDate
-                }});
-
-                return {{
-                    success: true,
-                    strategies: strategies,
-                    finalValue: dateInput.value,
-                    strategiesCount: strategies.length
-                }};
+                return {{ success: true, value: dateInput.value }};
             }})()
             """
 
             date_result = self.page.evaluate(js_set_date)
-            logger.info(f"Date set result: {date_result}")
-            logger.info(f"Tried {date_result.get('strategiesCount', 0)} strategies")
+            if date_result and date_result.get('success'):
+                logger.info(f"Date set to {date_str}")
+            else:
+                error = date_result.get('error', 'Unknown error') if date_result else 'No result'
+                logger.warning(f"Could not set date: {error}")
 
             time.sleep(2)  # Wait for Vue to process updates
 
-            # Fill time field using JavaScript as well to be safe
+            # Set the time field
             js_set_time = f"""
             (() => {{
-                // Find the time input field more specifically
+                // Find the time input by section header
                 let timeInput = null;
-
-                // Strategy 1: Find by Time section
                 const headers = document.querySelectorAll('h5.section-title');
                 for (const header of headers) {{
                     if (header.textContent.includes('Time')) {{
@@ -709,82 +621,29 @@ class WebAutomation:
                     }}
                 }}
 
-                // Strategy 2: Find by data-maska attribute
                 if (!timeInput) {{
-                    timeInput = document.querySelector('input[data-maska]');
-                }}
-
-                if (!timeInput) {{
-                    console.log('Time input not found');
                     return {{ success: false, error: 'Time input not found' }};
                 }}
 
-                console.log('Time input found:', timeInput.id);
-                console.log('Current value:', timeInput.value);
-                console.log('Current data-maska-value:', timeInput.getAttribute('data-maska-value'));
-
-                // Clear and set the value
+                // Set the time value
                 timeInput.value = '';
                 timeInput.value = '{time_str}';
 
-                // Trigger events
+                // Trigger events for validation
                 timeInput.dispatchEvent(new Event('input', {{ bubbles: true, cancelable: true }}));
                 timeInput.dispatchEvent(new Event('change', {{ bubbles: true, cancelable: true }}));
                 timeInput.dispatchEvent(new Event('blur', {{ bubbles: true, cancelable: true }}));
 
-                console.log('Final value:', timeInput.value);
-                console.log('Final data-maska-value:', timeInput.getAttribute('data-maska-value'));
                 return {{ success: true, value: timeInput.value }};
             }})()
             """
 
             time_result = self.page.evaluate(js_set_time)
-            logger.info(f"Time set result: {time_result}")
-
             if time_result and time_result.get('success'):
-                logger.info(f"Time set to {time_str} using JavaScript")
+                logger.info(f"Time set to {time_str}")
             else:
                 error = time_result.get('error', 'Unknown error') if time_result else 'No result'
-                logger.warning(f"Could not set time using JavaScript: {error}")
-
-            # Check if the date field actually has the value now
-            check_values = self.page.evaluate("""
-            (() => {
-                // Find date input
-                let dateInput = null;
-                const headers = document.querySelectorAll('h5.section-title');
-                for (const header of headers) {
-                    if (header.textContent.includes('Date')) {
-                        const parent = header.closest('.col');
-                        if (parent) {
-                            dateInput = parent.querySelector('input[readonly][type="text"]');
-                            if (dateInput) break;
-                        }
-                    }
-                }
-
-                // Find time input
-                let timeInput = null;
-                for (const header of headers) {
-                    if (header.textContent.includes('Time')) {
-                        const parent = header.closest('.col');
-                        if (parent) {
-                            timeInput = parent.querySelector('input[data-maska]');
-                            if (timeInput) break;
-                        }
-                    }
-                }
-
-                return {
-                    dateValue: dateInput ? dateInput.value : null,
-                    timeValue: timeInput ? timeInput.value : null,
-                    timeMaskaValue: timeInput ? timeInput.getAttribute('data-maska-value') : null,
-                    dateInputId: dateInput ? dateInput.id : null,
-                    timeInputId: timeInput ? timeInput.id : null
-                };
-            })()
-            """)
-            logger.info(f"Final field values: {check_values}")
+                logger.warning(f"Could not set time: {error}")
 
             logger.info("Date and time filled successfully")
             time.sleep(2)  # Wait for form validation
@@ -796,9 +655,13 @@ class WebAutomation:
     def close_browser(self):
         """Close the browser and cleanup resources."""
         try:
-            # Save browser state before closing
-            self._save_browser_state()
+            # Save browser state before closing (for non-persistent context)
+            if self.browser:
+                self._save_browser_state()
 
+            # Close browser or context
+            if self.context:
+                self.context.close()
             if self.browser:
                 self.browser.close()
             if self.playwright:
@@ -809,7 +672,7 @@ class WebAutomation:
             self.browser = None
             self.context = None
             self.page = None
-            logger.info("Browser closed and resources cleaned up")
+            logger.info("Browser closed and resources cleaned up (session saved)")
         except Exception as e:
             logger.error(f"Error closing browser: {e}")
 

@@ -77,9 +77,12 @@ class ExcelProcessor:
     def _read_excel_file(self, file_path: str) -> Optional[pd.DataFrame]:
         """Read Excel file using pandas."""
         try:
-            return pd.read_excel(file_path)
+            logger.info(f"Reading Excel file: {file_path}")
+            df = pd.read_excel(file_path)
+            logger.info(f"Successfully read Excel file with {len(df)} rows")
+            return df
         except Exception as e:
-            logger.error(f"Error reading Excel file: {str(e)}")
+            logger.error(f"Error reading Excel file '{file_path}': {str(e)}")
             return None
     
     def _process_data(self, df: pd.DataFrame) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
@@ -106,7 +109,8 @@ class ExcelProcessor:
                         'From': row.get('From', ''),
                         'To': row.get('To', ''),
                         'Reason': row.get('Reason', ''),
-                        'Shift': row.get('Shift', '')
+                        'Shift': row.get('Shift', ''),
+                        'Mobile': row.get('Mobile', '')  # Optional mobile column
                     }
                     
                     # Validate row data

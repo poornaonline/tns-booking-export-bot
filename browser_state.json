@@ -1,34 +1,74 @@
 {
   "cookies": [
     {
+      "name": "_GRECAPTCHA",
+      "value": "09AG7bzvGYMDEwttL4CKmZUcixjHdKVYfWMCPBYRGKf32jOtrta6wpBtmNjSVBKoDQzLWMN-n2KhkHovW9UFFhmQU",
+      "domain": "www.google.com",
+      "path": "/recaptcha",
+      "expires": 1774772032.626451,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
       "name": "m",
-      "value": "c6299ae0-dfd9-4b17-8fda-ee9de66637f226f577",
+      "value": "bca5e8d6-bd70-4dc9-8e22-3231d3301e0cfa7e6b",
       "domain": "m.stripe.com",
       "path": "/",
-      "expires": 1793760167.229155,
+      "expires": 1793781880.136805,
       "httpOnly": true,
       "secure": true,
       "sameSite": "None"
     },
     {
       "name": "__stripe_mid",
-      "value": "171378d4-9648-4ff7-bd1f-2bcce230f8bcff22d9",
+      "value": "f1cf6f3f-3a2f-4d8e-a1d5-9b0139e0e2d941007b",
       "domain": ".silvertopcorporate.business.icabbi.com",
       "path": "/",
-      "expires": 1790736167,
+      "expires": 1790757880,
       "httpOnly": false,
       "secure": true,
       "sameSite": "Strict"
     },
     {
       "name": "__stripe_sid",
-      "value": "c9cebd9c-4fe2-4d02-82db-02fe86228dad6ad077",
+      "value": "4ab57d3a-278e-445b-b8bd-a0b392a226a798a0a9",
       "domain": ".silvertopcorporate.business.icabbi.com",
       "path": "/",
-      "expires": 1759201967,
+      "expires": 1759223680,
       "httpOnly": false,
       "secure": true,
       "sameSite": "Strict"
+    },
+    {
+      "name": "oauth2_authentication_csrf",
+      "value": "MTc1OTIyMDAwN3xEdi1CQkFFQ180SUFBUkFCRUFBQVB2LUNBQUVHYzNSeWFXNW5EQVlBQkdOemNtWUdjM1J5YVc1bkRDSUFJR1l6WWpFNVpXUTBNbVEyTkRReVpUSTVZak13TURNNU0yWXdaR1poWXpSaXyv5q6kCxq_1v3wHTBLIIpAuxOccKoR9315z1Kzp2rrWg==",
+      "domain": "accounts.icabbi.com",
+      "path": "/",
+      "expires": 1761812007.651239,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_sp_id.0602",
+      "value": "a9da541e-313d-48ad-8296-1629e429485c.1759220012.1.1759220032.1759220012.d2ad2539-d3be-4c17-9660-9441c0bbf626",
+      "domain": ".icabbi.com",
+      "path": "/",
+      "expires": 1793780031.903573,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "oauth2_consent_csrf",
+      "value": "MTc1OTIyMDA0MnxEdi1CQkFFQ180SUFBUkFCRUFBQVB2LUNBQUVHYzNSeWFXNW5EQVlBQkdOemNtWUdjM1J5YVc1bkRDSUFJR0U1TWpNd1pUWmtZbVV6WVRReU5EQTVaakV3TmpBMU5ESmxZVGhoTWpOany9LmeiExIqDtyq9r1nVInTensBpIwpchjKg646EOfSdQ==",
+      "domain": "accounts.icabbi.com",
+      "path": "/",
+      "expires": 1761812042.585124,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
     }
   ],
   "origins": [
@@ -36,12 +76,28 @@
       "origin": "https://silvertopcorporate.business.icabbi.com",
       "localStorage": [
         {
-          "name": "login_context",
-          "value": "{\"verifier\":\"46lRkIbKmSxSV5vl7mT-dXkzFpqu5nUQMQMLJAFoK2I\",\"codeChallenge\":\"-VDFADQh0YhiJNB2wAeYlbJwfUyTsTGauAxc6NAtcE8\",\"state\":\"5d70b53e-5ca9-4d66-91cc-44a56044dccc\"}"
+          "name": "id_token",
+          "value": "eyJhbGciOiJSUzI1NiIsImtpZCI6InB1YmxpYzoyMTQ5NWU5OS1iYTFmLTRkM2YtOTJmMS1jMDU4NmExYTU1NTUiLCJ0eXAiOiJKV1QifQ.eyJhY3IiOiJ1cm46aWNhYmJpOm90cDplbWFpbCIsImF0X2hhc2giOiJCVlRRX2NYR2ZxWUZoUUNpN19NU0NRIiwiYXVkIjpbIjc3M2Y1NGM5LTU1ZTMtNDkwZS1iNDNhLTg5YmI0MzJhMGJjMyJdLCJhdXRoX3RpbWUiOjE3NTkyMjAwNDIsImVtYWlsIjoicGpheWFzaW5naGUuc3RAZ21haWwuY29tIiwiZXhwIjoxNzc3MjIwMDQ1LCJmYW1pbHlfbmFtZSI6IkNvcnBBZG1pbiIsImdpdmVuX25hbWUiOiJKYXkiLCJpYXQiOjE3NTkyMjAwNDUsImlzcyI6Imh0dHBzOi8vYWNjb3VudHMuaWNhYmJpLmNvbS8iLCJqdGkiOiJhZDg3NGVlOS02OGI1LTQyYzAtYjA0NS1lNzBmZGIxYWM4YjMiLCJuYW1lIjoiSmF5IENvcnBBZG1pbiIsIm5vbmNlIjoiIiwicmF0IjoxNzU5MjIwMDA3LCJyb2xlcyI6W3siY29ycG9yYXRpb25JZCI6IjZmNDk4ZjBhLWVlMzQtNGYzNS1iM2Q5LTg5ZjllNDFkODc3NCIsIm5hbWUiOiJjb3Jwb3JhdGlvbkFkbWluIn1dLCJzaWQiOiI3YmM5NTVmNi1lN2Q2LTQ3YjQtODA0MS0zNWM0MDEwZTVkYjEiLCJzdWIiOiJmZDUwNDBiMy00NmViLTQzZGMtOTU4My05MTA4NmIwMzIzMWMifQ.RpVi6UrAXdm1eYbouvtcnvqYHVy79XB31391Jk8J1h-roJZKYJ3dHrsW2MgZ5pJmCX1iXp2xx8IsWfX0y7PqPaWVeOKlP73kyWCWMdRLPjXh6xgRw9Oj3S3yk-65gcMKeUWAesRa7oi9LKZQQ2o-at2u53WvD49EUC8-B95oAF2-SH5sw9wmvqDbkPfIe4VPMVx-YH7mVWbLNqvG31p0B4e6Frf1ST8Ogez2JsnZDJC_IOuBe8t0vEjRXztkyy4ypz9iuvnDroUkVerHBrZ0iuC6NN4ZCZPFVRNFZmeIfO2sRTVSoxZDhl9th2jawwpwLtPI0Uz3NACSmy0hLclI8AMnWD8UNC_ZwRkRtykLzGEz4ZIi3qttcr-zi7wH9uPcnIkqpSIrHCmy4g_58pxslBkViUhFb-mtqlfJE_Fy81fw_wwb_pUHSLOkt-B0K2NuvklCqncDRm-slxFn_md2GIS0zZWw5KqZqanrCYlUOQabt5P83gThchLnRsw1aAZ-EN_hcQJGKudE6bGYcRGHAPSPgIpB2QJppB11e-Riw4NNDdeHQLebT1j4HdHHlepqTkthML-KgNbZMwR1dlIjm2fYKE63oh2oCndq7fT03LUz6byDna7YvlVzqWKXvo5RzPem8bKSmYIjxvWZyuKgFkB55wZQUzXStbDnji-m_5E"
+        },
+        {
+          "name": "account_id",
+          "value": "6f498f0a-ee34-4f35-b3d9-89f9e41d8774"
         },
         {
           "name": "selected_language",
-          "value": "undefined"
+          "value": "en"
+        },
+        {
+          "name": "access_token",
+          "value": "1EW6kCPMDXgyFEirh3_yC_Bhaklfb8KE1D9AKyolxvQ.VlCcsjzaXL8C8CLxDFs7Kqk3LWhFrVACsspowCwmBMs"
+        },
+        {
+          "name": "refresh_token",
+          "value": "6WtLXtWnHA8XlIJ2jW7NUcA9r5_UtkugyWX5B4O8ENE.1K50LOLOko68GWHakfXPTfHoYOE_IjQgaKgcIspKD44"
+        },
+        {
+          "name": "token_expired_at",
+          "value": "1777220045897"
         }
       ]
     }
