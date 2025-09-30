@@ -1,0 +1,1532 @@
+[
+  {
+    "shortCode": [
+      "BAY",
+      "BAY001",
+      "BAY002",
+      "BAY3WB",
+      "BAY3WC",
+      "BAY3WO",
+      "BAY4WB",
+      "BAY4WC",
+      "BAY4WO",
+      "BAYC",
+      "BAYP12",
+      "BAYS05",
+      "BAYS06",
+      "BAYS07",
+      "BAYS3N",
+      "BAYS3W",
+      "BAYS4N",
+      "BAYS4W",
+      "BAYSDG"
+    ],
+    "address": "BAY Metro Trains Bayswater Workshop"
+  },
+  {
+    "shortCode": [
+      "BEG",
+      "BEG001",
+      "BEG002",
+      "BEGD",
+      "BEGP12",
+      "BEGS0A",
+      "BEGSDG"
+    ],
+    "address": "BEG Metro Trains Belgrave Train Station parking lot Taxi Pickup"
+  },
+  {
+    "shortCode": [
+      "BBH",
+      "BBH001",
+      "BBH002",
+      "BBH003",
+      "BBH912",
+      "BBHP12",
+      "BBHS0A",
+      "BBHS0B",
+      "BBHSDG"
+    ],
+    "address": "BBH Metro Trains Brighton Beach Sidings"
+  },
+  {
+    "shortCode": [
+      "BMS",
+      "BMS001",
+      "BMS002",
+      "BMS0CB",
+      "BMS0CC",
+      "BMS0CO",
+      "BMSC",
+      "BMSD",
+      "BMSS0A",
+      "BMSS0C",
+      "BMSS0D",
+      "BMSSDG"
+    ],
+    "address": "BMS Metro Trains Broadmeadows Station Taxi Pickup"
+  },
+  {
+    "shortCode": [
+      "BLS",
+      "BLS001",
+      "BLS002",
+      "BLS003",
+      "BLS01B",
+      "BLS01O",
+      "BLS02B",
+      "BLS02O",
+      "BLS03B",
+      "BLS03O",
+      "BLSD",
+      "BLSSDG"
+    ],
+    "address": "BLS Metro Trains Burnley Sidings Depot"
+  },
+  {
+    "shortCode": [
+      "CPS",
+      "CPS00D",
+      "CPS00U",
+      "CPS01B",
+      "CPS01O",
+      "CPS02B",
+      "CPS02O",
+      "CPS03B",
+      "CPS03O",
+      "CPS04B",
+      "CPS04O",
+      "CPS05B",
+      "CPS05O",
+      "CPS06B",
+      "CPS06O",
+      "CPS10B",
+      "CPS10C",
+      "CPS10O",
+      "CPS11B",
+      "CPS11C",
+      "CPS11O",
+      "CPS12B",
+      "CPS12C",
+      "CPS12O",
+      "CPS648",
+      "CPSC",
+      "CPSCPS",
+      "CPSD",
+      "CPSHR1",
+      "CPSHR2",
+      "CPSS01",
+      "CPSS02",
+      "CPSS03",
+      "CPSS04",
+      "CPSS05",
+      "CPSS06",
+      "CPSSDG"
+    ],
+    "address": "CPS Metro Trains Calder Park Depot"
+  },
+  {
+    "shortCode": [
+      "CAM",
+      "CAM0CD",
+      "CAM0CU",
+      "CAM311",
+      "CAMP12",
+      "CAMS0A",
+      "CAMS0B",
+      "CAMS0C",
+      "CAMS0D",
+      "CAMS0E",
+      "CAMSDG"
+    ],
+    "address": "CAM Metro Trains Camberwell Sidings"
+  },
+  {
+    "shortCode": [
+      "CAR",
+      "CAR001",
+      "CAR002",
+      "CAR03B",
+      "CAR03C",
+      "CAR03O",
+      "CAR04B",
+      "CAR04O",
+      "CARD",
+      "CARS03",
+      "CARS04",
+      "CARS05",
+      "CARS06",
+      "CARSDG"
+    ],
+    "address": "CAR Metro Trains Carrum Station Taxi Pick Up"
+  },
+  {
+    "shortCode": [
+      "CFD"
+    ],
+    "address": "CFD Metro Trains Caulfied Station Taxi Pick Up"
+  },
+  {
+    "shortCode": [
+      "CHL",
+      "CHL001",
+      "CHL002"
+    ],
+    "address": "CHL Metro Trains Clifton Hill Station Taxi Pick Up"
+  },
+  {
+    "shortCode": [
+      "CGB",
+      "CGB001",
+      "CGB002",
+      "CGBD"
+    ],
+    "address": "CGB Metro Trains Craigieburn Station Station Taxi Pick Up"
+  },
+  {
+    "shortCode": [
+      "CGB05B",
+      "CGB05O",
+      "CGB0WB",
+      "CGB0WO",
+      "CGB19W",
+      "CGB1WB",
+      "CGB1WO",
+      "CGB20W",
+      "CGB21W",
+      "CGB22W",
+      "CGB23W",
+      "CGB24W",
+      "CGB25W",
+      "CGB2WB",
+      "CGB2WC",
+      "CGB2WO",
+      "CGB3WB",
+      "CGB3WC",
+      "CGB3WO",
+      "CGB4WB",
+      "CGB4WC",
+      "CGB4WO",
+      "CGB5WB",
+      "CGB5WC",
+      "CGB5WO",
+      "CGB9WB",
+      "CGB9WO",
+      "CGBC",
+      "CGBS01",
+      "CGBS02",
+      "CGBS03",
+      "CGBS04",
+      "CGBS05",
+      "CGBS06",
+      "CGBS07",
+      "CGBS08",
+      "CGBS09",
+      "CGBS10",
+      "CGBS11",
+      "CGBS12",
+      "CGBS13",
+      "CGBS14",
+      "CGBS15",
+      "CGBS16",
+      "CGBS17",
+      "CGBS18",
+      "CGBS1W",
+      "CGBSDG"
+    ],
+    "address": "CGB05B Metro Trains Craigieburn Stabling Sidings Depot Taxi Pick Up"
+  },
+  {
+    "shortCode": [
+      "CBE001",
+      "CBE002",
+      "CBE782",
+      "CBEC",
+      "CBED",
+      "CBEP12",
+      "CBES03",
+      "CBES04",
+      "CBES05",
+      "CBES06",
+      "CBES07",
+      "CBES08",
+      "CBESDG"
+    ],
+    "address": "CBED Metro Trains Cranbourne Depot"
+  },
+  {
+    "shortCode": [
+      "CBE"
+    ],
+    "address": "CBE Metro Trains Cranbourne Station Taxi Pick Up"
+  },
+  {
+    "shortCode": [
+      "DNG",
+      "DNG001",
+      "DNG002",
+      "DNG003",
+      "DNG01A",
+      "DNG01B",
+      "DNG01C",
+      "DNG01E",
+      "DNG01O",
+      "DNG02B",
+      "DNG02O",
+      "DNG04B",
+      "DNG04O",
+      "DNG0MT",
+      "DNG1BU",
+      "DNG1CE",
+      "DNG1CW",
+      "DNG1OP",
+      "DNGC",
+      "DNGD",
+      "DNGP23",
+      "DNGS01",
+      "DNGS02",
+      "DNGS03",
+      "DNGS04",
+      "DNGS05",
+      "DNGS09",
+      "DNGS0A",
+      "DNGS0M",
+      "DNGSDG",
+      "DNGTK5"
+    ],
+    "address": "DNG Metro Trains Dandenong Station Taxi Pick Up"
+  },
+  {
+    "shortCode": [
+      "EPH",
+      "EPH001",
+      "EPH002",
+      "EPH00D",
+      "EPH00U",
+      "EPH0MT",
+      "EPHC",
+      "EPHD"
+    ],
+    "address": "EPH Pakenham East Station"
+  },
+  {
+    "shortCode": [
+      "ELT",
+      "ELT001",
+      "ELT002",
+      "ELTC",
+      "ELTD",
+      "ELTP12",
+      "ELTS02",
+      "ELTS03",
+      "ELTS04",
+      "ELTS05",
+      "ELTS06",
+      "ELTS07",
+      "ELTS0A",
+      "ELTSDG"
+    ],
+    "address": "ELT Metro Trains Eltham Station/Main Rd Taxi Pick Up"
+  },
+  {
+    "shortCode": [
+      "EPPC",
+      "EPPD",
+      "EPPP12",
+      "EPPS03",
+      "EPPS04",
+      "EPPS05",
+      "EPPS06",
+      "EPPS07",
+      "EPPS08",
+      "EPPS09",
+      "EPPS10",
+      "EPPS11",
+      "EPPS12",
+      "EPPS13",
+      "EPPS14",
+      "EPPS15",
+      "EPPS16",
+      "EPPS18",
+      "EPPS19",
+      "EPPS20",
+      "EPPS21",
+      "EPPS22",
+      "EPPS23",
+      "EPPS24",
+      "EPPS25",
+      "EPPS3A",
+      "EPPS3B",
+      "EPPS3C",
+      "EPPS3D",
+      "EPPSDG"
+    ],
+    "address": "EPPD Metro Trains Epping Train Depot Taxi Pick Up"
+  },
+  {
+    "shortCode": [
+      "EPP",
+      "EPP001",
+      "EPP002",
+      "EPP00B"
+    ],
+    "address": "EPP Metro Trains Epping Station/Cooper St Taxi Pick Up"
+  },
+  {
+    "shortCode": [
+      "FSS",
+      "FSS001",
+      "FSS002",
+      "FSS003",
+      "FSS004",
+      "FSS005",
+      "FSS006",
+      "FSS007",
+      "FSS008",
+      "FSS009",
+      "FSS010",
+      "FSS011",
+      "FSS012",
+      "FSS013",
+      "FSS014",
+      "FSS01A",
+      "FSS01W",
+      "FSS02E",
+      "FSS09A",
+      "FSS0AA",
+      "FSS0PD",
+      "FSS1AW",
+      "FSS9AE",
+      "FSSC",
+      "FSSD"
+    ],
+    "address": "FSS Metro Trains Flinders St Station Taxi Pick Up"
+  },
+  {
+    "shortCode": [
+      "STY",
+      "STY001",
+      "STYD",
+      "STYS02",
+      "STYSDGFKN",
+      "FKN001",
+      "FKN002",
+      "FKN003",
+      "FKN04D",
+      "FKN04U",
+      "FKN06B",
+      "FKN06O",
+      "FKN0BB",
+      "FKN0BO",
+      "FKNC",
+      "FKND",
+      "FKNP12",
+      "FKNS03",
+      "FKNS04",
+      "FKNS05",
+      "FKNS06",
+      "FKNS0A",
+      "FKNS0B",
+      "FKNS0C",
+      "FKNSDG"
+    ],
+    "address": "FKNC Metro Trains Frankston Station Taxi Pick Up"
+  },
+  {
+    "shortCode": [
+      "GWY05B",
+      "GWY05O",
+      "GWYC",
+      "GWYD",
+      "GWYP12",
+      "GWYS03",
+      "GWYS04",
+      "GWYS05",
+      "GWYSDG"
+    ],
+    "address": "GWYD Metro Trains Glen Waverley Depot Taxi Pick Up"
+  },
+  {
+    "shortCode": [
+      "GWY",
+      "GWY001",
+      "GWY002",
+      "GWY02D",
+      "GWY02U"
+    ],
+    "address": "GWY Metro Trains Glen Waverley Station Taxi Pick Up"
+  },
+  {
+    "shortCode": [
+      "HBE",
+      "HBE001",
+      "HBEC",
+      "HBED",
+      "HBEDHS",
+      "HBES02",
+      "HBES03",
+      "HBES04",
+      "HBES05",
+      "HBES06",
+      "HBESDG"
+    ],
+    "address": "HBE Metro Trains Hurstbridge Station Car Park Taxi Pick Up"
+  },
+  {
+    "shortCode": [
+      "KAN01B",
+      "KAN01O",
+      "KAN02B",
+      "KAN02O",
+      "KAN03B",
+      "KAN03O",
+      "KAN04B",
+      "KAN04O",
+      "KAN05B",
+      "KAN05O",
+      "KAN06B",
+      "KAN06O",
+      "KAN07B",
+      "KAN07O",
+      "KAN08B",
+      "KAN08O",
+      "KANBPD",
+      "KANBPU",
+      "KANC",
+      "KAND",
+      "KANP12",
+      "KANS00",
+      "KANS01",
+      "KANS02",
+      "KANS03",
+      "KANS04",
+      "KANS05",
+      "KANS06",
+      "KANS07",
+      "KANS09",
+      "KANS10",
+      "KANS11",
+      "KANS12",
+      "KANS13",
+      "KANS14",
+      "KANSDG"
+    ],
+    "address": "KAND Metro Trains Kananook Railway Sidings"
+  },
+  {
+    "shortCode": [
+      "KAN",
+      "KAN001",
+      "KAN002"
+    ],
+    "address": "KAN Metro Trains Kananook Station Car Park Taxi Pick Up"
+  },
+  {
+    "shortCode": [
+      "LBY",
+      "LBY02O",
+      "LBYO1B",
+      "LBYO1O",
+      "LBYO1U",
+      "LBYO2B",
+      "LBYS01",
+      "LBYS02SSS",
+      "SSS001",
+      "SSS002",
+      "SSS003",
+      "SSS004",
+      "SSS005",
+      "SSS006",
+      "SSS007",
+      "SSS008",
+      "SSS009",
+      "SSS010",
+      "SSS011",
+      "SSS012",
+      "SSS013",
+      "SSS014",
+      "SSS015",
+      "SSS016"
+    ],
+    "address": "LBY Metro Trains Laybys Sidings"
+  },
+  {
+    "shortCode": [
+      "LIL",
+      "LIL001",
+      "LIL002",
+      "LIL003",
+      "LIL04B",
+      "LIL04O",
+      "LIL050",
+      "LIL05B",
+      "LIL05O",
+      "LIL06B",
+      "LIL06O",
+      "LIL07B",
+      "LIL07O",
+      "LIL0BB",
+      "LIL0BO",
+      "LIL0CB",
+      "LIL0CO",
+      "LIL0DB",
+      "LIL0DO",
+      "LIL0EB",
+      "LIL0EO",
+      "LIL0MT",
+      "LILC",
+      "LILD",
+      "LILP12",
+      "LILS03",
+      "LILS04",
+      "LILS0A",
+      "LILS0B",
+      "LILS0C",
+      "LILS0D",
+      "LILS0E",
+      "LILSDG"
+    ],
+    "address": "LIL Metro Trains Lilydale Station Taxi Pick Up"
+  },
+  {
+    "shortCode": [
+      "MCD",
+      "MCD001",
+      "MCD002",
+      "MCD003",
+      "MCD05B",
+      "MCD05O",
+      "MCD06B",
+      "MCD06O",
+      "MCDD",
+      "MCDP23",
+      "MCDS04",
+      "MCDS05",
+      "MCDS06",
+      "MCDSDG"
+    ],
+    "address": "MCD Macleod Station Taxi Pick Up"
+  },
+  {
+    "shortCode": [
+      "MDD01B",
+      "MDD01O",
+      "MDD02B",
+      "MDD02O",
+      "MDD03B",
+      "MDD03O",
+      "MDD04B",
+      "MDD04O",
+      "MDDC",
+      "MDDD",
+      "MDDS01",
+      "MDDS02",
+      "MDDS03",
+      "MDDS04",
+      "MDDSDG"
+    ],
+    "address": "MDDD Metro Trains Mernda Drivers Depot"
+  },
+  {
+    "shortCode": [
+      "MDD",
+      "MDD001",
+      "MDD002"
+    ],
+    "address": "MDD Metro Trains Mernda Station Taxi Pick Up"
+  },
+  {
+    "shortCode": [
+      "MYW",
+      "MYW1WB",
+      "MYW1WO",
+      "MYW2WB",
+      "MYW2WO",
+      "MYW3WB",
+      "MYW3WO",
+      "MYWS1W",
+      "MYWS2W",
+      "MYWS3W"
+    ],
+    "address": "MYD Melbourne Stabling Yard Train Wash Plant Taxi Pickup"
+  },
+  {
+    "shortCode": [
+      "MSS",
+      "MSS1WB",
+      "MSS1WO",
+      "MSS2WB",
+      "MSS2WC",
+      "MSS2WO",
+      "MSSS03",
+      "MSSS04",
+      "MSSS05",
+      "MSSS06",
+      "MSSS07",
+      "MSSS1W",
+      "MSSS2W",
+      "MSSSDG"
+    ],
+    "address": "MSS Metro Trains Macauly sidings"
+  },
+  {
+    "shortCode": [
+      "MOR",
+      "MOR001",
+      "MOR002",
+      "MORC",
+      "MORD",
+      "MORS03",
+      "MORS04",
+      "MORS05",
+      "MORS06",
+      "MORSDG"
+    ],
+    "address": "MOR Metro Trains Mordialloc Train Depot Taxi Pick Up"
+  },
+  {
+    "shortCode": [
+      "NPS",
+      "NPS003",
+      "NPS004",
+      "NPS005",
+      "NPS006",
+      "NPS007",
+      "NPS008",
+      "NPS009",
+      "NPS010",
+      "NPS011",
+      "NPS012",
+      "NPS013",
+      "NPS014",
+      "NPS015",
+      "NPS016",
+      "NPS017",
+      "NPS09B",
+      "NPS09O",
+      "NPS11B",
+      "NPS11O",
+      "NPSC",
+      "NPSD",
+      "NPSSDG",
+      "NWS",
+      "NWS01A",
+      "NWS01B",
+      "NWS01C",
+      "NWS01D",
+      "NWS02A",
+      "NWS02B",
+      "NWS02C",
+      "NWS02D",
+      "NWS03A",
+      "NWS03B",
+      "NWS03C",
+      "NWS03D",
+      "NWS04A",
+      "NWS04B",
+      "NWS04C",
+      "NWS04D",
+      "NWS0VL",
+      "NWS0WL",
+      "NWS1GA",
+      "NWS1GB",
+      "NWS1GC",
+      "NWS1GD",
+      "NWS1WA",
+      "NWS1WB",
+      "NWS1WC",
+      "NWS1WD",
+      "NWS1WE",
+      "NWS1WF",
+      "NWS2GA",
+      "NWS2GB",
+      "NWS2GC",
+      "NWS2GD",
+      "NWS2WA",
+      "NWS2WB",
+      "NWS2WC",
+      "NWS2WD",
+      "NWS2WE",
+      "NWS2WF",
+      "NWS3GA",
+      "NWS3GB",
+      "NWS3GC",
+      "NWS3GD",
+      "NWS3WA",
+      "NWS3WB",
+      "NWS3WC",
+      "NWS3WD",
+      "NWS3WE",
+      "NWS3WF",
+      "NWS4WA",
+      "NWS4WB",
+      "NWS4WC",
+      "NWS4WD",
+      "NWS4WE",
+      "NWS4WF",
+      "NWSAL1",
+      "NWSAL2",
+      "NWSAL3",
+      "NWSS01",
+      "NWSS02",
+      "NWSS03",
+      "NWSS04",
+      "NWSS1G",
+      "NWSS1W",
+      "NWSS2G",
+      "NWSS2W",
+      "NWSS3G",
+      "NWSS3W",
+      "NWSS4W",
+      "NWSSDG",
+      "NWSWLB",
+      "NWSWLO"
+    ],
+    "address": "NPS Metro Trains Newport Depot"
+  },
+  {
+    "shortCode": [
+      "NPT",
+      "NPT001",
+      "NPT002"
+    ],
+    "address": "NPT Metro Trains Newport Station Taxi Pick Up"
+  },
+  {
+    "shortCode": [
+      "NMEC",
+      "NMED",
+      "NMEP23",
+      "NMEP45",
+      "MYD",
+      "MYD001",
+      "MYD002",
+      "MYD003",
+      "MYD004",
+      "MYD005",
+      "MYD006",
+      "MYD007",
+      "MYD03B",
+      "MYD03O",
+      "MYD160",
+      "MYDS01",
+      "MYDS02",
+      "MYDS03",
+      "MYDS04",
+      "MYDS05",
+      "MYDS06",
+      "MYDS07",
+      "MYDS08",
+      "MYDS09",
+      "MYDS10",
+      "MYDSDG"
+    ],
+    "address": "Metro Trains North Melbourne Maintenance Depot"
+  },
+  {
+    "shortCode": [
+      "NMEP23",
+      "NMEP45",
+      "NMS",
+      "NMSS01",
+      "NMSS02",
+      "NMSS03",
+      "NMSS04",
+      "NMSS05",
+      "NMSS06",
+      "NMSS07",
+      "NMSS08",
+      "NMSSDG"
+    ],
+    "address": "NMS Metro Trains North melbourne Sidings"
+  },
+  {
+    "shortCode": [
+      "PKE",
+      "PKE00N",
+      "PKE00S",
+      "PKE01C",
+      "PKE01D",
+      "PKE01E",
+      "PKE01U",
+      "PKE01W",
+      "PKE02C",
+      "PKE02D",
+      "PKE02E",
+      "PKE02U",
+      "PKE02W",
+      "PKE03C",
+      "PKE03D",
+      "PKE03E",
+      "PKE03U",
+      "PKE03W",
+      "PKE04C",
+      "PKE04D",
+      "PKE04E",
+      "PKE04U",
+      "PKE04W",
+      "PKE05C",
+      "PKE05D",
+      "PKE05E",
+      "PKE05U",
+      "PKE05W",
+      "PKE06C",
+      "PKE06D",
+      "PKE06E",
+      "PKE06U",
+      "PKE06W",
+      "PKE07C",
+      "PKE07D",
+      "PKE07E",
+      "PKE07U",
+      "PKE07W",
+      "PKE08C",
+      "PKE08D",
+      "PKE08E",
+      "PKE08U",
+      "PKE08W",
+      "PKE09C",
+      "PKE09D",
+      "PKE09E",
+      "PKE09U",
+      "PKE09W",
+      "PKE0BP",
+      "PKE10C",
+      "PKE10D",
+      "PKE10E",
+      "PKE10U",
+      "PKE10W",
+      "PKE717",
+      "PKEARR",
+      "PKEASH",
+      "PKEBIE",
+      "PKEBIW",
+      "PKEBYP",
+      "PKEC",
+      "PKED",
+      "PKEDEP",
+      "PKEPRC",
+      "PKEPRE",
+      "PKEPRW",
+      "PKES01",
+      "PKES02",
+      "PKES03",
+      "PKES04",
+      "PKES05",
+      "PKES06",
+      "PKES07",
+      "PKES08",
+      "PKES09",
+      "PKES10",
+      "PKESDG",
+      "PKET1E",
+      "PKET1W",
+      "PKET2E",
+      "PKET2W",
+      "PKETT1",
+      "PKETT2",
+      "PKETT3",
+      "PKETT4",
+      "PKEW1C",
+      "PKEW1E",
+      "PKEW1W",
+      "PKEW2C",
+      "PKEW2E",
+      "PKEW2W",
+      "PKEW3C",
+      "PKEW3E",
+      "PKEW3W",
+      "PKEW4C",
+      "PKEW4E",
+      "PKEW4W",
+      "PKEW5C",
+      "PKEW5E",
+      "PKEW5W",
+      "PKEWLC",
+      "PKEWLE",
+      "PKEWLW"
+    ],
+    "address": "PKE Metro Trains Pakenham East Depot Taxi Pick Up"
+  },
+  {
+    "shortCode": [
+      "RCE",
+      "RCE001",
+      "RCE004",
+      "RCE02B",
+      "RCE02O",
+      "RCE03B",
+      "RCE03O",
+      "RCEBUS",
+      "RCEC",
+      "RCEK4B",
+      "RCEK4O",
+      "RCES02",
+      "RCES03",
+      "RCESDG"
+    ],
+    "address": "RCE Flemington Train Sidings Leonard Crescent Car Park"
+  },
+  {
+    "shortCode": [
+      "RWD",
+      "RWD001",
+      "RWD002",
+      "RWD003",
+      "RWD00B",
+      "RWD01B",
+      "RWD01O",
+      "RWD02B",
+      "RWD02O",
+      "RWD03B",
+      "RWD03C",
+      "RWD03O",
+      "RWD04B",
+      "RWD04O",
+      "RWD05B",
+      "RWD05O",
+      "RWD06B",
+      "RWD06O",
+      "RWDC",
+      "RWDD",
+      "RWDP12",
+      "RWDS01",
+      "RWDS02",
+      "RWDS03",
+      "RWDS04",
+      "RWDS05",
+      "RWDS06",
+      "RWDSDG"
+    ],
+    "address": "RWD Metro Trains Ringwood Taxi Pick Up"
+  },
+  {
+    "shortCode": [
+      "SHM",
+      "SHM001",
+      "SHM912",
+      "SHMC",
+      "SHMD",
+      "SHMS02",
+      "SHMS03",
+      "SHMS04",
+      "SHMSDG"
+    ],
+    "address": "SHM Metro Trains Sandringham Station Taxi Pick Up"
+  },
+  {
+    "shortCode": [
+      "SUY",
+      "SUY001",
+      "SUY002",
+      "SUY01A",
+      "SUY0AB",
+      "SUY0AO",
+      "SUY0BB",
+      "SUY0BO",
+      "SUYC",
+      "SUYD",
+      "SUYS0A",
+      "SUYS0B",
+      "SUYS0C",
+      "SUYS0D",
+      "SUYS0E",
+      "SUYSDG"
+    ],
+    "address": "SUY Metro Trains Sunbury Station Taxi Pick Up"
+  },
+  {
+    "shortCode": [
+      "UFD",
+      "UFD001",
+      "UFDC",
+      "UFDD",
+      "UFDS01",
+      "UFDS02",
+      "UFDS03",
+      "UFDS0A",
+      "UFDSDG"
+    ],
+    "address": "UFD Metro Trains Upfield Station Taxi Pick Up"
+  },
+  {
+    "shortCode": [
+      "UFG",
+      "UFG001",
+      "UFG002",
+      "UFGD",
+      "UFGP12",
+      "UFGS03",
+      "UFGS04",
+      "UFGS0C",
+      "UFGSA1",
+      "UFGSA2",
+      "UFGSB1",
+      "UFGSB2",
+      "UFGSDG"
+    ],
+    "address": "UFG Metro Trains Upper Ferntree Gully Station Car Park Taxi Pick Up"
+  },
+  {
+    "shortCode": [
+      "VPK",
+      "VPK001",
+      "VPK002",
+      "VPK0AB",
+      "VPK0AO",
+      "VPK0MT",
+      "VPKS0A",
+      "VPKSDG"
+    ],
+    "address": "VPK Metro Trains Victoria Park Sidings"
+  },
+  {
+    "shortCode": [
+      "WGS",
+      "WGS001",
+      "WGS002",
+      "WGS003",
+      "WGS0AB",
+      "WGS0AC",
+      "WGS0AO",
+      "WGS0BB",
+      "WGS0BC",
+      "WGS0BO",
+      "WGSC",
+      "WGSD",
+      "WGSP23",
+      "WGSS0A",
+      "WGSS0B",
+      "WGSSDG"
+    ],
+    "address": "WGS Metro Trains Watergardens Station Taxi Pick Up"
+  },
+  {
+    "shortCode": [
+      "WTL01D",
+      "WTL01U",
+      "WTL07B",
+      "WTL07O",
+      "WTL08B",
+      "WTL08O",
+      "WTL09B",
+      "WTL09O",
+      "WTL10B",
+      "WTL10O",
+      "WTL4WB",
+      "WTL4WC",
+      "WTL4WO",
+      "WTL5WB",
+      "WTL5WC",
+      "WTL5WO",
+      "WTL6WB",
+      "WTL6WO",
+      "WTLC",
+      "WTLD",
+      "WTLP23",
+      "WTLS0A",
+      "WTLS0B",
+      "WTLS3W",
+      "WTLS4W",
+      "WTLS5W",
+      "WTLS6W",
+      "WTLSDG"
+    ],
+    "address": "WTLD Metro Trains Westall Maintenance Depot"
+  },
+  {
+    "shortCode": [
+      "AZC"
+    ],
+    "address": "AZC Anzac Station"
+  },
+  {
+    "shortCode": [
+      "ARN"
+    ],
+    "address": "ARN Arden Station"
+  },
+  {
+    "shortCode": [
+      "PKV"
+    ],
+    "address": "PKV Parkville Station"
+  },
+  {
+    "shortCode": [
+      "WFY"
+    ],
+    "address": "WFY West Footscray Station"
+  },
+  {
+    "shortCode": [
+      "HKN"
+    ],
+    "address": "HKN Hawksburn Station"
+  },
+  {
+    "shortCode": [
+      "BBN"
+    ],
+    "address": "BBN Blackburn Station"
+  },
+  {
+    "shortCode": [
+      "CTM"
+    ],
+    "address": "CTM Cheltenham Station"
+  },
+  {
+    "shortCode": [
+      "GRN"
+    ],
+    "address": "GRN Greensborough Station"
+  },
+  {
+    "shortCode": [
+      "HDB"
+    ],
+    "address": "HDB Heidelberg station"
+  },
+  {
+    "shortCode": [
+      "ALM",
+      "does not have address on the end"
+    ],
+    "address": "ALM Alamein Station"
+  },
+  {
+    "shortCode": [
+      "ALB"
+    ],
+    "address": "ALB Albion Station"
+  },
+  {
+    "shortCode": [
+      "ALT"
+    ],
+    "address": "ALT Altona Station"
+  },
+  {
+    "shortCode": [
+      "ARM"
+    ],
+    "address": "ARM Armadale Station"
+  },
+  {
+    "shortCode": [
+      "BCV",
+      "does not have address on the end"
+    ],
+    "address": "BCV Balaclava Station"
+  },
+  {
+    "shortCode": [
+      "BOX"
+    ],
+    "address": "BOX Box Hill Station"
+  },
+  {
+    "shortCode": [
+      "CNE"
+    ],
+    "address": "CNE Carnegie Station"
+  },
+  {
+    "shortCode": [
+      "CSA"
+    ],
+    "address": "CSA Chelsea Station"
+  },
+  {
+    "shortCode": [
+      "CLA"
+    ],
+    "address": "CLA Clayton Station"
+  },
+  {
+    "shortCode": [
+      "COB",
+      "does not have address on the end"
+    ],
+    "address": "COB Coburg Station"
+  },
+  {
+    "shortCode": [
+      "CXT"
+    ],
+    "address": "CXT Croxton Station"
+  },
+  {
+    "shortCode": [
+      "CDN"
+    ],
+    "address": "CDN Croydon Station"
+  },
+  {
+    "shortCode": [
+      "DLG"
+    ],
+    "address": "DLG Darling Station"
+  },
+  {
+    "shortCode": [
+      "DCK"
+    ],
+    "address": "DCK Diamond Creek Station"
+  },
+  {
+    "shortCode": [
+      "DRT",
+      "does not have address on the end"
+    ],
+    "address": "DRT Diggers Rest Station"
+  },
+  {
+    "shortCode": [
+      "EDI"
+    ],
+    "address": "EDI Edithvale Station"
+  },
+  {
+    "shortCode": [
+      "ELS"
+    ],
+    "address": "ELS Elsternwick Station"
+  },
+  {
+    "shortCode": [
+      "ESD"
+    ],
+    "address": "ESD Essendon Station"
+  },
+  {
+    "shortCode": [
+      "FAK",
+      "does not have address on the end"
+    ],
+    "address": "FAK Fawkner Station"
+  },
+  {
+    "shortCode": [
+      "GAR"
+    ],
+    "address": "GAR Gardiner Station"
+  },
+  {
+    "shortCode": [
+      "GFE"
+    ],
+    "address": "GFE Glenferrie Station"
+  },
+  {
+    "shortCode": [
+      "GHY"
+    ],
+    "address": "GHY Glenhuntly Station"
+  },
+  {
+    "shortCode": [
+      "GRY"
+    ],
+    "address": "GRY Glenroy Station"
+  },
+  {
+    "shortCode": [
+      "GOW"
+    ],
+    "address": "GOW Gowrie Station"
+  },
+  {
+    "shortCode": [
+      "HTD"
+    ],
+    "address": "HTD Heatherdale Station"
+  },
+  {
+    "shortCode": [
+      "HEY"
+    ],
+    "address": "HEY Heyington Station"
+  },
+  {
+    "shortCode": [
+      "HCG"
+    ],
+    "address": "HCG Hoppers Crossing Station"
+  },
+  {
+    "shortCode": [
+      "HUG"
+    ],
+    "address": "HUG Hughesdale Station"
+  },
+  {
+    "shortCode": [
+      "HUN"
+    ],
+    "address": "HUN Huntingdale Station"
+  },
+  {
+    "shortCode": [
+      "IVA"
+    ],
+    "address": "IVA Ivanhoe Station"
+  },
+  {
+    "shortCode": [
+      "KPL"
+    ],
+    "address": "KPL Keilor Plains Station"
+  },
+  {
+    "shortCode": [
+      "KPK"
+    ],
+    "address": "KPK Keon Park Station"
+  },
+  {
+    "shortCode": [
+      "LAL"
+    ],
+    "address": "LAL Lalor Station"
+  },
+  {
+    "shortCode": [
+      "LAV"
+    ],
+    "address": "LAV Laverton Station"
+  },
+  {
+    "shortCode": [
+      "MEN"
+    ],
+    "address": "MEN Mentone Station"
+  },
+  {
+    "shortCode": [
+      "MBN"
+    ],
+    "address": "MBN Middle Brgihton Station"
+  },
+  {
+    "shortCode": [
+      "MPD"
+    ],
+    "address": "MPD Moonee Ponds Station"
+  },
+  {
+    "shortCode": [
+      "MRN"
+    ],
+    "address": "MRN Moorabbin Station"
+  },
+  {
+    "shortCode": [
+      "NWA"
+    ],
+    "address": "NWA Narre Warren  Station"
+  },
+  {
+    "shortCode": [
+      "NKT"
+    ],
+    "address": "NKT Newmarket Station"
+  },
+  {
+    "shortCode": [
+      "NCE"
+    ],
+    "address": "NCE Northcote Station"
+  },
+  {
+    "shortCode": [
+      "OAK"
+    ],
+    "address": "OAK Oakleigh Station"
+  },
+  {
+    "shortCode": [
+      "PRE"
+    ],
+    "address": "PRE Preston Station"
+  },
+  {
+    "shortCode": [
+      "RES"
+    ],
+    "address": "RES Reservoir Station"
+  },
+  {
+    "shortCode": [
+      "RMD"
+    ],
+    "address": "RMD Richmond Station"
+  },
+  {
+    "shortCode": [
+      "ROS"
+    ],
+    "address": "ROS Rosanna Station"
+  },
+  {
+    "shortCode": [
+      "RUT"
+    ],
+    "address": "RUT Ruthven Station"
+  },
+  {
+    "shortCode": [
+      "SHE"
+    ],
+    "address": "SHE Seaholme Station"
+  },
+  {
+    "shortCode": [
+      "SGS"
+    ],
+    "address": "SGS Showgrounds Station"
+  },
+  {
+    "shortCode": [
+      "SPT"
+    ],
+    "address": "SPT Spotswodd Station"
+  },
+  {
+    "shortCode": [
+      "SUN"
+    ],
+    "address": "SUN Sunshine Station"
+  },
+  {
+    "shortCode": [
+      "TSN"
+    ],
+    "address": "TSN Thomastown Station"
+  },
+  {
+    "shortCode": [
+      "TBY"
+    ],
+    "address": "TBY Thornbury Station"
+  },
+  {
+    "shortCode": [
+      "WAT"
+    ],
+    "address": "WAT Watsonia Station"
+  },
+  {
+    "shortCode": [
+      "WLD"
+    ],
+    "address": "WLD Williams Landing Station"
+  },
+  {
+    "shortCode": [
+      "YMN"
+    ],
+    "address": "YMN Yarraman Station"
+  }
+]

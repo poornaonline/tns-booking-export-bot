@@ -1,0 +1,49 @@
+{
+  "cookies": [
+    {
+      "name": "m",
+      "value": "c6299ae0-dfd9-4b17-8fda-ee9de66637f226f577",
+      "domain": "m.stripe.com",
+      "path": "/",
+      "expires": 1793760167.229155,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "__stripe_mid",
+      "value": "171378d4-9648-4ff7-bd1f-2bcce230f8bcff22d9",
+      "domain": ".silvertopcorporate.business.icabbi.com",
+      "path": "/",
+      "expires": 1790736167,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Strict"
+    },
+    {
+      "name": "__stripe_sid",
+      "value": "c9cebd9c-4fe2-4d02-82db-02fe86228dad6ad077",
+      "domain": ".silvertopcorporate.business.icabbi.com",
+      "path": "/",
+      "expires": 1759201967,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Strict"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://silvertopcorporate.business.icabbi.com",
+      "localStorage": [
+        {
+          "name": "login_context",
+          "value": "{\"verifier\":\"46lRkIbKmSxSV5vl7mT-dXkzFpqu5nUQMQMLJAFoK2I\",\"codeChallenge\":\"-VDFADQh0YhiJNB2wAeYlbJwfUyTsTGauAxc6NAtcE8\",\"state\":\"5d70b53e-5ca9-4d66-91cc-44a56044dccc\"}"
+        },
+        {
+          "name": "selected_language",
+          "value": "undefined"
+        }
+      ]
+    }
+  ]
+}
