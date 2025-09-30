@@ -235,6 +235,19 @@ class WebAutomation:
             # Wait for the form to process the input
             time.sleep(1)
 
+            # Dismiss any dropdown that may have appeared by clicking outside
+            # Sometimes typing a name triggers an autocomplete dropdown
+            try:
+                logger.info("Checking for autocomplete dropdown to dismiss...")
+                # Click on a neutral area (the form title) to dismiss any dropdown
+                form_title = self.page.query_selector('.booking-form-title')
+                if form_title:
+                    form_title.click()
+                    logger.info("Clicked outside to dismiss any dropdown")
+                    time.sleep(0.5)
+            except Exception as e:
+                logger.debug(f"No dropdown to dismiss or error clicking outside: {e}")
+
             # Check if mobile number exists and fill it
             mobile_number = first_booking.get('Mobile', '')
             if mobile_number and str(mobile_number).strip() and str(mobile_number).lower() != 'nan':
@@ -467,46 +480,133 @@ class WebAutomation:
             booking_time: Time from Excel (can be datetime object or string)
         """
         try:
+            logger.info("="*70)
+            logger.info("DATE/TIME CONVERSION AND SETTING - DETAILED LOGGING")
+            logger.info("="*70)
+
+            # Log raw input
+            logger.info(f"📥 RAW INPUT from Excel:")
+            logger.info(f"   Date type: {type(booking_date).__name__}")
+            logger.info(f"   Date value: {booking_date}")
+            logger.info(f"   Time type: {type(booking_time).__name__}")
+            logger.info(f"   Time value: {booking_time}")
+
             # Convert date to datetime object for parsing
             if isinstance(booking_date, datetime):
                 dt = booking_date
+                logger.info(f"✅ Date is already datetime object")
             else:
                 # Try to parse the date
+                logger.info(f"🔄 Attempting to parse date string...")
                 try:
                     if isinstance(booking_date, str):
                         # Try parsing common formats
+                        parsed = False
                         for fmt in ['%d/%m/%Y', '%Y-%m-%d', '%d-%m-%Y', '%m/%d/%Y']:
                             try:
                                 dt = datetime.strptime(booking_date, fmt)
+                                logger.info(f"✅ Successfully parsed with format: {fmt}")
+                                parsed = True
                                 break
                             except:
+                                logger.debug(f"   Format {fmt} didn't match")
                                 continue
-                        else:
+
+                        if not parsed:
                             # If all parsing fails, try pandas Timestamp
+                            logger.info(f"⚠️  Standard formats failed, trying pandas...")
                             import pandas as pd
                             dt = pd.to_datetime(booking_date)
+                            logger.info(f"✅ Parsed with pandas")
                     else:
+                        logger.info(f"⚠️  Date is not string, trying pandas...")
                         import pandas as pd
                         dt = pd.to_datetime(booking_date)
+                        logger.info(f"✅ Parsed with pandas")
                 except Exception as e:
-                    logger.error(f"Could not parse date: {booking_date}, error: {e}")
+                    logger.error(f"❌ Could not parse date: {booking_date}, error: {e}")
                     raise
 
-            # Format date as dd/mm/yyyy for display
-            date_str = dt.strftime('%d/%m/%Y')
+            # Log parsed datetime
+            logger.info(f"")
+            logger.info(f"📅 PARSED DATETIME OBJECT:")
+            logger.info(f"   Year: {dt.year}")
+            logger.info(f"   Month: {dt.month}")
+            logger.info(f"   Day: {dt.day}")
+            logger.info(f"   Full datetime: {dt}")
+
+            # Format date in full text format (e.g., "October 30, 2025")
+            # This is what the Vue.js date picker expects based on the logs
+            date_str = dt.strftime('%B %d, %Y')  # Full month name, day, year
+            logger.info(f"")
+            logger.info(f"📝 FORMATTED DATE STRING (Full text format):")
+            logger.info(f"   Display format: {date_str}")
+            logger.info(f"   Format used: %B %d, %Y (e.g., October 30, 2025)")
 
             # Convert time to string format
             if isinstance(booking_time, datetime):
                 time_str = booking_time.strftime('%H:%M')
+                logger.info(f"")
+                logger.info(f"⏰ TIME CONVERSION:")
+                logger.info(f"   Time is datetime object")
+                logger.info(f"   Formatted as: {time_str}")
             else:
                 time_str = str(booking_time).strip()
+                logger.info(f"")
+                logger.info(f"⏰ TIME CONVERSION:")
+                logger.info(f"   Time is string: {time_str}")
 
-            logger.info(f"Setting date: {date_str}, time: {time_str}")
+            logger.info(f"")
+            logger.info(f"🎯 FINAL VALUES TO SET:")
+            logger.info(f"   Date: {date_str}")
+            logger.info(f"   Time: {time_str}")
+            logger.info("="*70)
 
             # Parse the date components for Vue.js date picker
             day = dt.day
             month = dt.month
             year = dt.year
+
+            # First, check what format the date field expects
+            logger.info(f"")
+            logger.info(f"🔍 CHECKING DATE FIELD CURRENT STATE:")
+            check_date_field_js = """
+            (() => {
+                const headers = document.querySelectorAll('h5.section-title');
+                for (const header of headers) {
+                    if (header.textContent.includes('Date')) {
+                        const parent = header.closest('.col');
+                        if (parent) {
+                            const dateInput = parent.querySelector('input[readonly][type="text"]');
+                            if (dateInput) {
+                                return {
+                                    currentValue: dateInput.value,
+                                    placeholder: dateInput.placeholder,
+                                    defaultValue: dateInput.defaultValue,
+                                    pattern: dateInput.pattern,
+                                    title: dateInput.title
+                                };
+                            }
+                        }
+                    }
+                }
+                return { error: 'Date field not found' };
+            })()
+            """
+            field_info = self.page.evaluate(check_date_field_js)
+            if field_info and not field_info.get('error'):
+                logger.info(f"   Current value: '{field_info.get('currentValue')}'")
+                logger.info(f"   Placeholder: '{field_info.get('placeholder')}'")
+                logger.info(f"   Default value: '{field_info.get('defaultValue')}'")
+                logger.info(f"   Pattern: '{field_info.get('pattern')}'")
+                logger.info(f"   Title: '{field_info.get('title')}'")
+
+                # Try to detect expected format from placeholder
+                placeholder = field_info.get('placeholder', '')
+                if placeholder:
+                    logger.info(f"   📋 Detected format hint from placeholder: {placeholder}")
+            else:
+                logger.warning(f"   ⚠️  Could not check field: {field_info.get('error')}")
 
             # Set the date field using Vue.js component updates
             js_set_date = f"""
@@ -531,6 +631,8 @@ class WebAutomation:
                 // Date formats to try
                 const isoDate = '{year}-{month:02d}-{day:02d}';
                 const displayDate = '{date_str}';
+
+                console.log('Setting date with formats:', {{ isoDate, displayDate }});
 
                 // Update Vue.js component data model
                 let element = dateInput;
@@ -586,24 +688,85 @@ class WebAutomation:
 
                 // Set input value directly and trigger DOM events
                 dateInput.removeAttribute('readonly');
+
+                // Try setting with display format first (full text)
                 dateInput.value = displayDate;
                 dateInput.dispatchEvent(new Event('input', {{ bubbles: true, cancelable: true }}));
                 dateInput.dispatchEvent(new Event('change', {{ bubbles: true, cancelable: true }}));
+
+                // If that didn't work, try ISO format
+                if (dateInput.value === 'Invalid date' || dateInput.value === '') {{
+                    console.log('Display format failed, trying ISO format');
+                    dateInput.value = isoDate;
+                    dateInput.dispatchEvent(new Event('input', {{ bubbles: true, cancelable: true }}));
+                    dateInput.dispatchEvent(new Event('change', {{ bubbles: true, cancelable: true }}));
+                }}
+
                 dateInput.dispatchEvent(new Event('blur', {{ bubbles: true, cancelable: true }}));
                 dateInput.setAttribute('readonly', 'readonly');
+
+                console.log('Final date value:', dateInput.value);
 
                 return {{ success: true, value: dateInput.value }};
             }})()
             """
 
             date_result = self.page.evaluate(js_set_date)
+
+            logger.info(f"")
+            logger.info(f"📤 DATE SETTING RESULT:")
             if date_result and date_result.get('success'):
-                logger.info(f"Date set to {date_str}")
+                logger.info(f"   ✅ Success!")
+                logger.info(f"   Value in field: {date_result.get('value')}")
+                logger.info(f"   Expected value: {date_str}")
+                if date_result.get('value') == date_str:
+                    logger.info(f"   ✅ Values match!")
+                else:
+                    logger.warning(f"   ⚠️  Values don't match!")
             else:
                 error = date_result.get('error', 'Unknown error') if date_result else 'No result'
-                logger.warning(f"Could not set date: {error}")
+                logger.error(f"   ❌ Failed: {error}")
 
             time.sleep(2)  # Wait for Vue to process updates
+
+            # Verify the date field after Vue processing
+            logger.info(f"")
+            logger.info(f"🔍 VERIFYING DATE FIELD AFTER 2 SECOND WAIT:")
+            verify_date_js = """
+            (() => {
+                const headers = document.querySelectorAll('h5.section-title');
+                for (const header of headers) {
+                    if (header.textContent.includes('Date')) {
+                        const parent = header.closest('.col');
+                        if (parent) {
+                            const dateInput = parent.querySelector('input[readonly][type="text"]');
+                            if (dateInput) {
+                                return {
+                                    value: dateInput.value,
+                                    placeholder: dateInput.placeholder,
+                                    classList: Array.from(dateInput.classList)
+                                };
+                            }
+                        }
+                    }
+                }
+                return { error: 'Date field not found' };
+            })()
+            """
+            verify_result = self.page.evaluate(verify_date_js)
+            if verify_result and not verify_result.get('error'):
+                logger.info(f"   Current value: {verify_result.get('value')}")
+                logger.info(f"   Placeholder: {verify_result.get('placeholder')}")
+                logger.info(f"   Classes: {verify_result.get('classList')}")
+
+                # Check if it shows as invalid
+                classes = verify_result.get('classList', [])
+                if 'error--text' in classes or 'v-input--error' in classes:
+                    logger.error(f"   ❌ Field shows as INVALID (has error class)")
+                else:
+                    logger.info(f"   ✅ Field appears valid (no error class)")
+            else:
+                logger.warning(f"   ⚠️  Could not verify: {verify_result.get('error')}")
 
             # Set the time field
             js_set_time = f"""
@@ -639,13 +802,25 @@ class WebAutomation:
             """
 
             time_result = self.page.evaluate(js_set_time)
+
+            logger.info(f"")
+            logger.info(f"📤 TIME SETTING RESULT:")
             if time_result and time_result.get('success'):
-                logger.info(f"Time set to {time_str}")
+                logger.info(f"   ✅ Success!")
+                logger.info(f"   Value in field: {time_result.get('value')}")
+                logger.info(f"   Expected value: {time_str}")
+                if time_result.get('value') == time_str:
+                    logger.info(f"   ✅ Values match!")
+                else:
+                    logger.warning(f"   ⚠️  Values don't match!")
             else:
                 error = time_result.get('error', 'Unknown error') if time_result else 'No result'
-                logger.warning(f"Could not set time: {error}")
+                logger.error(f"   ❌ Failed: {error}")
 
-            logger.info("Date and time filled successfully")
+            logger.info(f"")
+            logger.info(f"✅ Date and time filling process completed")
+            logger.info("="*70)
+
             time.sleep(2)  # Wait for form validation
 
         except Exception as e:
