@@ -1,3 +1,2 @@
-2025/09/30-21:57:19.233 13ee0d Reusing MANIFEST /Users/poornajay/Desktop/tns-booking-uploader-bot/browser_data/Default/Sync Data/LevelDB/MANIFEST-000001
-2025/09/30-21:57:19.241 13ee0d Recovering log #3
-2025/09/30-21:57:19.241 13ee0d Reusing old log /Users/poornajay/Desktop/tns-booking-uploader-bot/browser_data/Default/Sync Data/LevelDB/000003.log 
+2025/10/01-13:03:32.763 4b4b1 Creating DB /Users/poornajay/Desktop/tns-booking-uploader-bot/browser_data/Default/Sync Data/LevelDB since it was missing.
+2025/10/01-13:03:32.769 4b4b1 Reusing MANIFEST /Users/poornajay/Desktop/tns-booking-uploader-bot/browser_data/Default/Sync Data/LevelDB/MANIFEST-000001

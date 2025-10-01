@@ -592,13 +592,21 @@ class MainWindow:
     def _clear_browser_state(self):
         """Handle Clear Browser State button click."""
         try:
-            # Ask for confirmation
+            # Ask for confirmation with detailed message
             result = messagebox.askyesno(
                 "Clear Browser State",
-                "This will clear saved login information and you'll need to log in again.\n\nAre you sure?"
+                "This will completely clear:\n\n"
+                "• Saved login credentials\n"
+                "• All cookies\n"
+                "• All sessions\n"
+                "• Browser cache\n\n"
+                "You'll need to login again from scratch.\n\n"
+                "Are you sure?"
             )
 
             if result:
+                logger.info("User confirmed browser state clearing")
+
                 if self.web_automation:
                     self.web_automation.clear_browser_state()
                 else:
@@ -607,14 +615,23 @@ class MainWindow:
                     temp_automation = WebAutomation()
                     temp_automation.clear_browser_state()
 
-                self._update_status("Browser state cleared")
-                messagebox.showinfo("Success", "Browser state cleared successfully. You'll need to log in again next time.")
+                self._update_status("Browser state cleared successfully")
+                messagebox.showinfo(
+                    "Success",
+                    "Browser state cleared successfully!\n\n"
+                    "✓ Login credentials removed\n"
+                    "✓ Cookies deleted\n"
+                    "✓ Sessions cleared\n"
+                    "✓ Cache cleared\n\n"
+                    "You'll need to login again next time you open the portal."
+                )
+                logger.info("Browser state cleared successfully")
 
         except Exception as e:
             error_msg = f"Error clearing browser state: {str(e)}"
             logger.error(error_msg)
             self._update_status("Error clearing browser state")
-            messagebox.showerror("Error", error_msg)
+            messagebox.showerror("Error", f"Failed to clear browser state:\n\n{error_msg}")
 
     def _start_upload(self):
         """Start the booking upload process."""

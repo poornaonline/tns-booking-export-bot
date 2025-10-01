@@ -427,20 +427,46 @@ class WebAutomation:
                 book_button.click()
                 logger.info("Successfully clicked 'Book now' button")
 
-                # Wait for booking to complete (5 seconds minimum)
-                logger.info("Waiting for booking to complete...")
-                self._sleep_with_ui_update(5)
+                # Wait for booking confirmation message
+                logger.info("Waiting for booking confirmation...")
 
-                # Check if booking was successful by looking for success indicators
-                # (You can add more specific checks here if needed)
-                logger.info("Booking completion wait finished")
+                # Look for success message: "Your booking has been created"
+                try:
+                    # Wait up to 10 seconds for the success message to appear
+                    success_message = self.page.wait_for_selector(
+                        'text="Your booking has been created"',
+                        timeout=10000
+                    )
+
+                    if success_message:
+                        logger.info("✅ SUCCESS: Found 'Your booking has been created' message!")
+                        logger.info("Booking creation completed successfully!")
+                        return True
+
+                except Exception as wait_error:
+                    logger.error(f"❌ FAILED: Success message not found within 10 seconds")
+                    logger.error(f"Error: {wait_error}")
+
+                    # Take a screenshot for debugging
+                    try:
+                        screenshot_path = f"booking_failed_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png"
+                        self.page.screenshot(path=screenshot_path)
+                        logger.info(f"Screenshot saved to: {screenshot_path}")
+                    except:
+                        pass
+
+                    # Log the current page content for debugging
+                    try:
+                        page_text = self.page.text_content('body')
+                        logger.error(f"Page content: {page_text[:500]}...")
+                    except:
+                        pass
+
+                    return False
 
             except Exception as e:
                 logger.error(f"Error clicking 'Book now' button: {e}")
-                raise
-
-            logger.info("Booking creation completed successfully!")
-            return True
+                return False
 
         except Exception as e:
             logger.error(f"Error during booking creation: {e}")
@@ -1109,13 +1135,78 @@ class WebAutomation:
             logger.error(f"Error closing browser: {e}")
 
     def clear_browser_state(self):
-        """Clear saved browser authentication state."""
+        """Clear saved browser authentication state, cookies, sessions, and cache.
+
+        This will:
+        1. Close any active browser sessions
+        2. Delete the browser state file (saved login credentials)
+        3. Delete the user data directory (cookies, cache, sessions)
+        4. Force user to login again on next use
+        """
         try:
+            logger.info("="*70)
+            logger.info("CLEARING BROWSER STATE - COMPLETE CLEANUP")
+            logger.info("="*70)
+
+            # Step 1: Close any active browser sessions
+            if self.context or self.browser or self.playwright:
+                logger.info("Step 1: Closing active browser sessions...")
+                try:
+                    if self.context:
+                        logger.info("  - Closing browser context...")
+                        self.context.close()
+                        self.context = None
+                    if self.browser:
+                        logger.info("  - Closing browser...")
+                        self.browser.close()
+                        self.browser = None
+                    if self.playwright:
+                        logger.info("  - Stopping Playwright...")
+                        self.playwright.stop()
+                        self.playwright = None
+                    if self.page:
+                        self.page = None
+                    logger.info("  ✅ Active browser sessions closed")
+                except Exception as e:
+                    logger.warning(f"  ⚠️  Error closing browser: {e}")
+            else:
+                logger.info("Step 1: No active browser sessions to close")
+
+            # Step 2: Delete browser state file (saved credentials)
+            logger.info("Step 2: Deleting browser state file...")
             if self.browser_state_path.exists():
                 self.browser_state_path.unlink()
-                logger.info("Browser state cleared")
+                logger.info(f"  ✅ Deleted: {self.browser_state_path}")
+            else:
+                logger.info(f"  ℹ️  File doesn't exist: {self.browser_state_path}")
+
+            # Step 3: Delete user data directory (cookies, cache, sessions)
+            logger.info("Step 3: Deleting user data directory...")
+            if self.user_data_dir.exists():
+                import shutil
+                shutil.rmtree(self.user_data_dir)
+                logger.info(f"  ✅ Deleted directory: {self.user_data_dir}")
+
+                # Recreate empty directory for next use
+                self.user_data_dir.mkdir(exist_ok=True)
+                logger.info(f"  ✅ Recreated empty directory: {self.user_data_dir}")
+            else:
+                logger.info(f"  ℹ️  Directory doesn't exist: {self.user_data_dir}")
+
+            logger.info("")
+            logger.info("✅ BROWSER STATE CLEARED SUCCESSFULLY!")
+            logger.info("   - All login credentials removed")
+            logger.info("   - All cookies deleted")
+            logger.info("   - All sessions cleared")
+            logger.info("   - All cache cleared")
+            logger.info("   - User will need to login again")
+            logger.info("="*70)
+
         except Exception as e:
-            logger.error(f"Error clearing browser state: {e}")
+            logger.error(f"❌ Error clearing browser state: {e}")
+            logger.error(f"   Error type: {type(e).__name__}")
+            logger.error(f"   Error details: {str(e)}")
+            raise
 
 
 
