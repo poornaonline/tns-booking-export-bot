@@ -49,6 +49,9 @@ class ExcelProcessor:
             if df is None:
                 return ProcessingResult(success=False, error_message="Failed to read Excel file")
 
+            # Add Status column if it doesn't exist
+            df = self._ensure_status_column(df, file_path)
+
             # Validate column structure
             if not Validator.validate_column_structure(df.columns.tolist()):
                 return ProcessingResult(
@@ -84,7 +87,41 @@ class ExcelProcessor:
         except Exception as e:
             logger.error(f"Error reading Excel file '{file_path}': {str(e)}")
             return None
-    
+
+    def _ensure_status_column(self, df: pd.DataFrame, file_path: str) -> pd.DataFrame:
+        """Ensure the Excel file has a Status column. If not, add it and save."""
+        try:
+            # Normalize column names
+            df.columns = df.columns.str.strip()
+
+            # Check if Status column exists
+            if 'Status' not in df.columns:
+                logger.info("Status column not found. Adding Status column to Excel file...")
+
+                # Add Status column with empty values
+                df['Status'] = ''
+
+                # Save the updated DataFrame back to Excel
+                df.to_excel(file_path, index=False)
+                logger.info(f"✅ Status column added and saved to: {file_path}")
+            else:
+                logger.info("✅ Status column found in Excel file")
+
+                # Log existing statuses
+                status_counts = df['Status'].value_counts()
+                if not status_counts.empty:
+                    logger.info("Existing statuses in file:")
+                    for status, count in status_counts.items():
+                        if status and str(status).strip():
+                            logger.info(f"  - {status}: {count} booking(s)")
+
+            return df
+
+        except Exception as e:
+            logger.error(f"Error ensuring Status column: {str(e)}")
+            # Return original DataFrame if there's an error
+            return df
+
     def _process_data(self, df: pd.DataFrame) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
         """Process and validate DataFrame data."""
         processed_data = []
@@ -110,17 +147,18 @@ class ExcelProcessor:
                         'To': row.get('To', ''),
                         'Reason': row.get('Reason', ''),
                         'Shift': row.get('Shift', ''),
-                        'Mobile': row.get('Mobile', '')  # Optional mobile column
+                        'Mobile': row.get('Mobile', ''),  # Optional mobile column
+                        'Status': row.get('Status', '')  # Status column
                     }
-                    
+
                     # Validate row data
                     is_valid, row_errors = Validator.validate_row_data(row_data)
-                    
+
                     # Add row metadata
                     row_data['row_number'] = index + 2  # +2 because Excel is 1-indexed and has header
                     row_data['is_valid'] = is_valid
                     row_data['errors'] = row_errors
-                    
+
                     processed_data.append(row_data)
                     
                     # Update validation counts
@@ -128,8 +166,10 @@ class ExcelProcessor:
                         validation_results['valid_count'] += 1
                     else:
                         validation_results['invalid_count'] += 1
-                        # Add row-specific errors to global errors list
+                        # Log detailed error for this invalid row
+                        logger.warning(f"❌ Invalid row {row_data['row_number']}:")
                         for error in row_errors:
+                            logger.warning(f"   - {error}")
                             validation_results['errors'].append(f"Row {row_data['row_number']}: {error}")
                     
                 except Exception as e:
@@ -137,9 +177,23 @@ class ExcelProcessor:
                     validation_results['invalid_count'] += 1
                     validation_results['errors'].append(f"Row {index + 2}: Processing error - {str(e)}")
             
-            logger.info(f"Data processing completed: {validation_results['valid_count']} valid rows, "
-                       f"{validation_results['invalid_count']} invalid rows")
-            
+            # Log summary
+            logger.info("="*70)
+            logger.info("DATA PROCESSING SUMMARY")
+            logger.info("="*70)
+            logger.info(f"✅ Valid rows: {validation_results['valid_count']}")
+            logger.info(f"❌ Invalid rows: {validation_results['invalid_count']}")
+
+            if validation_results['invalid_count'] > 0:
+                logger.warning("")
+                logger.warning("INVALID ROWS DETAILS:")
+                logger.warning("-"*70)
+                for error in validation_results['errors']:
+                    logger.warning(f"  {error}")
+                logger.warning("-"*70)
+
+            logger.info("="*70)
+
             return processed_data, validation_results
             
         except Exception as e:
@@ -189,4 +243,48 @@ class ExcelProcessor:
             
         except Exception as e:
             logger.error(f"Error exporting validation report: {str(e)}")
+            return False
+
+    def update_booking_status(self, file_path: str, row_number: int, status: str) -> bool:
+        """Update the status of a specific booking in the Excel file.
+
+        Args:
+            file_path: Path to the Excel file
+            row_number: Row number in Excel (1-indexed, including header)
+            status: Status to set ('Done', 'Error', etc.)
+
+        Returns:
+            True if successful, False otherwise
+        """
+        try:
+            # Read the Excel file
+            df = pd.read_excel(file_path)
+
+            # Normalize column names
+            df.columns = df.columns.str.strip()
+
+            # Ensure Status column exists
+            if 'Status' not in df.columns:
+                df['Status'] = ''
+
+            # Calculate DataFrame index (row_number - 2 because Excel is 1-indexed and has header)
+            df_index = row_number - 2
+
+            # Validate index
+            if df_index < 0 or df_index >= len(df):
+                logger.error(f"Invalid row number: {row_number}")
+                return False
+
+            # Update status
+            df.at[df_index, 'Status'] = status
+
+            # Save back to Excel
+            df.to_excel(file_path, index=False)
+
+            logger.info(f"✅ Updated row {row_number} status to '{status}' in {file_path}")
+            return True
+
+        except Exception as e:
+            logger.error(f"Error updating booking status: {str(e)}")
+            logger.error(f"Traceback: {traceback.format_exc()}")
             return False

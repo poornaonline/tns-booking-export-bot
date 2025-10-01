@@ -1,0 +1,757 @@
+2025-09-29 16:50:20,861 - TNSBookingUploader - INFO - is_valid_excel_file:60 - File validation passed: /var/folders/10/5mk_gw_911s_1jvf2kkvcll80000gn/T/tmpsnuhu4iv.xlsx
+2025-09-29 16:50:20,862 - TNSBookingUploader - ERROR - is_valid_excel_file:52 - Unsupported file extension: .txt
+2025-09-29 16:50:20,862 - TNSBookingUploader - ERROR - is_valid_excel_file:42 - File does not exist: nonexistent_file.xlsx
+2025-09-29 16:50:20,863 - TNSBookingUploader - ERROR - is_valid_excel_file:57 - File is empty: /var/folders/10/5mk_gw_911s_1jvf2kkvcll80000gn/T/tmp_4mx643u.xlsx
+2025-09-29 16:50:20,863 - TNSBookingUploader - INFO - validate_column_structure:99 - Column structure validation passed
+2025-09-29 16:50:20,863 - TNSBookingUploader - ERROR - validate_column_structure:96 - Missing required columns: ['from', 'to', 'reason', 'shift']
+2025-09-29 16:50:20,863 - TNSBookingUploader - INFO - validate_column_structure:99 - Column structure validation passed
+2025-09-29 16:50:20,864 - TNSBookingUploader - WARNING - validate_date_format:137 - Invalid date format: invalid_date
+2025-09-29 16:50:20,864 - TNSBookingUploader - WARNING - validate_date_format:137 - Invalid date format: 32/13/2025
+2025-09-29 16:50:20,865 - TNSBookingUploader - WARNING - validate_time_format:170 - Invalid time format: invalid_time
+2025-09-29 16:50:20,865 - TNSBookingUploader - WARNING - validate_time_format:170 - Invalid time format: 25:00
+2025-09-29 16:50:20,866 - TNSBookingUploader - WARNING - validate_date_format:137 - Invalid date format: invalid_date
+2025-09-29 16:50:20,866 - TNSBookingUploader - WARNING - validate_time_format:170 - Invalid time format: invalid_time
+2025-09-29 16:50:20,868 - TNSBookingUploader - INFO - __init__:23 - Excel processor initialized
+2025-09-29 16:50:20,869 - TNSBookingUploader - INFO - process_file:55 - Processing Excel file: /var/folders/10/5mk_gw_911s_1jvf2kkvcll80000gn/T/tmp_35rmmhn.xlsx
+2025-09-29 16:50:20,869 - TNSBookingUploader - INFO - is_valid_excel_file:60 - File validation passed: /var/folders/10/5mk_gw_911s_1jvf2kkvcll80000gn/T/tmp_35rmmhn.xlsx
+2025-09-29 16:50:20,872 - TNSBookingUploader - INFO - _read_excel_file:120 - Successfully read Excel file with 2 rows and 7 columns
+2025-09-29 16:50:20,872 - TNSBookingUploader - INFO - validate_column_structure:99 - Column structure validation passed
+2025-09-29 16:50:20,872 - TNSBookingUploader - INFO - _process_data:186 - Data processing completed: 2 valid rows, 0 invalid rows
+2025-09-29 16:50:20,873 - TNSBookingUploader - INFO - process_file:86 - Excel processing completed: 2 rows, 2 valid, 0 invalid
+2025-09-29 16:50:20,876 - TNSBookingUploader - INFO - __init__:23 - Excel processor initialized
+2025-09-29 16:50:20,876 - TNSBookingUploader - INFO - process_file:55 - Processing Excel file: /var/folders/10/5mk_gw_911s_1jvf2kkvcll80000gn/T/tmpsi4xmof0.xlsx
+2025-09-29 16:50:20,876 - TNSBookingUploader - INFO - is_valid_excel_file:60 - File validation passed: /var/folders/10/5mk_gw_911s_1jvf2kkvcll80000gn/T/tmpsi4xmof0.xlsx
+2025-09-29 16:50:20,877 - TNSBookingUploader - INFO - _read_excel_file:120 - Successfully read Excel file with 2 rows and 7 columns
+2025-09-29 16:50:20,877 - TNSBookingUploader - INFO - validate_column_structure:99 - Column structure validation passed
+2025-09-29 16:50:20,878 - TNSBookingUploader - WARNING - validate_date_format:137 - Invalid date format: invalid_date
+2025-09-29 16:50:20,878 - TNSBookingUploader - WARNING - validate_time_format:170 - Invalid time format: invalid_time
+2025-09-29 16:50:20,878 - TNSBookingUploader - INFO - _process_data:186 - Data processing completed: 1 valid rows, 1 invalid rows
+2025-09-29 16:50:20,878 - TNSBookingUploader - INFO - process_file:86 - Excel processing completed: 2 rows, 1 valid, 1 invalid
+2025-09-29 16:50:20,880 - TNSBookingUploader - INFO - __init__:23 - Excel processor initialized
+2025-09-29 16:50:20,880 - TNSBookingUploader - INFO - process_file:55 - Processing Excel file: /var/folders/10/5mk_gw_911s_1jvf2kkvcll80000gn/T/tmpimfy_vm4.xlsx
+2025-09-29 16:50:20,880 - TNSBookingUploader - INFO - is_valid_excel_file:60 - File validation passed: /var/folders/10/5mk_gw_911s_1jvf2kkvcll80000gn/T/tmpimfy_vm4.xlsx
+2025-09-29 16:50:20,882 - TNSBookingUploader - INFO - _read_excel_file:120 - Successfully read Excel file with 2 rows and 2 columns
+2025-09-29 16:50:20,882 - TNSBookingUploader - ERROR - validate_column_structure:96 - Missing required columns: ['date', 'time', 'driver', 'from', 'to', 'reason', 'shift']
+2025-09-29 16:50:20,882 - TNSBookingUploader - INFO - __init__:23 - Excel processor initialized
+2025-09-29 16:50:27,534 - TNSBookingUploader - INFO - __init__:27 - Web automation handler initialized
+2025-09-29 16:50:27,535 - TNSBookingUploader - INFO - __init__:27 - Web automation handler initialized
+2025-09-29 16:50:27,535 - TNSBookingUploader - INFO - open_portal_in_browser:37 - Opening iCabbi portal in default browser: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 16:50:27,535 - TNSBookingUploader - INFO - open_portal_in_browser:39 - Portal opened successfully in default browser
+2025-09-29 16:50:27,535 - TNSBookingUploader - INFO - __init__:27 - Web automation handler initialized
+2025-09-29 16:50:27,535 - TNSBookingUploader - INFO - open_portal_in_browser:37 - Opening iCabbi portal in default browser: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 16:50:27,535 - TNSBookingUploader - ERROR - open_portal_in_browser:43 - Error opening portal in browser: Browser error
+2025-09-29 16:50:27,536 - TNSBookingUploader - INFO - __init__:27 - Web automation handler initialized
+2025-09-29 16:50:27,536 - TNSBookingUploader - INFO - initialize_playwright:57 - Initializing Playwright browser...
+2025-09-29 16:50:27,537 - TNSBookingUploader - ERROR - initialize_playwright:85 - Error initializing Playwright: object AsyncMock can't be used in 'await' expression
+2025-09-29 16:50:27,537 - TNSBookingUploader - ERROR - initialize_playwright:86 - Traceback: Traceback (most recent call last):
+  File "/Users/poornajay/Desktop/tns-booking-uploader-bot/src/web/automation.py", line 59, in initialize_playwright
+    self.playwright = await async_playwright().start()
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: object AsyncMock can't be used in 'await' expression
+
+2025-09-29 16:50:27,548 - TNSBookingUploader - INFO - __init__:27 - Web automation handler initialized
+2025-09-29 16:50:27,548 - TNSBookingUploader - INFO - navigate_to_portal:101 - Navigating to iCabbi portal: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 16:50:27,548 - TNSBookingUploader - INFO - navigate_to_portal:107 - Successfully navigated to iCabbi portal
+2025-09-29 16:50:27,549 - TNSBookingUploader - INFO - __init__:27 - Web automation handler initialized
+2025-09-29 16:50:27,549 - TNSBookingUploader - ERROR - navigate_to_portal:98 - Playwright not initialized
+2025-09-29 16:50:27,549 - TNSBookingUploader - INFO - __init__:27 - Web automation handler initialized
+2025-09-29 16:50:27,550 - TNSBookingUploader - INFO - wait_for_login:132 - Waiting for user login...
+2025-09-29 16:50:27,550 - TNSBookingUploader - INFO - wait_for_login:141 - Login detected
+2025-09-29 16:50:27,550 - TNSBookingUploader - INFO - __init__:27 - Web automation handler initialized
+2025-09-29 16:50:27,550 - TNSBookingUploader - INFO - wait_for_login:132 - Waiting for user login...
+2025-09-29 16:50:27,550 - TNSBookingUploader - WARNING - wait_for_login:145 - Login timeout or not detected
+2025-09-29 16:50:27,551 - TNSBookingUploader - INFO - __init__:27 - Web automation handler initialized
+2025-09-29 16:50:27,551 - TNSBookingUploader - INFO - upload_booking_data:175 - Starting upload of 2 booking records
+2025-09-29 16:50:27,551 - TNSBookingUploader - INFO - upload_booking_data:187 - Upload process completed (placeholder)
+2025-09-29 16:50:27,553 - TNSBookingUploader - INFO - __init__:27 - Web automation handler initialized
+2025-09-29 16:50:27,553 - TNSBookingUploader - INFO - take_screenshot:212 - Screenshot saved to: test_screenshot.png
+2025-09-29 16:50:27,554 - TNSBookingUploader - INFO - __init__:27 - Web automation handler initialized
+2025-09-29 16:50:27,554 - TNSBookingUploader - ERROR - take_screenshot:208 - Playwright not initialized
+2025-09-29 16:50:27,554 - TNSBookingUploader - INFO - __init__:27 - Web automation handler initialized
+2025-09-29 16:50:27,555 - TNSBookingUploader - INFO - close:238 - Playwright resources cleaned up
+2025-09-29 16:50:27,557 - TNSBookingUploader - INFO - __init__:27 - Web automation handler initialized
+2025-09-29 16:50:27,557 - TNSBookingUploader - INFO - __init__:264 - Web automation manager initialized
+2025-09-29 16:50:27,558 - TNSBookingUploader - INFO - __init__:27 - Web automation handler initialized
+2025-09-29 16:50:27,558 - TNSBookingUploader - INFO - __init__:264 - Web automation manager initialized
+2025-09-29 16:50:27,558 - TNSBookingUploader - INFO - open_portal_in_browser:37 - Opening iCabbi portal in default browser: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 16:50:27,558 - TNSBookingUploader - INFO - open_portal_in_browser:39 - Portal opened successfully in default browser
+2025-09-29 16:50:27,558 - TNSBookingUploader - INFO - __init__:27 - Web automation handler initialized
+2025-09-29 16:50:27,558 - TNSBookingUploader - INFO - __init__:264 - Web automation manager initialized
+2025-09-29 16:50:27,558 - TNSBookingUploader - INFO - __init__:27 - Web automation handler initialized
+2025-09-29 16:50:27,558 - TNSBookingUploader - INFO - __init__:264 - Web automation manager initialized
+2025-09-29 16:50:27,558 - TNSBookingUploader - ERROR - run_automation_task:275 - Error running automation task: Task failed
+2025-09-29 16:50:27,559 - TNSBookingUploader - INFO - __init__:27 - Web automation handler initialized
+2025-09-29 16:50:27,559 - TNSBookingUploader - INFO - __init__:264 - Web automation manager initialized
+2025-09-29 16:50:27,559 - TNSBookingUploader - INFO - __init__:27 - Web automation handler initialized
+2025-09-29 16:50:27,559 - TNSBookingUploader - INFO - __init__:264 - Web automation manager initialized
+2025-09-29 16:50:27,559 - TNSBookingUploader - INFO - __init__:27 - Web automation handler initialized
+2025-09-29 16:50:27,559 - TNSBookingUploader - INFO - __init__:264 - Web automation manager initialized
+2025-09-29 16:51:22,025 - TNSBookingUploader - INFO - __init__:32 - TNS Booking Uploader Bot starting...
+2025-09-29 16:51:22,025 - TNSBookingUploader - INFO - run:37 - Initializing GUI...
+2025-09-29 16:51:22,184 - TNSBookingUploader - ERROR - run:44 - Fatal error in main application: bad option "-fill": must be -column, -columnspan, -in, -ipadx, -ipady, -padx, -pady, -row, -rowspan, or -sticky
+2025-09-29 16:51:22,185 - TNSBookingUploader - ERROR - run:45 - Traceback: Traceback (most recent call last):
+  File "/Users/poornajay/Desktop/tns-booking-uploader-bot/main.py", line 38, in run
+    self.main_window = MainWindow()
+                       ^^^^^^^^^^^^
+  File "/Users/poornajay/Desktop/tns-booking-uploader-bot/src/gui/main_window.py", line 40, in __init__
+    self._setup_components()
+  File "/Users/poornajay/Desktop/tns-booking-uploader-bot/src/gui/main_window.py", line 113, in _setup_components
+    file_frame.grid(row=3, column=0, pady=(0, 20), sticky=(tk.W, tk.E), fill="x")
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/tkinter/__init__.py", line 2580, in grid_configure
+    self.tk.call(
+_tkinter.TclError: bad option "-fill": must be -column, -columnspan, -in, -ipadx, -ipady, -padx, -pady, -row, -rowspan, or -sticky
+
+2025-09-29 16:51:22,191 - TNSBookingUploader - INFO - run:48 - TNS Booking Uploader Bot shutting down...
+2025-09-29 16:51:22,191 - TNSBookingUploader - ERROR - main:69 - Unhandled exception: bad option "-fill": must be -column, -columnspan, -in, -ipadx, -ipady, -padx, -pady, -row, -rowspan, or -sticky
+2025-09-29 16:51:22,191 - TNSBookingUploader - ERROR - main:70 - Traceback: Traceback (most recent call last):
+  File "/Users/poornajay/Desktop/tns-booking-uploader-bot/main.py", line 64, in main
+    app.run()
+  File "/Users/poornajay/Desktop/tns-booking-uploader-bot/main.py", line 38, in run
+    self.main_window = MainWindow()
+                       ^^^^^^^^^^^^
+  File "/Users/poornajay/Desktop/tns-booking-uploader-bot/src/gui/main_window.py", line 40, in __init__
+    self._setup_components()
+  File "/Users/poornajay/Desktop/tns-booking-uploader-bot/src/gui/main_window.py", line 113, in _setup_components
+    file_frame.grid(row=3, column=0, pady=(0, 20), sticky=(tk.W, tk.E), fill="x")
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/tkinter/__init__.py", line 2580, in grid_configure
+    self.tk.call(
+_tkinter.TclError: bad option "-fill": must be -column, -columnspan, -in, -ipadx, -ipady, -padx, -pady, -row, -rowspan, or -sticky
+
+2025-09-29 16:51:51,583 - TNSBookingUploader - INFO - __init__:32 - TNS Booking Uploader Bot starting...
+2025-09-29 16:51:51,583 - TNSBookingUploader - INFO - run:37 - Initializing GUI...
+2025-09-29 16:51:51,763 - TNSBookingUploader - INFO - __init__:42 - Main window initialized
+2025-09-29 16:51:51,763 - TNSBookingUploader - INFO - run:40 - Starting GUI main loop...
+2025-09-29 16:51:51,763 - TNSBookingUploader - INFO - run:287 - Starting GUI main loop
+2025-09-29 17:06:38,050 - TNSBookingUploader - INFO - __init__:32 - TNS Booking Uploader Bot starting...
+2025-09-29 17:06:38,050 - TNSBookingUploader - INFO - run:37 - Initializing GUI...
+2025-09-29 17:06:38,206 - TNSBookingUploader - INFO - __init__:42 - Main window initialized
+2025-09-29 17:06:38,206 - TNSBookingUploader - INFO - run:40 - Starting GUI main loop...
+2025-09-29 17:06:38,206 - TNSBookingUploader - INFO - run:287 - Starting GUI main loop
+2025-09-29 17:06:47,071 - TNSBookingUploader - INFO - _open_portal:162 - Opening iCabbi portal: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 17:06:47,202 - TNSBookingUploader - INFO - _open_portal:169 - iCabbi portal opened successfully
+2025-09-29 17:06:56,048 - TNSBookingUploader - INFO - _open_portal:162 - Opening iCabbi portal: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 17:06:56,168 - TNSBookingUploader - INFO - _open_portal:169 - iCabbi portal opened successfully
+2025-09-29 17:10:11,536 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:10:11,536 - TNSBookingUploader - INFO - _find_chrome_executable:70 - Found Chrome at: /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+2025-09-29 17:10:11,536 - TNSBookingUploader - INFO - open_portal_in_browser:92 - Opening iCabbi portal in Chrome browser: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 17:10:11,537 - TNSBookingUploader - INFO - _find_chrome_executable:70 - Found Chrome at: /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+2025-09-29 17:10:11,833 - TNSBookingUploader - INFO - open_portal_in_browser:103 - Portal opened successfully in Chrome browser
+2025-09-29 17:10:19,580 - TNSBookingUploader - INFO - run:48 - TNS Booking Uploader Bot shutting down...
+2025-09-29 17:12:28,834 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:12:28,835 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:12:28,835 - TNSBookingUploader - INFO - open_portal_in_browser:92 - Opening iCabbi portal in Chrome browser: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 17:12:28,835 - TNSBookingUploader - INFO - open_portal_in_browser:103 - Portal opened successfully in Chrome browser
+2025-09-29 17:12:28,836 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:12:28,836 - TNSBookingUploader - INFO - open_portal_in_browser:92 - Opening iCabbi portal in Chrome browser: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 17:12:29,030 - TNSBookingUploader - INFO - open_portal_in_browser:128 - Portal opened successfully in Chrome browser via webbrowser
+2025-09-29 17:12:29,115 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:12:29,115 - TNSBookingUploader - INFO - open_portal_in_browser:92 - Opening iCabbi portal in Chrome browser: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 17:12:29,115 - TNSBookingUploader - ERROR - open_portal_in_browser:141 - Error opening portal in browser: Chrome error
+2025-09-29 17:12:29,116 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:12:29,116 - TNSBookingUploader - INFO - _find_chrome_executable:70 - Found Chrome at: /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+2025-09-29 17:12:29,119 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:12:29,119 - TNSBookingUploader - WARNING - _find_chrome_executable:81 - Chrome executable not found
+2025-09-29 17:12:29,120 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:12:29,121 - TNSBookingUploader - INFO - initialize_playwright:155 - Initializing Playwright browser...
+2025-09-29 17:12:29,121 - TNSBookingUploader - INFO - initialize_playwright:179 - Playwright browser initialized successfully
+2025-09-29 17:12:29,123 - TNSBookingUploader - INFO - close:336 - Playwright resources cleaned up
+2025-09-29 17:12:29,124 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:12:29,125 - TNSBookingUploader - INFO - navigate_to_portal:199 - Navigating to iCabbi portal: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 17:12:29,125 - TNSBookingUploader - INFO - navigate_to_portal:205 - Successfully navigated to iCabbi portal
+2025-09-29 17:12:29,125 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:12:29,126 - TNSBookingUploader - ERROR - navigate_to_portal:196 - Playwright not initialized
+2025-09-29 17:12:29,126 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:12:29,127 - TNSBookingUploader - INFO - wait_for_login:230 - Waiting for user login...
+2025-09-29 17:12:29,127 - TNSBookingUploader - INFO - wait_for_login:239 - Login detected
+2025-09-29 17:12:29,130 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:12:29,132 - TNSBookingUploader - INFO - wait_for_login:230 - Waiting for user login...
+2025-09-29 17:12:29,132 - TNSBookingUploader - WARNING - wait_for_login:243 - Login timeout or not detected
+2025-09-29 17:12:29,135 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:12:29,137 - TNSBookingUploader - INFO - upload_booking_data:273 - Starting upload of 2 booking records
+2025-09-29 17:12:29,137 - TNSBookingUploader - INFO - upload_booking_data:285 - Upload process completed (placeholder)
+2025-09-29 17:12:29,140 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:12:29,140 - TNSBookingUploader - INFO - take_screenshot:310 - Screenshot saved to: test_screenshot.png
+2025-09-29 17:12:29,142 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:12:29,143 - TNSBookingUploader - ERROR - take_screenshot:306 - Playwright not initialized
+2025-09-29 17:12:29,145 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:12:29,146 - TNSBookingUploader - INFO - close:336 - Playwright resources cleaned up
+2025-09-29 17:12:29,147 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:12:29,147 - TNSBookingUploader - INFO - __init__:362 - Web automation manager initialized
+2025-09-29 17:12:29,148 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:12:29,148 - TNSBookingUploader - INFO - __init__:362 - Web automation manager initialized
+2025-09-29 17:12:29,148 - TNSBookingUploader - INFO - open_portal_in_browser:92 - Opening iCabbi portal in Chrome browser: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 17:12:29,148 - TNSBookingUploader - INFO - _find_chrome_executable:70 - Found Chrome at: /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+2025-09-29 17:12:29,278 - TNSBookingUploader - INFO - open_portal_in_browser:103 - Portal opened successfully in Chrome browser
+2025-09-29 17:12:29,299 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:12:29,299 - TNSBookingUploader - INFO - __init__:362 - Web automation manager initialized
+2025-09-29 17:12:29,300 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:12:29,300 - TNSBookingUploader - INFO - __init__:362 - Web automation manager initialized
+2025-09-29 17:12:29,300 - TNSBookingUploader - ERROR - run_automation_task:373 - Error running automation task: Task failed
+2025-09-29 17:12:29,300 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:12:29,300 - TNSBookingUploader - INFO - __init__:362 - Web automation manager initialized
+2025-09-29 17:12:29,301 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:12:29,301 - TNSBookingUploader - INFO - __init__:362 - Web automation manager initialized
+2025-09-29 17:12:29,301 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:12:29,302 - TNSBookingUploader - INFO - __init__:362 - Web automation manager initialized
+2025-09-29 17:13:08,066 - TNSBookingUploader - INFO - __init__:32 - TNS Booking Uploader Bot starting...
+2025-09-29 17:13:08,066 - TNSBookingUploader - INFO - run:37 - Initializing GUI...
+2025-09-29 17:13:08,213 - TNSBookingUploader - INFO - __init__:42 - Main window initialized
+2025-09-29 17:13:08,213 - TNSBookingUploader - INFO - run:40 - Starting GUI main loop...
+2025-09-29 17:13:08,213 - TNSBookingUploader - INFO - run:287 - Starting GUI main loop
+2025-09-29 17:15:46,942 - TNSBookingUploader - INFO - __init__:32 - TNS Booking Uploader Bot starting...
+2025-09-29 17:15:46,942 - TNSBookingUploader - INFO - run:37 - Initializing GUI...
+2025-09-29 17:15:47,082 - TNSBookingUploader - INFO - __init__:42 - Main window initialized
+2025-09-29 17:15:47,082 - TNSBookingUploader - INFO - run:40 - Starting GUI main loop...
+2025-09-29 17:15:47,083 - TNSBookingUploader - INFO - run:287 - Starting GUI main loop
+2025-09-29 17:15:54,611 - TNSBookingUploader - INFO - _open_portal:162 - Opening iCabbi portal: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 17:15:54,725 - TNSBookingUploader - INFO - _open_portal:169 - iCabbi portal opened successfully
+2025-09-29 17:16:00,890 - TNSBookingUploader - INFO - _open_portal:162 - Opening iCabbi portal: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 17:16:01,033 - TNSBookingUploader - INFO - _open_portal:169 - iCabbi portal opened successfully
+2025-09-29 17:20:19,142 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:20:19,142 - TNSBookingUploader - INFO - _find_preferred_browser_executable:76 - Found Chrome at: /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+2025-09-29 17:20:19,142 - TNSBookingUploader - INFO - open_portal_in_browser:143 - Opening iCabbi portal in preferred browser: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 17:20:19,142 - TNSBookingUploader - INFO - _find_preferred_browser_executable:76 - Found Chrome at: /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+2025-09-29 17:20:19,274 - TNSBookingUploader - INFO - open_portal_in_browser:155 - Portal opened successfully in Chrome browser
+2025-09-29 17:20:53,997 - TNSBookingUploader - INFO - __init__:32 - TNS Booking Uploader Bot starting...
+2025-09-29 17:20:53,997 - TNSBookingUploader - INFO - run:37 - Initializing GUI...
+2025-09-29 17:20:54,156 - TNSBookingUploader - INFO - __init__:42 - Main window initialized
+2025-09-29 17:20:54,156 - TNSBookingUploader - INFO - run:40 - Starting GUI main loop...
+2025-09-29 17:20:54,156 - TNSBookingUploader - INFO - run:300 - Starting GUI main loop
+2025-09-29 17:23:50,106 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:23:50,106 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:23:50,106 - TNSBookingUploader - INFO - open_portal_in_browser:143 - Opening iCabbi portal in preferred browser: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 17:23:50,106 - TNSBookingUploader - INFO - open_portal_in_browser:155 - Portal opened successfully in Chrome browser
+2025-09-29 17:23:50,107 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:23:50,107 - TNSBookingUploader - INFO - open_portal_in_browser:143 - Opening iCabbi portal in preferred browser: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 17:23:50,221 - TNSBookingUploader - INFO - open_portal_in_browser:184 - Portal opened successfully in chrome via webbrowser
+2025-09-29 17:23:50,239 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:23:50,239 - TNSBookingUploader - INFO - open_portal_in_browser:143 - Opening iCabbi portal in preferred browser: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 17:23:50,240 - TNSBookingUploader - ERROR - open_portal_in_browser:229 - Error opening portal in browser: Chrome launch error
+2025-09-29 17:23:50,241 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:23:50,241 - TNSBookingUploader - INFO - _find_preferred_browser_executable:92 - Found Chrome in PATH: /usr/bin/google-chrome
+2025-09-29 17:23:50,242 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:23:50,242 - TNSBookingUploader - WARNING - _find_preferred_browser_executable:95 - No preferred browser (Chrome/Edge) executable found
+2025-09-29 17:23:50,243 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:23:50,246 - TNSBookingUploader - INFO - initialize_playwright:243 - Initializing Playwright browser...
+2025-09-29 17:23:50,247 - TNSBookingUploader - INFO - initialize_playwright:267 - Playwright browser initialized successfully
+2025-09-29 17:23:50,251 - TNSBookingUploader - INFO - close:424 - Playwright resources cleaned up
+2025-09-29 17:23:50,253 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:23:50,253 - TNSBookingUploader - INFO - navigate_to_portal:287 - Navigating to iCabbi portal: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 17:23:50,253 - TNSBookingUploader - INFO - navigate_to_portal:293 - Successfully navigated to iCabbi portal
+2025-09-29 17:23:50,255 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:23:50,255 - TNSBookingUploader - ERROR - navigate_to_portal:284 - Playwright not initialized
+2025-09-29 17:23:50,257 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:23:50,258 - TNSBookingUploader - INFO - wait_for_login:318 - Waiting for user login...
+2025-09-29 17:23:50,258 - TNSBookingUploader - INFO - wait_for_login:327 - Login detected
+2025-09-29 17:23:50,260 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:23:50,262 - TNSBookingUploader - INFO - wait_for_login:318 - Waiting for user login...
+2025-09-29 17:23:50,262 - TNSBookingUploader - WARNING - wait_for_login:331 - Login timeout or not detected
+2025-09-29 17:23:50,264 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:23:50,264 - TNSBookingUploader - INFO - upload_booking_data:361 - Starting upload of 2 booking records
+2025-09-29 17:23:50,264 - TNSBookingUploader - INFO - upload_booking_data:373 - Upload process completed (placeholder)
+2025-09-29 17:23:50,265 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:23:50,265 - TNSBookingUploader - INFO - take_screenshot:398 - Screenshot saved to: test_screenshot.png
+2025-09-29 17:23:50,266 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:23:50,266 - TNSBookingUploader - ERROR - take_screenshot:394 - Playwright not initialized
+2025-09-29 17:23:50,267 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:23:50,268 - TNSBookingUploader - INFO - close:424 - Playwright resources cleaned up
+2025-09-29 17:23:50,269 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:23:50,269 - TNSBookingUploader - INFO - __init__:450 - Web automation manager initialized
+2025-09-29 17:23:50,269 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:23:50,269 - TNSBookingUploader - INFO - __init__:450 - Web automation manager initialized
+2025-09-29 17:23:50,269 - TNSBookingUploader - INFO - open_portal_in_browser:143 - Opening iCabbi portal in preferred browser: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 17:23:50,270 - TNSBookingUploader - INFO - open_portal_in_browser:155 - Portal opened successfully in Chrome browser
+2025-09-29 17:23:50,270 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:23:50,270 - TNSBookingUploader - INFO - __init__:450 - Web automation manager initialized
+2025-09-29 17:23:50,270 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:23:50,270 - TNSBookingUploader - INFO - __init__:450 - Web automation manager initialized
+2025-09-29 17:23:50,270 - TNSBookingUploader - ERROR - run_automation_task:461 - Error running automation task: Task failed
+2025-09-29 17:23:50,271 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:23:50,271 - TNSBookingUploader - INFO - __init__:450 - Web automation manager initialized
+2025-09-29 17:23:50,273 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:23:50,273 - TNSBookingUploader - INFO - __init__:450 - Web automation manager initialized
+2025-09-29 17:23:50,274 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:23:50,274 - TNSBookingUploader - INFO - __init__:450 - Web automation manager initialized
+2025-09-29 17:24:26,070 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:24:26,070 - TNSBookingUploader - INFO - _find_preferred_browser_executable:76 - Found Chrome at: /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+2025-09-29 17:24:26,070 - TNSBookingUploader - INFO - _setup_macos_browser_preference:120 - Registered Chrome for macOS
+2025-09-29 17:28:06,509 - TNSBookingUploader - INFO - __init__:30 - Web automation handler initialized
+2025-09-29 17:28:06,509 - TNSBookingUploader - INFO - _find_preferred_browser_executable:76 - Found Chrome at: /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+2025-09-29 17:39:31,943 - TNSBookingUploader - INFO - __init__:23 - Web automation handler initialized
+2025-09-29 17:39:31,953 - TNSBookingUploader - INFO - __init__:23 - Web automation handler initialized
+2025-09-29 17:39:31,953 - TNSBookingUploader - INFO - open_portal_in_browser:73 - Opening iCabbi portal: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 17:39:31,953 - TNSBookingUploader - INFO - open_portal_in_browser:81 - Portal opened successfully
+2025-09-29 17:39:31,954 - TNSBookingUploader - INFO - __init__:23 - Web automation handler initialized
+2025-09-29 17:39:31,954 - TNSBookingUploader - INFO - open_portal_in_browser:73 - Opening iCabbi portal: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 17:39:31,954 - TNSBookingUploader - ERROR - open_portal_in_browser:101 - Error opening portal: No browser found
+2025-09-29 17:39:31,954 - TNSBookingUploader - INFO - __init__:23 - Web automation handler initialized
+2025-09-29 17:39:31,954 - TNSBookingUploader - INFO - open_portal_in_browser:73 - Opening iCabbi portal: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 17:39:31,954 - TNSBookingUploader - WARNING - open_portal_in_browser:84 - Direct browser launch failed: Chrome launch error
+2025-09-29 17:39:32,080 - TNSBookingUploader - INFO - open_portal_in_browser:91 - Portal opened via webbrowser (chrome)
+2025-09-29 17:39:32,082 - TNSBookingUploader - INFO - __init__:23 - Web automation handler initialized
+2025-09-29 17:39:32,082 - TNSBookingUploader - INFO - _find_preferred_browser:63 - Found browser in PATH: /usr/bin/google-chrome
+2025-09-29 17:39:32,083 - TNSBookingUploader - INFO - __init__:23 - Web automation handler initialized
+2025-09-29 17:39:32,083 - TNSBookingUploader - WARNING - _find_preferred_browser:66 - No preferred browser found
+2025-09-29 17:39:32,085 - TNSBookingUploader - INFO - __init__:23 - Web automation handler initialized
+2025-09-29 17:39:32,123 - TNSBookingUploader - INFO - __init__:23 - Web automation handler initialized
+2025-09-29 17:39:32,127 - TNSBookingUploader - INFO - __init__:23 - Web automation handler initialized
+2025-09-29 17:39:32,131 - TNSBookingUploader - INFO - __init__:23 - Web automation handler initialized
+2025-09-29 17:39:32,137 - TNSBookingUploader - INFO - __init__:23 - Web automation handler initialized
+2025-09-29 17:39:32,142 - TNSBookingUploader - INFO - __init__:23 - Web automation handler initialized
+2025-09-29 17:39:32,146 - TNSBookingUploader - INFO - __init__:23 - Web automation handler initialized
+2025-09-29 17:39:32,149 - TNSBookingUploader - INFO - __init__:23 - Web automation handler initialized
+2025-09-29 17:39:32,153 - TNSBookingUploader - INFO - __init__:23 - Web automation handler initialized
+2025-09-29 17:40:43,388 - TNSBookingUploader - INFO - __init__:23 - Web automation handler initialized
+2025-09-29 17:40:43,389 - TNSBookingUploader - INFO - __init__:23 - Web automation handler initialized
+2025-09-29 17:40:43,389 - TNSBookingUploader - INFO - open_portal_in_browser:73 - Opening iCabbi portal: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 17:40:43,389 - TNSBookingUploader - INFO - open_portal_in_browser:81 - Portal opened successfully
+2025-09-29 17:40:43,389 - TNSBookingUploader - INFO - __init__:23 - Web automation handler initialized
+2025-09-29 17:40:43,389 - TNSBookingUploader - INFO - open_portal_in_browser:73 - Opening iCabbi portal: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 17:40:43,390 - TNSBookingUploader - ERROR - open_portal_in_browser:101 - Error opening portal: No browser found
+2025-09-29 17:40:43,390 - TNSBookingUploader - INFO - __init__:23 - Web automation handler initialized
+2025-09-29 17:40:43,390 - TNSBookingUploader - INFO - open_portal_in_browser:73 - Opening iCabbi portal: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 17:40:43,390 - TNSBookingUploader - WARNING - open_portal_in_browser:84 - Direct browser launch failed: Chrome launch error
+2025-09-29 17:40:43,506 - TNSBookingUploader - INFO - open_portal_in_browser:91 - Portal opened via webbrowser (chrome)
+2025-09-29 17:40:43,508 - TNSBookingUploader - INFO - __init__:23 - Web automation handler initialized
+2025-09-29 17:40:43,508 - TNSBookingUploader - INFO - _find_preferred_browser:63 - Found browser in PATH: /usr/bin/google-chrome
+2025-09-29 17:40:43,509 - TNSBookingUploader - INFO - __init__:23 - Web automation handler initialized
+2025-09-29 17:40:43,509 - TNSBookingUploader - WARNING - _find_preferred_browser:66 - No preferred browser found
+2025-09-29 17:42:57,297 - TNSBookingUploader - ERROR - is_valid_excel_file:41 - Unsupported file extension: .txt
+2025-09-29 17:42:57,298 - TNSBookingUploader - ERROR - is_valid_excel_file:37 - Invalid file path: nonexistent_file.xlsx
+2025-09-29 17:42:57,298 - TNSBookingUploader - ERROR - is_valid_excel_file:45 - File is empty: /var/folders/10/5mk_gw_911s_1jvf2kkvcll80000gn/T/tmpg6e8nopx.xlsx
+2025-09-29 17:42:57,299 - TNSBookingUploader - ERROR - validate_column_structure:64 - Missing required columns: ['from', 'to', 'reason', 'shift']
+2025-09-29 17:42:57,300 - TNSBookingUploader - WARNING - validate_date_format:104 - Invalid date format: invalid_date
+2025-09-29 17:42:57,300 - TNSBookingUploader - WARNING - validate_date_format:104 - Invalid date format: 32/13/2025
+2025-09-29 17:42:57,301 - TNSBookingUploader - WARNING - validate_time_format:137 - Invalid time format: invalid_time
+2025-09-29 17:42:57,301 - TNSBookingUploader - WARNING - validate_time_format:137 - Invalid time format: 25:00
+2025-09-29 17:42:57,302 - TNSBookingUploader - ERROR - validate_row_data:191 - Error validating row data: name 'DataValidator' is not defined
+2025-09-29 17:42:57,325 - TNSBookingUploader - ERROR - validate_row_data:191 - Error validating row data: name 'DataValidator' is not defined
+2025-09-29 17:42:57,329 - TNSBookingUploader - INFO - __init__:38 - Excel processor initialized
+2025-09-29 17:42:57,329 - TNSBookingUploader - INFO - process_file:43 - Processing Excel file: /var/folders/10/5mk_gw_911s_1jvf2kkvcll80000gn/T/tmps_albl7g.xlsx
+2025-09-29 17:42:57,332 - TNSBookingUploader - INFO - _read_excel_file:106 - Successfully read Excel file with 2 rows and 7 columns
+2025-09-29 17:42:57,334 - TNSBookingUploader - ERROR - validate_row_data:191 - Error validating row data: name 'DataValidator' is not defined
+2025-09-29 17:42:57,334 - TNSBookingUploader - ERROR - validate_row_data:191 - Error validating row data: name 'DataValidator' is not defined
+2025-09-29 17:42:57,334 - TNSBookingUploader - INFO - _process_data:172 - Data processing completed: 0 valid rows, 2 invalid rows
+2025-09-29 17:42:57,334 - TNSBookingUploader - INFO - process_file:73 - Excel processing completed: 2 rows, 0 valid, 2 invalid
+2025-09-29 17:42:57,339 - TNSBookingUploader - INFO - __init__:38 - Excel processor initialized
+2025-09-29 17:42:57,339 - TNSBookingUploader - INFO - process_file:43 - Processing Excel file: /var/folders/10/5mk_gw_911s_1jvf2kkvcll80000gn/T/tmpruvpefd1.xlsx
+2025-09-29 17:42:57,341 - TNSBookingUploader - INFO - _read_excel_file:106 - Successfully read Excel file with 2 rows and 7 columns
+2025-09-29 17:42:57,342 - TNSBookingUploader - ERROR - validate_row_data:191 - Error validating row data: name 'DataValidator' is not defined
+2025-09-29 17:42:57,342 - TNSBookingUploader - ERROR - validate_row_data:191 - Error validating row data: name 'DataValidator' is not defined
+2025-09-29 17:42:57,342 - TNSBookingUploader - INFO - _process_data:172 - Data processing completed: 0 valid rows, 2 invalid rows
+2025-09-29 17:42:57,342 - TNSBookingUploader - INFO - process_file:73 - Excel processing completed: 2 rows, 0 valid, 2 invalid
+2025-09-29 17:42:57,347 - TNSBookingUploader - INFO - __init__:38 - Excel processor initialized
+2025-09-29 17:42:57,347 - TNSBookingUploader - INFO - process_file:43 - Processing Excel file: /var/folders/10/5mk_gw_911s_1jvf2kkvcll80000gn/T/tmpwo8n4f_o.xlsx
+2025-09-29 17:42:57,349 - TNSBookingUploader - INFO - _read_excel_file:106 - Successfully read Excel file with 2 rows and 2 columns
+2025-09-29 17:42:57,349 - TNSBookingUploader - ERROR - validate_column_structure:64 - Missing required columns: ['date', 'time', 'driver', 'from', 'to', 'reason', 'shift']
+2025-09-29 17:42:57,351 - TNSBookingUploader - INFO - __init__:38 - Excel processor initialized
+2025-09-29 17:43:54,231 - TNSBookingUploader - ERROR - is_valid_excel_file:41 - Unsupported file extension: .txt
+2025-09-29 17:43:54,231 - TNSBookingUploader - ERROR - is_valid_excel_file:37 - Invalid file path: nonexistent_file.xlsx
+2025-09-29 17:43:54,232 - TNSBookingUploader - ERROR - is_valid_excel_file:45 - File is empty: /var/folders/10/5mk_gw_911s_1jvf2kkvcll80000gn/T/tmp6n1j88uo.xlsx
+2025-09-29 17:43:54,232 - TNSBookingUploader - ERROR - validate_column_structure:64 - Missing required columns: ['from', 'to', 'reason', 'shift']
+2025-09-29 17:43:54,233 - TNSBookingUploader - WARNING - validate_date_format:104 - Invalid date format: invalid_date
+2025-09-29 17:43:54,234 - TNSBookingUploader - WARNING - validate_date_format:104 - Invalid date format: 32/13/2025
+2025-09-29 17:43:54,234 - TNSBookingUploader - WARNING - validate_time_format:137 - Invalid time format: invalid_time
+2025-09-29 17:43:54,234 - TNSBookingUploader - WARNING - validate_time_format:137 - Invalid time format: 25:00
+2025-09-29 17:43:54,235 - TNSBookingUploader - WARNING - validate_date_format:104 - Invalid date format: invalid_date
+2025-09-29 17:43:54,235 - TNSBookingUploader - WARNING - validate_time_format:137 - Invalid time format: invalid_time
+2025-09-29 17:43:54,238 - TNSBookingUploader - INFO - __init__:38 - Excel processor initialized
+2025-09-29 17:43:54,238 - TNSBookingUploader - INFO - process_file:43 - Processing Excel file: /var/folders/10/5mk_gw_911s_1jvf2kkvcll80000gn/T/tmpcts4y148.xlsx
+2025-09-29 17:43:54,241 - TNSBookingUploader - INFO - _read_excel_file:106 - Successfully read Excel file with 2 rows and 7 columns
+2025-09-29 17:43:54,241 - TNSBookingUploader - INFO - _process_data:172 - Data processing completed: 2 valid rows, 0 invalid rows
+2025-09-29 17:43:54,241 - TNSBookingUploader - INFO - process_file:73 - Excel processing completed: 2 rows, 2 valid, 0 invalid
+2025-09-29 17:43:54,244 - TNSBookingUploader - INFO - __init__:38 - Excel processor initialized
+2025-09-29 17:43:54,244 - TNSBookingUploader - INFO - process_file:43 - Processing Excel file: /var/folders/10/5mk_gw_911s_1jvf2kkvcll80000gn/T/tmp32luqjhn.xlsx
+2025-09-29 17:43:54,246 - TNSBookingUploader - INFO - _read_excel_file:106 - Successfully read Excel file with 2 rows and 7 columns
+2025-09-29 17:43:54,247 - TNSBookingUploader - WARNING - validate_date_format:104 - Invalid date format: invalid_date
+2025-09-29 17:43:54,247 - TNSBookingUploader - WARNING - validate_time_format:137 - Invalid time format: invalid_time
+2025-09-29 17:43:54,247 - TNSBookingUploader - INFO - _process_data:172 - Data processing completed: 1 valid rows, 1 invalid rows
+2025-09-29 17:43:54,247 - TNSBookingUploader - INFO - process_file:73 - Excel processing completed: 2 rows, 1 valid, 1 invalid
+2025-09-29 17:43:54,250 - TNSBookingUploader - INFO - __init__:38 - Excel processor initialized
+2025-09-29 17:43:54,250 - TNSBookingUploader - INFO - process_file:43 - Processing Excel file: /var/folders/10/5mk_gw_911s_1jvf2kkvcll80000gn/T/tmppvy2wyy6.xlsx
+2025-09-29 17:43:54,252 - TNSBookingUploader - INFO - _read_excel_file:106 - Successfully read Excel file with 2 rows and 2 columns
+2025-09-29 17:43:54,252 - TNSBookingUploader - ERROR - validate_column_structure:64 - Missing required columns: ['date', 'time', 'driver', 'from', 'to', 'reason', 'shift']
+2025-09-29 17:43:54,253 - TNSBookingUploader - INFO - __init__:38 - Excel processor initialized
+2025-09-29 18:42:58,509 - TNSBookingUploader - INFO - main:28 - TNS Booking Uploader Bot starting...
+2025-09-29 18:42:58,674 - TNSBookingUploader - INFO - __init__:42 - Main window initialized
+2025-09-29 18:42:58,674 - TNSBookingUploader - INFO - run:300 - Starting GUI main loop
+2025-09-29 18:43:22,472 - TNSBookingUploader - INFO - main:28 - TNS Booking Uploader Bot starting...
+2025-09-29 18:43:22,619 - TNSBookingUploader - INFO - __init__:42 - Main window initialized
+2025-09-29 18:43:22,619 - TNSBookingUploader - INFO - run:300 - Starting GUI main loop
+2025-09-29 18:43:31,236 - TNSBookingUploader - INFO - _open_portal:162 - Opening iCabbi portal: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 18:43:31,237 - TNSBookingUploader - INFO - __init__:23 - Web automation handler initialized
+2025-09-29 18:43:31,237 - TNSBookingUploader - INFO - open_portal_in_browser:73 - Opening iCabbi portal: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 18:43:31,237 - TNSBookingUploader - INFO - _find_preferred_browser:56 - Found browser at: /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+2025-09-29 18:43:31,368 - TNSBookingUploader - INFO - open_portal_in_browser:81 - Portal opened successfully
+2025-09-29 18:43:31,369 - TNSBookingUploader - INFO - _open_portal:175 - iCabbi portal opened successfully
+2025-09-29 18:44:40,629 - TNSBookingUploader - INFO - _start_upload:193 - Starting booking upload process
+2025-09-29 18:44:45,146 - TNSBookingUploader - INFO - __init__:38 - Excel processor initialized
+2025-09-29 18:44:45,146 - TNSBookingUploader - INFO - process_file:43 - Processing Excel file: /Users/poornajay/Downloads/Metro Location with Shortcodes 17.9.2025.xlsx
+2025-09-29 18:44:45,227 - TNSBookingUploader - INFO - _read_excel_file:106 - Successfully read Excel file with 118 rows and 17 columns
+2025-09-29 18:44:45,227 - TNSBookingUploader - ERROR - validate_column_structure:64 - Missing required columns: ['date', 'time', 'driver', 'from', 'to', 'reason', 'shift']
+2025-09-29 18:49:50,077 - TNSBookingUploader - INFO - __init__:38 - Excel processor initialized
+2025-09-29 18:49:50,077 - TNSBookingUploader - INFO - process_file:43 - Processing Excel file: test_sample.xlsx
+2025-09-29 18:49:50,079 - TNSBookingUploader - INFO - _read_excel_file:106 - Successfully read Excel file with 3 rows and 7 columns
+2025-09-29 18:49:50,080 - TNSBookingUploader - INFO - _process_data:172 - Data processing completed: 3 valid rows, 0 invalid rows
+2025-09-29 18:49:50,080 - TNSBookingUploader - INFO - process_file:73 - Excel processing completed: 3 rows, 3 valid, 0 invalid
+2025-09-29 18:50:49,680 - TNSBookingUploader - INFO - __init__:38 - Excel processor initialized
+2025-09-29 18:50:49,681 - TNSBookingUploader - INFO - process_file:43 - Processing Excel file: user_sample_data.xlsx
+2025-09-29 18:50:49,683 - TNSBookingUploader - INFO - _read_excel_file:106 - Successfully read Excel file with 20 rows and 7 columns
+2025-09-29 18:50:49,684 - TNSBookingUploader - INFO - _process_data:172 - Data processing completed: 20 valid rows, 0 invalid rows
+2025-09-29 18:50:49,684 - TNSBookingUploader - INFO - process_file:73 - Excel processing completed: 20 rows, 20 valid, 0 invalid
+2025-09-29 18:50:57,768 - TNSBookingUploader - INFO - main:28 - TNS Booking Uploader Bot starting...
+2025-09-29 18:50:57,927 - TNSBookingUploader - INFO - __init__:42 - Main window initialized
+2025-09-29 18:50:57,927 - TNSBookingUploader - INFO - run:300 - Starting GUI main loop
+2025-09-29 18:51:04,183 - TNSBookingUploader - ERROR - _on_file_processed:277 - File processing failed: Invalid column structure. Expected: Date, Time, Driver, From, To, Reason, Shift
+2025-09-29 18:51:05,253 - TNSBookingUploader - INFO - main:34 - TNS Booking Uploader Bot shutting down...
+2025-09-29 18:51:39,829 - TNSBookingUploader - INFO - main:28 - TNS Booking Uploader Bot starting...
+2025-09-29 18:51:40,015 - TNSBookingUploader - INFO - __init__:42 - Main window initialized
+2025-09-29 18:51:40,015 - TNSBookingUploader - INFO - run:300 - Starting GUI main loop
+2025-09-29 18:51:47,153 - TNSBookingUploader - INFO - _open_portal:162 - Opening iCabbi portal: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 18:51:47,153 - TNSBookingUploader - INFO - __init__:23 - Web automation handler initialized
+2025-09-29 18:51:47,153 - TNSBookingUploader - INFO - open_portal_in_browser:73 - Opening iCabbi portal: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 18:51:47,153 - TNSBookingUploader - INFO - _find_preferred_browser:56 - Found browser at: /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+2025-09-29 18:51:47,275 - TNSBookingUploader - INFO - open_portal_in_browser:81 - Portal opened successfully
+2025-09-29 18:51:47,276 - TNSBookingUploader - INFO - _open_portal:175 - iCabbi portal opened successfully
+2025-09-29 18:51:52,772 - TNSBookingUploader - INFO - _start_upload:193 - Starting booking upload process
+2025-09-29 18:51:59,973 - TNSBookingUploader - INFO - __init__:38 - Excel processor initialized
+2025-09-29 18:51:59,973 - TNSBookingUploader - INFO - process_file:43 - Processing Excel file: /Users/poornajay/Downloads/Metro Location with Shortcodes 17.9.2025.xlsx
+2025-09-29 18:52:00,033 - TNSBookingUploader - INFO - _read_excel_file:106 - Successfully read Excel file with 118 rows and 17 columns
+2025-09-29 18:52:00,033 - TNSBookingUploader - ERROR - validate_column_structure:72 - Column validation failed:
+2025-09-29 18:52:00,033 - TNSBookingUploader - ERROR - validate_column_structure:73 -   Found columns: ['Area', 'Pick up & Drop Off location', 'Name', 'STTS address (if you type into address bar anf google search pops this custom saved address)', 'Unnamed: 4', 'Shared Acronyms', 'Shared Acronyms .1', 'Shared Acronyms .2', 'Shared Acronyms .3', 'Unnamed: 9', 'Unnamed: 10', 'Latitude', 'Longitude', 'Address', 'City', 'State', 'Postcode']
+2025-09-29 18:52:00,033 - TNSBookingUploader - ERROR - validate_column_structure:74 -   Required columns: ['Date', 'Time', 'Driver', 'From', 'To', 'Reason', 'Shift']
+2025-09-29 18:52:00,033 - TNSBookingUploader - ERROR - validate_column_structure:75 -   Missing columns: ['date', 'time', 'driver', 'from', 'to', 'reason', 'shift']
+2025-09-29 18:52:01,805 - TNSBookingUploader - ERROR - _on_file_processed:277 - File processing failed: Invalid column structure. Expected: Date, Time, Driver, From, To, Reason, Shift
+2025-09-29 18:52:07,400 - TNSBookingUploader - INFO - _start_upload:193 - Starting booking upload process
+2025-09-29 18:52:11,910 - TNSBookingUploader - INFO - process_file:43 - Processing Excel file: /Users/poornajay/Downloads/Metro Location with Shortcodes 17.9.2025.xlsx
+2025-09-29 18:52:11,930 - TNSBookingUploader - INFO - _read_excel_file:106 - Successfully read Excel file with 118 rows and 17 columns
+2025-09-29 18:52:11,930 - TNSBookingUploader - ERROR - validate_column_structure:72 - Column validation failed:
+2025-09-29 18:52:11,930 - TNSBookingUploader - ERROR - validate_column_structure:73 -   Found columns: ['Area', 'Pick up & Drop Off location', 'Name', 'STTS address (if you type into address bar anf google search pops this custom saved address)', 'Unnamed: 4', 'Shared Acronyms', 'Shared Acronyms .1', 'Shared Acronyms .2', 'Shared Acronyms .3', 'Unnamed: 9', 'Unnamed: 10', 'Latitude', 'Longitude', 'Address', 'City', 'State', 'Postcode']
+2025-09-29 18:52:11,930 - TNSBookingUploader - ERROR - validate_column_structure:74 -   Required columns: ['Date', 'Time', 'Driver', 'From', 'To', 'Reason', 'Shift']
+2025-09-29 18:52:11,930 - TNSBookingUploader - ERROR - validate_column_structure:75 -   Missing columns: ['date', 'time', 'driver', 'from', 'to', 'reason', 'shift']
+2025-09-29 18:52:19,749 - TNSBookingUploader - ERROR - _on_file_processed:277 - File processing failed: Invalid column structure. Expected: Date, Time, Driver, From, To, Reason, Shift
+2025-09-29 18:52:20,623 - TNSBookingUploader - INFO - main:34 - TNS Booking Uploader Bot shutting down...
+2025-09-29 18:53:40,340 - TNSBookingUploader - INFO - validate_column_structure:78 - Column validation passed: ['Date', 'Time', 'Driver', 'From', 'To', 'Reason', 'Shift']
+2025-09-29 18:53:40,342 - TNSBookingUploader - INFO - __init__:38 - Excel processor initialized
+2025-09-29 18:53:40,343 - TNSBookingUploader - INFO - process_file:43 - Processing Excel file: SILVERTOP BOOKING 04 SEPT 2025 (1).xlsx
+2025-09-29 18:53:40,348 - TNSBookingUploader - INFO - _read_excel_file:106 - Successfully read Excel file with 102 rows and 7 columns
+2025-09-29 18:53:40,348 - TNSBookingUploader - INFO - validate_column_structure:78 - Column validation passed: ['Date', 'Time', 'Driver', 'From', 'To', 'Reason', 'Shift']
+2025-09-29 18:53:40,349 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,349 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,349 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,349 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,349 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,349 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,349 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,349 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,349 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,349 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,349 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,350 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,350 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,350 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,350 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,350 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,350 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,350 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,350 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,350 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,350 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,350 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,350 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,350 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,350 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,351 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,351 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,351 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,351 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,351 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,351 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,351 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,351 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,351 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,351 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,351 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,351 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,352 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,352 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,352 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,352 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,352 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,352 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,352 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,352 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,352 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,352 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,352 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,352 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,352 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,352 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,353 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,353 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,353 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,353 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,353 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,353 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,353 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,353 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,353 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,353 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,353 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,353 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,353 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,353 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,354 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,354 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,354 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,354 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,354 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,354 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,354 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,354 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,354 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,354 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,354 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,354 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,354 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,354 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,355 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,355 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,355 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,355 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,355 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,355 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,355 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,355 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,355 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,355 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,355 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,355 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,355 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,355 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,356 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,356 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,356 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,356 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,356 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-04 00:00:00
+2025-09-29 18:53:40,356 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-05 00:00:00
+2025-09-29 18:53:40,356 - TNSBookingUploader - WARNING - validate_time_format:149 - Invalid time format: 24:57
+2025-09-29 18:53:40,356 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-05 00:00:00
+2025-09-29 18:53:40,356 - TNSBookingUploader - WARNING - validate_time_format:149 - Invalid time format: 25:21
+2025-09-29 18:53:40,356 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-05 00:00:00
+2025-09-29 18:53:40,356 - TNSBookingUploader - WARNING - validate_time_format:149 - Invalid time format: 25:43
+2025-09-29 18:53:40,356 - TNSBookingUploader - WARNING - validate_date_format:116 - Invalid date format: 2025-09-05 00:00:00
+2025-09-29 18:53:40,356 - TNSBookingUploader - WARNING - validate_time_format:149 - Invalid time format: 27:28
+2025-09-29 18:53:40,357 - TNSBookingUploader - INFO - _process_data:172 - Data processing completed: 0 valid rows, 102 invalid rows
+2025-09-29 18:53:40,357 - TNSBookingUploader - INFO - process_file:73 - Excel processing completed: 102 rows, 0 valid, 102 invalid
+2025-09-29 18:55:00,860 - TNSBookingUploader - INFO - validate_column_structure:78 - Column validation passed: ['Date', 'Time', 'Driver', 'From', 'To', 'Reason', 'Shift']
+2025-09-29 18:55:00,863 - TNSBookingUploader - INFO - __init__:38 - Excel processor initialized
+2025-09-29 18:55:00,863 - TNSBookingUploader - INFO - process_file:43 - Processing Excel file: SILVERTOP BOOKING 04 SEPT 2025 (1).xlsx
+2025-09-29 18:55:00,869 - TNSBookingUploader - INFO - _read_excel_file:106 - Successfully read Excel file with 102 rows and 7 columns
+2025-09-29 18:55:00,869 - TNSBookingUploader - INFO - validate_column_structure:78 - Column validation passed: ['Date', 'Time', 'Driver', 'From', 'To', 'Reason', 'Shift']
+2025-09-29 18:55:00,871 - TNSBookingUploader - INFO - _process_data:172 - Data processing completed: 96 valid rows, 6 invalid rows
+2025-09-29 18:55:00,871 - TNSBookingUploader - INFO - process_file:73 - Excel processing completed: 102 rows, 96 valid, 6 invalid
+2025-09-29 18:55:15,880 - TNSBookingUploader - INFO - main:28 - TNS Booking Uploader Bot starting...
+2025-09-29 18:55:16,047 - TNSBookingUploader - INFO - __init__:42 - Main window initialized
+2025-09-29 18:55:16,047 - TNSBookingUploader - INFO - run:300 - Starting GUI main loop
+2025-09-29 18:57:16,799 - TNSBookingUploader - ERROR - is_valid_excel_file:41 - Unsupported file extension: .txt
+2025-09-29 18:57:16,799 - TNSBookingUploader - ERROR - is_valid_excel_file:37 - Invalid file path: nonexistent_file.xlsx
+2025-09-29 18:57:16,799 - TNSBookingUploader - ERROR - is_valid_excel_file:45 - File is empty: /var/folders/10/5mk_gw_911s_1jvf2kkvcll80000gn/T/tmp_h4dyc_m.xlsx
+2025-09-29 18:57:16,800 - TNSBookingUploader - INFO - validate_column_structure:78 - Column validation passed: ['Date', 'Time', 'Driver', 'From', 'To', 'Reason', 'Shift']
+2025-09-29 18:57:16,800 - TNSBookingUploader - ERROR - validate_column_structure:72 - Column validation failed:
+2025-09-29 18:57:16,800 - TNSBookingUploader - ERROR - validate_column_structure:73 -   Found columns: ['Date', 'Time', 'Driver']
+2025-09-29 18:57:16,800 - TNSBookingUploader - ERROR - validate_column_structure:74 -   Required columns: ['Date', 'Time', 'Driver', 'From', 'To', 'Reason', 'Shift']
+2025-09-29 18:57:16,800 - TNSBookingUploader - ERROR - validate_column_structure:75 -   Missing columns: ['from', 'to', 'reason', 'shift']
+2025-09-29 18:57:16,800 - TNSBookingUploader - INFO - validate_column_structure:78 - Column validation passed: ['date', 'TIME', 'Driver', 'from', 'TO', 'reason', 'SHIFT']
+2025-09-29 18:57:16,805 - TNSBookingUploader - INFO - __init__:38 - Excel processor initialized
+2025-09-29 18:57:16,805 - TNSBookingUploader - INFO - process_file:43 - Processing Excel file: /var/folders/10/5mk_gw_911s_1jvf2kkvcll80000gn/T/tmpngrkqtee.xlsx
+2025-09-29 18:57:16,808 - TNSBookingUploader - INFO - _read_excel_file:106 - Successfully read Excel file with 2 rows and 7 columns
+2025-09-29 18:57:16,808 - TNSBookingUploader - INFO - validate_column_structure:78 - Column validation passed: ['Date', 'Time', 'Driver', 'From', 'To', 'Reason', 'Shift']
+2025-09-29 18:57:16,808 - TNSBookingUploader - INFO - _process_data:172 - Data processing completed: 2 valid rows, 0 invalid rows
+2025-09-29 18:57:16,808 - TNSBookingUploader - INFO - process_file:73 - Excel processing completed: 2 rows, 2 valid, 0 invalid
+2025-09-29 18:57:16,810 - TNSBookingUploader - INFO - __init__:38 - Excel processor initialized
+2025-09-29 18:57:16,811 - TNSBookingUploader - INFO - process_file:43 - Processing Excel file: /var/folders/10/5mk_gw_911s_1jvf2kkvcll80000gn/T/tmp6699z99n.xlsx
+2025-09-29 18:57:16,812 - TNSBookingUploader - INFO - _read_excel_file:106 - Successfully read Excel file with 2 rows and 7 columns
+2025-09-29 18:57:16,812 - TNSBookingUploader - INFO - validate_column_structure:78 - Column validation passed: ['Date', 'Time', 'Driver', 'From', 'To', 'Reason', 'Shift']
+2025-09-29 18:57:16,812 - TNSBookingUploader - INFO - _process_data:172 - Data processing completed: 1 valid rows, 1 invalid rows
+2025-09-29 18:57:16,813 - TNSBookingUploader - INFO - process_file:73 - Excel processing completed: 2 rows, 1 valid, 1 invalid
+2025-09-29 18:57:16,815 - TNSBookingUploader - INFO - __init__:38 - Excel processor initialized
+2025-09-29 18:57:16,815 - TNSBookingUploader - INFO - process_file:43 - Processing Excel file: /var/folders/10/5mk_gw_911s_1jvf2kkvcll80000gn/T/tmpwhwb3rs4.xlsx
+2025-09-29 18:57:16,816 - TNSBookingUploader - INFO - _read_excel_file:106 - Successfully read Excel file with 2 rows and 2 columns
+2025-09-29 18:57:16,816 - TNSBookingUploader - ERROR - validate_column_structure:72 - Column validation failed:
+2025-09-29 18:57:16,816 - TNSBookingUploader - ERROR - validate_column_structure:73 -   Found columns: ['Wrong1', 'Wrong2']
+2025-09-29 18:57:16,816 - TNSBookingUploader - ERROR - validate_column_structure:74 -   Required columns: ['Date', 'Time', 'Driver', 'From', 'To', 'Reason', 'Shift']
+2025-09-29 18:57:16,816 - TNSBookingUploader - ERROR - validate_column_structure:75 -   Missing columns: ['date', 'time', 'driver', 'from', 'to', 'reason', 'shift']
+2025-09-29 18:57:16,817 - TNSBookingUploader - INFO - __init__:38 - Excel processor initialized
+2025-09-29 19:00:49,129 - TNSBookingUploader - INFO - main:28 - TNS Booking Uploader Bot starting...
+2025-09-29 19:00:49,278 - TNSBookingUploader - INFO - __init__:42 - Main window initialized
+2025-09-29 19:00:49,278 - TNSBookingUploader - INFO - run:300 - Starting GUI main loop
+2025-09-29 19:00:52,706 - TNSBookingUploader - INFO - _open_portal:162 - Opening iCabbi portal: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 19:00:52,707 - TNSBookingUploader - INFO - __init__:23 - Web automation handler initialized
+2025-09-29 19:00:52,707 - TNSBookingUploader - INFO - open_portal_in_browser:73 - Opening iCabbi portal: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 19:00:52,708 - TNSBookingUploader - INFO - _find_preferred_browser:56 - Found browser at: /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+2025-09-29 19:00:52,842 - TNSBookingUploader - INFO - open_portal_in_browser:81 - Portal opened successfully
+2025-09-29 19:00:52,842 - TNSBookingUploader - INFO - _open_portal:175 - iCabbi portal opened successfully
+2025-09-29 19:00:56,441 - TNSBookingUploader - INFO - _start_upload:193 - Starting booking upload process
+2025-09-29 19:01:00,152 - TNSBookingUploader - INFO - __init__:38 - Excel processor initialized
+2025-09-29 19:01:00,152 - TNSBookingUploader - INFO - process_file:43 - Processing Excel file: /Users/poornajay/Downloads/Metro Location with Shortcodes 17.9.2025.xlsx
+2025-09-29 19:01:00,213 - TNSBookingUploader - INFO - _read_excel_file:106 - Successfully read Excel file with 118 rows and 17 columns
+2025-09-29 19:01:00,213 - TNSBookingUploader - ERROR - validate_column_structure:72 - Column validation failed:
+2025-09-29 19:01:00,214 - TNSBookingUploader - ERROR - validate_column_structure:73 -   Found columns: ['Area', 'Pick up & Drop Off location', 'Name', 'STTS address (if you type into address bar anf google search pops this custom saved address)', 'Unnamed: 4', 'Shared Acronyms', 'Shared Acronyms .1', 'Shared Acronyms .2', 'Shared Acronyms .3', 'Unnamed: 9', 'Unnamed: 10', 'Latitude', 'Longitude', 'Address', 'City', 'State', 'Postcode']
+2025-09-29 19:01:00,214 - TNSBookingUploader - ERROR - validate_column_structure:74 -   Required columns: ['Date', 'Time', 'Driver', 'From', 'To', 'Reason', 'Shift']
+2025-09-29 19:01:00,214 - TNSBookingUploader - ERROR - validate_column_structure:75 -   Missing columns: ['date', 'time', 'driver', 'from', 'to', 'reason', 'shift']
+2025-09-29 19:01:18,152 - TNSBookingUploader - ERROR - _on_file_processed:277 - File processing failed: Invalid column structure. Expected: Date, Time, Driver, From, To, Reason, Shift
+2025-09-29 19:01:19,015 - TNSBookingUploader - INFO - _start_upload:193 - Starting booking upload process
+2025-09-29 19:01:22,228 - TNSBookingUploader - INFO - process_file:43 - Processing Excel file: /Users/poornajay/Downloads/Metro Location with Shortcodes 17.9.2025.xlsx
+2025-09-29 19:01:22,246 - TNSBookingUploader - INFO - _read_excel_file:106 - Successfully read Excel file with 118 rows and 17 columns
+2025-09-29 19:01:22,246 - TNSBookingUploader - ERROR - validate_column_structure:72 - Column validation failed:
+2025-09-29 19:01:22,246 - TNSBookingUploader - ERROR - validate_column_structure:73 -   Found columns: ['Area', 'Pick up & Drop Off location', 'Name', 'STTS address (if you type into address bar anf google search pops this custom saved address)', 'Unnamed: 4', 'Shared Acronyms', 'Shared Acronyms .1', 'Shared Acronyms .2', 'Shared Acronyms .3', 'Unnamed: 9', 'Unnamed: 10', 'Latitude', 'Longitude', 'Address', 'City', 'State', 'Postcode']
+2025-09-29 19:01:22,246 - TNSBookingUploader - ERROR - validate_column_structure:74 -   Required columns: ['Date', 'Time', 'Driver', 'From', 'To', 'Reason', 'Shift']
+2025-09-29 19:01:22,246 - TNSBookingUploader - ERROR - validate_column_structure:75 -   Missing columns: ['date', 'time', 'driver', 'from', 'to', 'reason', 'shift']
+2025-09-29 19:01:23,619 - TNSBookingUploader - ERROR - _on_file_processed:277 - File processing failed: Invalid column structure. Expected: Date, Time, Driver, From, To, Reason, Shift
+2025-09-29 19:01:24,779 - TNSBookingUploader - INFO - _start_upload:193 - Starting booking upload process
+2025-09-29 19:01:28,360 - TNSBookingUploader - INFO - process_file:43 - Processing Excel file: /Users/poornajay/Downloads/SILVERTOP BOOKING 04 SEPT 2025 (1).xlsx
+2025-09-29 19:01:28,371 - TNSBookingUploader - INFO - _read_excel_file:106 - Successfully read Excel file with 102 rows and 7 columns
+2025-09-29 19:01:28,371 - TNSBookingUploader - INFO - validate_column_structure:78 - Column validation passed: ['Date', 'Time', 'Driver', 'From', 'To', 'Reason', 'Shift']
+2025-09-29 19:01:28,376 - TNSBookingUploader - INFO - _process_data:172 - Data processing completed: 96 valid rows, 6 invalid rows
+2025-09-29 19:01:28,376 - TNSBookingUploader - INFO - process_file:73 - Excel processing completed: 102 rows, 96 valid, 6 invalid
+2025-09-29 19:01:29,829 - TNSBookingUploader - INFO - _on_file_processed:272 - File processing completed
+2025-09-29 19:07:11,530 - TNSBookingUploader - ERROR - validate_column_structure:69 - Column validation failed. Missing: ['from', 'to', 'reason', 'shift']
+2025-09-29 19:07:11,539 - TNSBookingUploader - INFO - _process_data:136 - Data processing completed: 2 valid rows, 0 invalid rows
+2025-09-29 19:07:11,543 - TNSBookingUploader - INFO - _process_data:136 - Data processing completed: 1 valid rows, 1 invalid rows
+2025-09-29 19:07:11,547 - TNSBookingUploader - ERROR - validate_column_structure:69 - Column validation failed. Missing: ['date', 'time', 'driver', 'from', 'to', 'reason', 'shift']
+2025-09-29 19:07:16,997 - TNSBookingUploader - ERROR - open_portal_in_browser:93 - Error opening portal: No browser found
+2025-09-29 19:07:16,997 - TNSBookingUploader - WARNING - open_portal_in_browser:77 - Direct browser launch failed: Chrome launch error
+2025-09-29 19:17:54,775 - INFO - Starting booking upload process
+2025-09-29 19:18:00,953 - INFO - Data processing completed: 96 valid rows, 6 invalid rows
+2025-09-29 19:20:23,896 - INFO - Data processing completed: 3 valid rows, 0 invalid rows
+2025-09-29 19:20:55,914 - INFO - Data processing completed: 96 valid rows, 6 invalid rows
+2025-09-29 19:21:38,419 - ERROR - Column validation failed. Missing: ['from', 'to', 'reason', 'shift']
+2025-09-29 19:21:38,427 - INFO - Data processing completed: 2 valid rows, 0 invalid rows
+2025-09-29 19:21:38,431 - INFO - Data processing completed: 1 valid rows, 1 invalid rows
+2025-09-29 19:21:38,436 - ERROR - Column validation failed. Missing: ['date', 'time', 'driver', 'from', 'to', 'reason', 'shift']
+2025-09-29 19:21:38,442 - INFO - Data processing completed: 2 valid rows, 0 invalid rows
+2025-09-29 19:32:49,224 - ERROR - Error opening portal: No browser found
+2025-09-29 19:32:49,225 - WARNING - Direct browser launch failed: Chrome launch error
+2025-09-29 19:33:20,467 - ERROR - Error opening portal: No browser found
+2025-09-29 19:33:20,467 - WARNING - Direct browser launch failed: Chrome launch error
+2025-09-29 19:33:20,633 - ERROR - No valid bookings found in processed data
+2025-09-29 19:33:20,633 - ERROR - No valid bookings found in processed data
+2025-09-29 19:33:44,027 - INFO - Starting booking creation for 2 valid bookings
+2025-09-29 19:33:46,970 - INFO - Navigating to: https://silvertopcorporate.business.icabbi.com/create-v2
+2025-09-29 19:33:54,449 - INFO - Filling driver name: MAJCEN Dennis
+2025-09-29 19:34:04,452 - ERROR - Error during booking creation: Page.wait_for_selector: Timeout 10000ms exceeded.
+Call log:
+  - waiting for locator("input[placeholder=\"Enter name\"]") to be visible
+
+2025-09-29 19:34:04,604 - ERROR - No valid bookings found in processed data
+2025-09-29 19:34:04,604 - ERROR - No valid bookings found in processed data
+2025-09-29 19:41:14,690 - ERROR - Column validation failed. Missing: ['from', 'to', 'reason', 'shift']
+2025-09-29 19:41:14,701 - INFO - Data processing completed: 2 valid rows, 0 invalid rows
+2025-09-29 19:41:14,707 - INFO - Data processing completed: 1 valid rows, 1 invalid rows
+2025-09-29 19:41:14,711 - ERROR - Column validation failed. Missing: ['date', 'time', 'driver', 'from', 'to', 'reason', 'shift']
+2025-09-29 19:41:14,715 - INFO - Data processing completed: 2 valid rows, 0 invalid rows
+2025-09-29 19:41:22,113 - ERROR - Error opening portal: No browser found
+2025-09-29 19:41:22,113 - WARNING - Direct browser launch failed: Chrome launch error
+2025-09-29 19:41:24,237 - ERROR - No valid bookings found in processed data
+2025-09-29 19:41:24,237 - ERROR - No valid bookings found in processed data
+2025-09-29 20:23:27,835 - INFO - Starting booking upload process
+2025-09-29 20:23:31,868 - INFO - File selection cancelled by user
+2025-09-29 20:23:47,005 - INFO - Starting booking upload process
+2025-09-29 20:23:49,580 - INFO - File selection cancelled by user
+2025-09-29 20:24:19,000 - INFO - Starting booking upload process
+2025-09-29 20:24:21,241 - INFO - File selection cancelled by user
+2025-09-29 20:25:13,315 - INFO - Starting booking upload process
+2025-09-29 20:25:15,032 - INFO - File selection cancelled by user
+2025-09-29 20:31:32,971 - ERROR - Error opening portal: No browser found
+2025-09-29 20:31:32,972 - WARNING - Direct browser launch failed: Chrome launch error
+2025-09-29 20:31:33,132 - ERROR - No valid bookings found in processed data
+2025-09-29 20:31:33,133 - ERROR - No valid bookings found in processed data
+2025-09-29 20:31:38,144 - ERROR - Column validation failed. Missing: ['from', 'to', 'reason', 'shift']
+2025-09-29 20:31:38,155 - INFO - Data processing completed: 2 valid rows, 0 invalid rows
+2025-09-29 20:31:38,161 - INFO - Data processing completed: 1 valid rows, 1 invalid rows
+2025-09-29 20:31:38,166 - ERROR - Column validation failed. Missing: ['date', 'time', 'driver', 'from', 'to', 'reason', 'shift']
+2025-09-29 20:31:38,170 - INFO - Data processing completed: 2 valid rows, 0 invalid rows
+2025-09-29 20:32:48,404 - INFO - Starting booking upload process
+2025-09-29 20:32:54,830 - INFO - Data processing completed: 96 valid rows, 6 invalid rows
+2025-09-29 20:33:01,412 - INFO - Starting booking creation for 96 valid bookings
+2025-09-29 20:33:02,727 - INFO - Navigating to: https://silvertopcorporate.business.icabbi.com/create-v2
+2025-09-29 20:33:10,251 - INFO - Filling driver name: MAJCEN Dennis
+2025-09-29 20:33:10,756 - ERROR - Error during booking creation: Page.wait_for_selector: Target page, context or browser has been closed
+Call log:
+  - waiting for locator("input[placeholder=\"Enter name\"]") to be visible
+
+2025-09-29 20:40:54,525 - ERROR - Unhandled exception: 'MainWindow' object has no attribute '_configure_disabled_button_style'
+2025-09-29 20:41:40,942 - ERROR - Unhandled exception: 'MainWindow' object has no attribute '_configure_disabled_button_style'
+2025-09-29 20:44:55,929 - ERROR - Error opening portal: 'WebAutomation' object has no attribute 'playwright'
+2025-09-29 20:44:55,940 - ERROR - Error opening portal: 'WebAutomation' object has no attribute 'playwright'
+2025-09-29 20:44:55,940 - ERROR - Error opening portal: 'WebAutomation' object has no attribute 'playwright'
+2025-09-29 20:44:55,942 - ERROR - Error starting booking creation: 'WebAutomation' object has no attribute 'page'
+2025-09-29 20:44:55,942 - ERROR - Error starting booking creation: 'WebAutomation' object has no attribute 'page'
+2025-09-29 20:45:38,649 - ERROR - Error opening portal: 'WebAutomation' object has no attribute 'playwright'
+2025-09-29 20:45:38,650 - ERROR - Error opening portal: 'WebAutomation' object has no attribute 'playwright'
+2025-09-29 20:45:38,652 - ERROR - Error starting booking creation: 'WebAutomation' object has no attribute 'page'
+2025-09-29 20:45:38,652 - ERROR - Error starting booking creation: 'WebAutomation' object has no attribute 'page'
+2025-09-29 20:46:36,747 - ERROR - Error opening portal: 'WebAutomation' object has no attribute 'playwright'
+2025-09-29 20:46:36,748 - ERROR - Error opening portal: 'WebAutomation' object has no attribute 'playwright'
+2025-09-29 20:46:36,749 - ERROR - Error starting booking creation: 'WebAutomation' object has no attribute 'page'
+2025-09-29 20:46:36,749 - ERROR - Error starting booking creation: 'WebAutomation' object has no attribute 'page'
+2025-09-29 20:47:31,003 - ERROR - Browser not initialized. Please open the iCabbi portal first.
+2025-09-29 20:47:59,910 - ERROR - Column validation failed. Missing: ['from', 'to', 'reason', 'shift']
+2025-09-29 20:47:59,919 - INFO - Data processing completed: 2 valid rows, 0 invalid rows
+2025-09-29 20:47:59,924 - INFO - Data processing completed: 1 valid rows, 1 invalid rows
+2025-09-29 20:47:59,929 - ERROR - Column validation failed. Missing: ['date', 'time', 'driver', 'from', 'to', 'reason', 'shift']
+2025-09-29 20:47:59,935 - INFO - Data processing completed: 2 valid rows, 0 invalid rows
+2025-09-29 20:48:00,583 - INFO - Main window destroyed
+2025-09-29 20:48:01,519 - INFO - Opening iCabbi portal: https://silvertopcorporate.business.icabbi.com/trips/all-trips
+2025-09-29 20:48:07,820 - INFO - iCabbi portal opened successfully
+2025-09-29 20:48:07,824 - ERROR - Error opening portal: It looks like you are using Playwright Sync API inside the asyncio loop.
+Please use the Async API instead.
+2025-09-29 20:48:07,826 - ERROR - Browser not initialized. Please open the iCabbi portal first.
+2025-09-29 20:48:07,826 - ERROR - Browser not initialized. Please open the iCabbi portal first.
+2025-09-29 20:52:28,052 - INFO - Data processing completed: 96 valid rows, 6 invalid rows
+2025-09-29 20:52:28,053 - ERROR - Browser not initialized. Please open the iCabbi portal first.
+2025-09-29 20:54:31,359 - INFO - Browser state loaded from browser_state.json
+2025-09-29 20:54:31,359 - INFO - Browser state cleared
+2025-09-29 20:57:21,714 - ERROR - Column validation failed. Missing: ['from', 'to', 'reason', 'shift']
+2025-09-29 20:57:21,722 - INFO - Data processing completed: 2 valid rows, 0 invalid rows
+2025-09-29 20:57:21,728 - INFO - Data processing completed: 1 valid rows, 1 invalid rows
+2025-09-29 20:57:21,733 - ERROR - Column validation failed. Missing: ['date', 'time', 'driver', 'from', 'to', 'reason', 'shift']
+2025-09-29 20:57:21,739 - INFO - Data processing completed: 2 valid rows, 0 invalid rows
+2025-09-29 20:57:22,243 - INFO - Main window destroyed
+2025-09-29 20:57:22,245 - ERROR - Playwright not installed. Please install with: pip install playwright
+2025-09-29 20:57:22,245 - ERROR - Browser not initialized. Please open the iCabbi portal first.
+2025-09-29 20:57:22,245 - ERROR - Browser not initialized. Please open the iCabbi portal first.
+2025-09-29 20:58:52,525 - ERROR - Column validation failed. Missing: ['from', 'to', 'reason', 'shift']
+2025-09-29 20:58:52,534 - INFO - Data processing completed: 2 valid rows, 0 invalid rows
+2025-09-29 20:58:52,539 - INFO - Data processing completed: 1 valid rows, 1 invalid rows
+2025-09-29 20:58:52,544 - ERROR - Column validation failed. Missing: ['date', 'time', 'driver', 'from', 'to', 'reason', 'shift']
+2025-09-29 20:58:52,549 - INFO - Data processing completed: 2 valid rows, 0 invalid rows
+2025-09-29 20:58:52,582 - ERROR - Browser not initialized. Please open the iCabbi portal first.
+2025-09-29 20:58:52,582 - ERROR - Browser not initialized. Please open the iCabbi portal first.
+2025-09-29 20:58:52,582 - ERROR - Browser not initialized. Please open the iCabbi portal first.
+2025-09-29 20:58:52,583 - ERROR - Playwright not installed. Please install with: pip install playwright
+2025-09-29 20:58:52,584 - ERROR - Browser not initialized. Please open the iCabbi portal first.
+2025-09-29 20:58:52,584 - ERROR - Browser not initialized. Please open the iCabbi portal first.
+2025-09-29 20:59:11,032 - ERROR - Column validation failed. Missing: ['from', 'to', 'reason', 'shift']
+2025-09-29 20:59:11,040 - INFO - Data processing completed: 2 valid rows, 0 invalid rows
+2025-09-29 20:59:11,045 - INFO - Data processing completed: 1 valid rows, 1 invalid rows
+2025-09-29 20:59:11,049 - ERROR - Column validation failed. Missing: ['date', 'time', 'driver', 'from', 'to', 'reason', 'shift']
+2025-09-29 20:59:11,054 - INFO - Data processing completed: 2 valid rows, 0 invalid rows
+2025-09-29 20:59:11,064 - ERROR - Browser not initialized. Please open the iCabbi portal first.
+2025-09-29 20:59:11,065 - ERROR - Browser not initialized. Please open the iCabbi portal first.
+2025-09-29 20:59:11,065 - ERROR - Browser not initialized. Please open the iCabbi portal first.
+2025-09-29 20:59:11,066 - ERROR - Playwright not installed. Please install with: pip install playwright
+2025-09-29 20:59:11,067 - ERROR - Browser not initialized. Please open the iCabbi portal first.
+2025-09-29 20:59:11,067 - ERROR - Browser not initialized. Please open the iCabbi portal first.
+2025-09-29 21:01:31,908 - ERROR - Column validation failed. Missing: ['from', 'to', 'reason', 'shift']
+2025-09-29 21:01:31,916 - INFO - Data processing completed: 2 valid rows, 0 invalid rows
+2025-09-29 21:01:31,922 - INFO - Data processing completed: 1 valid rows, 1 invalid rows
+2025-09-29 21:01:31,927 - ERROR - Column validation failed. Missing: ['date', 'time', 'driver', 'from', 'to', 'reason', 'shift']
+2025-09-29 21:01:31,933 - INFO - Data processing completed: 2 valid rows, 0 invalid rows
+2025-09-29 21:01:31,942 - ERROR - Browser not initialized. Please open the iCabbi portal first.
+2025-09-29 21:01:31,942 - ERROR - Browser not initialized. Please open the iCabbi portal first.
+2025-09-29 21:01:31,942 - ERROR - Browser not initialized. Please open the iCabbi portal first.
+2025-09-29 21:01:31,943 - ERROR - Playwright not installed. Please install with: pip install playwright
+2025-09-29 21:01:31,944 - ERROR - Browser not initialized. Please open the iCabbi portal first.
+2025-09-29 21:01:31,944 - ERROR - Browser not initialized. Please open the iCabbi portal first.

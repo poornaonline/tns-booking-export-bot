@@ -7,7 +7,7 @@ from tkinter import ttk, filedialog, messagebox
 import webbrowser
 import threading
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Dict, Any
 
 from ..utils.logger import get_logger
 from ..utils.validators import Validator
@@ -58,14 +58,14 @@ class MainWindow:
         self.root.geometry(self.WINDOW_SIZE)
         self.root.resizable(True, True)
 
-        # Center the window on screen
+        # Center the window on screen (increased width for Action column)
         self.root.update_idletasks()
-        x = (self.root.winfo_screenwidth() // 2) - (1400 // 2)
+        x = (self.root.winfo_screenwidth() // 2) - (1500 // 2)
         y = (self.root.winfo_screenheight() // 2) - (700 // 2)
-        self.root.geometry(f"1400x700+{x}+{y}")
+        self.root.geometry(f"1500x700+{x}+{y}")
 
         # Set minimum size
-        self.root.minsize(1200, 600)
+        self.root.minsize(1300, 600)
 
         # Configure grid weights for responsive design
         self.root.grid_columnconfigure(0, weight=1)
@@ -91,16 +91,7 @@ class MainWindow:
             text="TNS Booking Uploader Bot",
             font=("Arial", 14, "bold")
         )
-        title_label.grid(row=0, column=0, pady=(0, 10))
-
-        # Description
-        desc_label = ttk.Label(
-            left_panel,
-            text="Automate booking uploads\nto iCabbi portal",
-            font=("Arial", 9),
-            justify=tk.CENTER
-        )
-        desc_label.grid(row=1, column=0, pady=(0, 20))
+        title_label.grid(row=0, column=0, pady=(0, 30))
         
         # Buttons frame
         buttons_frame = ttk.Frame(left_panel)
@@ -205,16 +196,6 @@ class MainWindow:
         )
         self.progress_bar.grid(row=1, column=0, pady=(10, 0), sticky=(tk.W, tk.E))
 
-        # Footer
-        footer_label = ttk.Label(
-            left_panel,
-            text="© 2025 TNS\nInternal Use Only",
-            font=("Arial", 7),
-            foreground="gray",
-            justify=tk.CENTER
-        )
-        footer_label.grid(row=5, column=0, pady=(20, 0))
-
         # Right panel for bookings table
         right_panel = ttk.Frame(main_frame)
         right_panel.grid(row=0, column=1, sticky=(tk.W, tk.E, tk.N, tk.S))
@@ -242,7 +223,7 @@ class MainWindow:
         # Treeview
         self.bookings_tree = ttk.Treeview(
             table_frame,
-            columns=("date", "time", "driver", "mobile", "from", "to", "status"),
+            columns=("date", "time", "driver", "mobile", "from", "to", "status", "action"),
             show="headings",
             yscrollcommand=vsb.set,
             xscrollcommand=hsb.set,
@@ -260,6 +241,7 @@ class MainWindow:
         self.bookings_tree.heading("from", text="From")
         self.bookings_tree.heading("to", text="To")
         self.bookings_tree.heading("status", text="Status")
+        self.bookings_tree.heading("action", text="Action")
 
         # Column widths - increased for better visibility
         self.bookings_tree.column("date", width=100, anchor=tk.CENTER)
@@ -269,6 +251,7 @@ class MainWindow:
         self.bookings_tree.column("from", width=250, anchor=tk.W)
         self.bookings_tree.column("to", width=250, anchor=tk.W)
         self.bookings_tree.column("status", width=120, anchor=tk.CENTER)
+        self.bookings_tree.column("action", width=100, anchor=tk.CENTER)
 
         # Grid layout
         self.bookings_tree.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
@@ -280,6 +263,9 @@ class MainWindow:
         self.bookings_tree.tag_configure("processing", foreground="blue")
         self.bookings_tree.tag_configure("done", foreground="green")
         self.bookings_tree.tag_configure("error", foreground="red")
+
+        # Bind click event to handle action column clicks
+        self.bookings_tree.bind("<Button-1>", self._on_tree_click)
     
     def _configure_disabled_button_style(self):
         """Configure the style for disabled buttons to make them more visually obvious."""
@@ -380,6 +366,9 @@ class MainWindow:
             self.total_bookings = len(bookings_to_process)
             self.is_processing = True
             self.stop_processing = False
+
+            # Disable all action buttons during batch processing
+            self._disable_all_action_buttons()
 
             logger.info(f"Starting to process {self.total_bookings} bookings (skipping {len(valid_bookings) - self.total_bookings} already done)")
 
@@ -506,6 +495,9 @@ class MainWindow:
         self.create_bookings_button.config(state="normal")
         self.stop_button.config(state="disabled")
 
+        # Re-enable all action buttons
+        self._enable_all_action_buttons()
+
         # Count completed bookings
         completed = sum(1 for _, info in self.booking_statuses.items() if info['status'] == 'done')
 
@@ -524,6 +516,9 @@ class MainWindow:
         self.create_bookings_button.config(state="normal")
         self.stop_button.config(state="disabled")
 
+        # Re-enable all action buttons
+        self._enable_all_action_buttons()
+
         # Count successes and failures
         done_count = sum(1 for _, info in self.booking_statuses.items() if info['status'] == 'done')
         error_count = sum(1 for _, info in self.booking_statuses.items() if info['status'] == 'error')
@@ -540,6 +535,9 @@ class MainWindow:
         self.stop_processing = False
         self._update_status("Error processing bookings")
         self.create_bookings_button.config(state="normal")
+
+        # Re-enable all action buttons
+        self._enable_all_action_buttons()
         self.stop_button.config(state="disabled")
         messagebox.showerror("Booking Error", error_msg)
 
@@ -744,21 +742,42 @@ class MainWindow:
                     from_loc = booking.get('From', 'N/A')
                     to_loc = booking.get('To', 'N/A')
 
-                    # Insert into table with "Pending" status
+                    # Get existing status from Excel file
+                    existing_status = booking.get('Status', '')
+
+                    # Determine status and action button based on existing status
+                    if existing_status and str(existing_status).strip().lower() == 'done':
+                        status_display = "Done"
+                        action_display = "✓ Done"
+                        status_tag = "done"
+                        internal_status = 'done'
+                    else:
+                        status_display = "Pending"
+                        action_display = "▶ Process"
+                        status_tag = "pending"
+                        internal_status = 'pending'
+
+                    # Insert into table with status from Excel file
                     item_id = self.bookings_tree.insert(
                         "",
                         tk.END,
-                        values=(date_str, time_str, driver, mobile_str, from_loc, to_loc, "Pending"),
-                        tags=("pending",)
+                        values=(date_str, time_str, driver, mobile_str, from_loc, to_loc, status_display, action_display),
+                        tags=(status_tag,)
                     )
 
                     # Track status by item ID
                     self.booking_statuses[item_id] = {
                         'index': idx,
-                        'status': 'pending'
+                        'status': internal_status,
+                        'booking': booking
                     }
 
+                # Count already completed bookings
+                already_done = sum(1 for info in self.booking_statuses.values() if info['status'] == 'done')
+
                 status_msg = f"File processed successfully. {result.row_count} bookings loaded."
+                if already_done > 0:
+                    status_msg += f" ({already_done} already completed)"
                 self._update_status(status_msg)
                 self._update_progress(100)
 
@@ -767,13 +786,16 @@ class MainWindow:
                 self.clear_file_button.config(state="normal")
 
                 # Show success message
-                messagebox.showinfo(
-                    "Success",
-                    f"Excel file processed successfully!\n\n"
-                    f"Bookings loaded: {result.row_count}\n"
-                    f"Valid rows: {result.valid_rows}\n"
-                    f"Invalid rows: {result.invalid_rows}"
-                )
+                success_msg = f"Excel file processed successfully!\n\n"
+                success_msg += f"Bookings loaded: {result.row_count}\n"
+                success_msg += f"Valid rows: {result.valid_rows}\n"
+                success_msg += f"Invalid rows: {result.invalid_rows}"
+
+                if already_done > 0:
+                    success_msg += f"\n\n✓ Already completed: {already_done}\n"
+                    success_msg += f"⏳ Pending: {result.row_count - already_done}"
+
+                messagebox.showinfo("Success", success_msg)
 
             else:
                 # Clear processed data on failure and disable button
@@ -805,7 +827,7 @@ class MainWindow:
         self.root.update_idletasks()
 
     def _update_booking_status(self, booking_index: int, status: str):
-        """Update the status of a booking in the table.
+        """Update the status of a booking in the table and Excel file.
 
         Args:
             booking_index: Index of the booking in processed_data
@@ -821,7 +843,7 @@ class MainWindow:
                     # Get current values
                     values = list(self.bookings_tree.item(item_id, 'values'))
 
-                    # Update status column (last column)
+                    # Update status column (second to last column)
                     status_text = {
                         'pending': 'Pending',
                         'processing': 'Processing...',
@@ -829,7 +851,17 @@ class MainWindow:
                         'error': 'Error'
                     }.get(status, status)
 
-                    values[-1] = status_text
+                    values[-2] = status_text  # Status is second to last (action is last)
+
+                    # Update action column based on status
+                    if status == 'done':
+                        values[-1] = "✓ Done"
+                    elif status == 'error':
+                        values[-1] = "⟳ Retry"
+                    elif status == 'processing':
+                        values[-1] = "⏸ Processing..."
+                    else:  # pending
+                        values[-1] = "▶ Process"
 
                     # Update tree item with new values and tag
                     self.bookings_tree.item(item_id, values=values, tags=(status,))
@@ -839,11 +871,231 @@ class MainWindow:
 
                     # Update UI
                     self.root.update_idletasks()
+
+                    # Update Excel file with status (only for done/error, not processing)
+                    if status in ['done', 'error'] and self.selected_file_path:
+                        booking = info['booking']
+                        row_number = booking.get('row_number', booking_index + 2)
+                        excel_status = 'Done' if status == 'done' else 'Error'
+
+                        # Update Excel file in background thread to avoid blocking UI
+                        threading.Thread(
+                            target=self._update_excel_status,
+                            args=(self.selected_file_path, row_number, excel_status),
+                            daemon=True
+                        ).start()
+
                     break
 
         except Exception as e:
             logger.error(f"Error updating booking status: {str(e)}")
-    
+
+    def _update_excel_status(self, file_path: str, row_number: int, status: str):
+        """Update the status in the Excel file (runs in background thread)."""
+        try:
+            if self.excel_processor:
+                self.excel_processor.update_booking_status(file_path, row_number, status)
+        except Exception as e:
+            logger.error(f"Error updating Excel status: {str(e)}")
+
+    def _on_tree_click(self, event):
+        """Handle clicks on the treeview to detect action button clicks."""
+        try:
+            # Identify the region clicked
+            region = self.bookings_tree.identify_region(event.x, event.y)
+            if region != "cell":
+                return
+
+            # Get the column clicked
+            column = self.bookings_tree.identify_column(event.x)
+
+            # Check if it's the action column (last column, #8)
+            if column != "#8":
+                return
+
+            # Get the item clicked
+            item_id = self.bookings_tree.identify_row(event.y)
+            if not item_id:
+                return
+
+            # Check if we're already processing
+            if self.is_processing:
+                messagebox.showwarning(
+                    "Processing in Progress",
+                    "Another booking is currently being processed.\n\n"
+                    "Please wait for it to complete or click 'Stop Processing'."
+                )
+                return
+
+            # Get booking info
+            booking_info = self.booking_statuses.get(item_id)
+            if not booking_info:
+                return
+
+            status = booking_info['status']
+            booking_index = booking_info['index']
+
+            # Only allow processing if status is pending or error
+            if status == 'processing':
+                messagebox.showinfo(
+                    "Already Processing",
+                    "This booking is currently being processed."
+                )
+                return
+            elif status == 'done':
+                # Ask if user wants to reprocess
+                result = messagebox.askyesno(
+                    "Reprocess Booking",
+                    "This booking has already been completed.\n\n"
+                    "Do you want to process it again?"
+                )
+                if not result:
+                    return
+
+            # Start processing this single booking
+            logger.info(f"User clicked to process booking at index {booking_index}")
+            self._process_single_booking(booking_index, item_id)
+
+        except Exception as e:
+            logger.error(f"Error handling tree click: {str(e)}")
+
+    def _process_single_booking(self, booking_index: int, item_id: str):
+        """Process a single booking when user clicks the action button.
+
+        Args:
+            booking_index: Index of the booking in processed_data
+            item_id: Tree item ID for UI updates
+        """
+        try:
+            logger.info(f"Starting to process single booking at index {booking_index}")
+
+            # Set processing flag
+            self.is_processing = True
+            self.stop_processing = False
+
+            # Disable all action buttons during processing
+            self._disable_all_action_buttons()
+
+            # Disable main buttons
+            self.create_bookings_button.config(state="disabled")
+            self.stop_button.config(state="normal")
+            self.clear_file_button.config(state="disabled")
+
+            # Get the booking data
+            booking = self.booking_statuses[item_id]['booking']
+
+            # Update status to processing
+            self._update_booking_status(booking_index, 'processing')
+            self.root.update()
+
+            # Update status message
+            self._update_status(f"Processing booking {booking_index + 1}...")
+
+            # Schedule the actual booking creation on main thread
+            self.root.after(100, lambda: self._execute_single_booking_from_action(booking_index, booking, item_id))
+
+        except Exception as e:
+            logger.error(f"Error starting single booking processing: {str(e)}")
+            self.is_processing = False
+            self._enable_all_action_buttons()
+            self.create_bookings_button.config(state="normal")
+            self.stop_button.config(state="disabled")
+            self.clear_file_button.config(state="normal")
+            messagebox.showerror("Error", f"Failed to process booking:\n\n{str(e)}")
+
+    def _execute_single_booking_from_action(self, booking_index: int, booking: Dict[str, Any], item_id: str):
+        """Execute the booking creation for a single booking clicked by user."""
+        try:
+            # Set up a callback for the web automation to call periodically
+            def ui_update_callback():
+                """Called periodically during booking creation to keep UI responsive."""
+                self.root.update_idletasks()
+                self.root.update()
+                return self.stop_processing  # Return True if stop was requested
+
+            # Pass the callback to web automation
+            self.web_automation.set_ui_callback(ui_update_callback)
+
+            # Create the booking
+            success = self.web_automation.create_single_booking(booking)
+
+            # Clear the callback
+            self.web_automation.set_ui_callback(None)
+
+            # Update status based on result
+            if success:
+                self._update_booking_status(booking_index, 'done')
+                self._update_status(f"Booking {booking_index + 1} completed successfully!")
+                logger.info(f"Booking {booking_index + 1} completed successfully")
+            else:
+                self._update_booking_status(booking_index, 'error')
+                self._update_status(f"Booking {booking_index + 1} failed!")
+                logger.error(f"Booking {booking_index + 1} failed")
+
+            # Force UI update
+            self.root.update()
+
+            # Re-enable buttons
+            self.is_processing = False
+            self._enable_all_action_buttons()
+            self.create_bookings_button.config(state="normal")
+            self.stop_button.config(state="disabled")
+            self.clear_file_button.config(state="normal")
+
+            # Update progress bar based on completed bookings
+            self._update_progress_from_statuses()
+
+        except Exception as e:
+            if "stopped by user" in str(e).lower():
+                logger.info(f"Booking {booking_index + 1} processing stopped by user")
+                self._update_status(f"Processing stopped by user")
+            else:
+                logger.error(f"Error executing single booking: {str(e)}")
+                self._update_booking_status(booking_index, 'error')
+                self._update_status(f"Error processing booking {booking_index + 1}")
+
+            # Re-enable buttons
+            self.is_processing = False
+            self._enable_all_action_buttons()
+            self.create_bookings_button.config(state="normal")
+            self.stop_button.config(state="disabled")
+            self.clear_file_button.config(state="normal")
+
+    def _disable_all_action_buttons(self):
+        """Disable all action buttons in the table during processing."""
+        for item_id in self.bookings_tree.get_children():
+            values = list(self.bookings_tree.item(item_id, 'values'))
+            values[-1] = "⏸ Disabled"
+            self.bookings_tree.item(item_id, values=values)
+
+    def _enable_all_action_buttons(self):
+        """Re-enable all action buttons in the table after processing."""
+        for item_id, info in self.booking_statuses.items():
+            status = info['status']
+            values = list(self.bookings_tree.item(item_id, 'values'))
+
+            if status == 'done':
+                values[-1] = "✓ Done"
+            elif status == 'error':
+                values[-1] = "⟳ Retry"
+            elif status == 'processing':
+                values[-1] = "⏸ Processing..."
+            else:  # pending
+                values[-1] = "▶ Process"
+
+            self.bookings_tree.item(item_id, values=values)
+
+    def _update_progress_from_statuses(self):
+        """Update progress bar based on current booking statuses."""
+        if not self.booking_statuses:
+            return
+
+        total = len(self.booking_statuses)
+        completed = sum(1 for info in self.booking_statuses.values() if info['status'] == 'done')
+
+        progress = (completed / total) * 100 if total > 0 else 0
+        self._update_progress(progress)
+
     def run(self):
         """Start the GUI main loop."""
         try:
