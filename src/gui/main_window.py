@@ -22,7 +22,7 @@ class MainWindow:
 
     ICABBI_PORTAL_URL = "https://silvertopcorporate.business.icabbi.com/trips/all-trips"
     WINDOW_TITLE = "TNS Booking Uploader Bot"
-    WINDOW_SIZE = "900x600"
+    WINDOW_SIZE = "1400x700"  # Increased from 900x600
 
     def __init__(self):
         """Initialize the main window."""
@@ -32,6 +32,13 @@ class MainWindow:
         self.web_automation = None
         self.processed_data = None
         self.booking_statuses = {}  # Track status of each booking
+
+        # Booking processing state
+        self.bookings_to_process = []
+        self.current_booking_index = 0
+        self.total_bookings = 0
+        self.is_processing = False  # Flag to track if processing is active
+        self.stop_processing = False  # Flag to stop processing
 
         # GUI components
         self.file_path_var = None
@@ -53,12 +60,12 @@ class MainWindow:
 
         # Center the window on screen
         self.root.update_idletasks()
-        x = (self.root.winfo_screenwidth() // 2) - (900 // 2)
-        y = (self.root.winfo_screenheight() // 2) - (600 // 2)
-        self.root.geometry(f"900x600+{x}+{y}")
+        x = (self.root.winfo_screenwidth() // 2) - (1400 // 2)
+        y = (self.root.winfo_screenheight() // 2) - (700 // 2)
+        self.root.geometry(f"1400x700+{x}+{y}")
 
         # Set minimum size
-        self.root.minsize(800, 500)
+        self.root.minsize(1200, 600)
 
         # Configure grid weights for responsive design
         self.root.grid_columnconfigure(0, weight=1)
@@ -128,6 +135,16 @@ class MainWindow:
         )
         self.create_bookings_button.grid(row=2, column=0, pady=5, sticky=(tk.W, tk.E))
 
+        # Stop Processing button
+        self.stop_button = ttk.Button(
+            buttons_frame,
+            text="Stop Processing",
+            command=self._stop_processing,
+            width=22,
+            state="disabled"  # Initially disabled
+        )
+        self.stop_button.grid(row=3, column=0, pady=5, sticky=(tk.W, tk.E))
+
         # Clear File button
         self.clear_file_button = ttk.Button(
             buttons_frame,
@@ -136,7 +153,7 @@ class MainWindow:
             width=22,
             state="disabled"  # Initially disabled
         )
-        self.clear_file_button.grid(row=3, column=0, pady=5, sticky=(tk.W, tk.E))
+        self.clear_file_button.grid(row=4, column=0, pady=5, sticky=(tk.W, tk.E))
 
         # Clear Browser State button
         self.clear_state_button = ttk.Button(
@@ -145,7 +162,7 @@ class MainWindow:
             command=self._clear_browser_state,
             width=22
         )
-        self.clear_state_button.grid(row=4, column=0, pady=(10, 5), sticky=(tk.W, tk.E))
+        self.clear_state_button.grid(row=5, column=0, pady=(10, 5), sticky=(tk.W, tk.E))
 
         # File selection frame
         file_frame = ttk.LabelFrame(left_panel, text="Selected File", padding="10")
@@ -244,14 +261,14 @@ class MainWindow:
         self.bookings_tree.heading("to", text="To")
         self.bookings_tree.heading("status", text="Status")
 
-        # Column widths
-        self.bookings_tree.column("date", width=90, anchor=tk.CENTER)
-        self.bookings_tree.column("time", width=70, anchor=tk.CENTER)
-        self.bookings_tree.column("driver", width=100, anchor=tk.W)
-        self.bookings_tree.column("mobile", width=100, anchor=tk.CENTER)
-        self.bookings_tree.column("from", width=120, anchor=tk.W)
-        self.bookings_tree.column("to", width=120, anchor=tk.W)
-        self.bookings_tree.column("status", width=100, anchor=tk.CENTER)
+        # Column widths - increased for better visibility
+        self.bookings_tree.column("date", width=100, anchor=tk.CENTER)
+        self.bookings_tree.column("time", width=80, anchor=tk.CENTER)
+        self.bookings_tree.column("driver", width=150, anchor=tk.W)
+        self.bookings_tree.column("mobile", width=120, anchor=tk.CENTER)
+        self.bookings_tree.column("from", width=250, anchor=tk.W)
+        self.bookings_tree.column("to", width=250, anchor=tk.W)
+        self.bookings_tree.column("status", width=120, anchor=tk.CENTER)
 
         # Grid layout
         self.bookings_tree.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
@@ -326,31 +343,205 @@ class MainWindow:
 
             self._update_status("Starting booking creation process...")
 
-            # Start the booking creation process
-            success = self.web_automation.start_booking_creation(self.processed_data)
+            # Disable start button, enable stop button
+            self.create_bookings_button.config(state="disabled")
+            self.stop_button.config(state="normal")
 
-            if success:
-                self._update_status("Booking created successfully!")
-                messagebox.showinfo("Success",
-                    "Booking created successfully!\n\n"
-                    "The following steps were completed:\n"
-                    "✓ Step 1: Driver name and mobile filled\n"
-                    "✓ Step 2: Pickup and destination addresses filled\n"
-                    "✓ Step 2: Date and time filled\n"
-                    "✓ Step 3: Intermediate page navigated\n"
-                    "✓ Step 4: Project Name filled (Metro)\n"
-                    "✓ Step 5: 'Book now' button clicked\n\n"
-                    "Check the browser for confirmation.")
-            else:
-                error_msg = "Failed to create booking. Check the browser and try again."
-                self._update_status("Failed to create booking")
-                messagebox.showerror("Booking Creation Error", error_msg)
+            # Get valid bookings
+            valid_bookings = [row for row in self.processed_data if row.get('is_valid', False)]
+
+            if not valid_bookings:
+                self._on_booking_error("No valid bookings found")
+                return
+
+            # Filter out already processed bookings (status = 'done')
+            bookings_to_process = []
+            for idx, booking in enumerate(valid_bookings):
+                # Check if this booking is already done
+                is_done = False
+                for item_id, info in self.booking_statuses.items():
+                    if info['index'] == idx and info['status'] == 'done':
+                        is_done = True
+                        break
+
+                if not is_done:
+                    bookings_to_process.append((idx, booking))
+
+            if not bookings_to_process:
+                self._update_status("All bookings already processed!")
+                self.create_bookings_button.config(state="normal")
+                self.stop_button.config(state="disabled")
+                messagebox.showinfo("Complete", "All bookings have already been processed!")
+                return
+
+            # Store bookings to process
+            self.bookings_to_process = bookings_to_process
+            self.current_booking_index = 0
+            self.total_bookings = len(bookings_to_process)
+            self.is_processing = True
+            self.stop_processing = False
+
+            logger.info(f"Starting to process {self.total_bookings} bookings (skipping {len(valid_bookings) - self.total_bookings} already done)")
+
+            # Start processing first booking (on main thread)
+            self.root.after(100, self._process_next_booking)
 
         except Exception as e:
             error_msg = f"Error starting booking creation: {str(e)}"
             logger.error(error_msg)
             self._update_status("Error starting booking creation")
             messagebox.showerror("Error", error_msg)
+            self.create_bookings_button.config(state="normal")
+
+    def _process_next_booking(self):
+        """Process the next booking in the queue (runs on main thread)."""
+        try:
+            # Check if stop was requested
+            if self.stop_processing:
+                self._on_processing_stopped()
+                return
+
+            # Check if we're done
+            if self.current_booking_index >= self.total_bookings:
+                self._on_all_bookings_complete(self.total_bookings)
+                return
+
+            # Get the actual booking index and data
+            actual_index, booking = self.bookings_to_process[self.current_booking_index]
+
+            # Update status to Processing
+            self._update_booking_status(actual_index, 'processing')
+            self._update_status(f"Processing booking {self.current_booking_index + 1} of {self.total_bookings}...")
+
+            logger.info(f"Processing booking {self.current_booking_index + 1} of {self.total_bookings} (actual index: {actual_index})")
+
+            # Process events to allow UI interaction (Stop button)
+            self.root.update_idletasks()
+            self.root.update()
+
+            # Start the booking creation in chunks to keep UI responsive
+            # We'll use a callback-based approach
+            self._start_single_booking(actual_index, booking)
+
+        except Exception as e:
+            error_msg = f"Error processing booking {self.current_booking_index + 1}: {str(e)}"
+            logger.error(error_msg)
+
+            # Get actual index for error status
+            if self.current_booking_index < len(self.bookings_to_process):
+                actual_index, _ = self.bookings_to_process[self.current_booking_index]
+                self._update_booking_status(actual_index, 'error')
+
+            # Continue with next booking
+            self.current_booking_index += 1
+            self.root.after(500, self._process_next_booking)
+
+    def _start_single_booking(self, actual_index, booking):
+        """Start processing a single booking with periodic UI updates."""
+        # Schedule the actual booking creation to run after a brief delay
+        # This allows the UI to process the status update first
+        self.root.after(100, self._execute_single_booking, actual_index, booking)
+
+    def _execute_single_booking(self, actual_index, booking):
+        """Execute the booking creation with periodic UI responsiveness checks."""
+        try:
+            # Set up a callback for the web automation to call periodically
+            def ui_update_callback():
+                """Called periodically during booking creation to keep UI responsive."""
+                self.root.update_idletasks()
+                self.root.update()
+                return self.stop_processing  # Return True if stop was requested
+
+            # Pass the callback to web automation
+            self.web_automation.set_ui_callback(ui_update_callback)
+
+            # Create the booking
+            success = self.web_automation.create_single_booking(booking)
+
+            # Clear the callback
+            self.web_automation.set_ui_callback(None)
+
+            # Update status based on result
+            if success:
+                self._update_booking_status(actual_index, 'done')
+                logger.info(f"Booking {self.current_booking_index + 1} completed successfully")
+            else:
+                self._update_booking_status(actual_index, 'error')
+                logger.error(f"Booking {self.current_booking_index + 1} failed")
+
+            # Process events to keep UI responsive
+            self.root.update_idletasks()
+            self.root.update()
+
+            # Update progress
+            progress = ((self.current_booking_index + 1) / self.total_bookings) * 100
+            self._update_progress(progress)
+
+            # Move to next booking
+            self.current_booking_index += 1
+
+            # Schedule next booking (small delay to allow UI updates)
+            self.root.after(500, self._process_next_booking)
+
+        except Exception as e:
+            error_msg = f"Error executing booking {self.current_booking_index + 1}: {str(e)}"
+            logger.error(error_msg)
+            self._update_booking_status(actual_index, 'error')
+
+            # Continue with next booking
+            self.current_booking_index += 1
+            self.root.after(500, self._process_next_booking)
+
+    def _stop_processing(self):
+        """Handle Stop Processing button click."""
+        if self.is_processing:
+            self.stop_processing = True
+            self._update_status("Stopping after current booking...")
+            logger.info("User requested to stop processing")
+
+    def _on_processing_stopped(self):
+        """Handle when processing is stopped by user."""
+        self.is_processing = False
+        self.stop_processing = False
+        self.create_bookings_button.config(state="normal")
+        self.stop_button.config(state="disabled")
+
+        # Count completed bookings
+        completed = sum(1 for _, info in self.booking_statuses.items() if info['status'] == 'done')
+
+        self._update_status(f"Processing stopped. {completed} bookings completed.")
+        messagebox.showinfo("Stopped",
+            f"Processing stopped by user.\n\n"
+            f"{completed} bookings completed.\n"
+            "You can resume by clicking 'Start Processing Bookings' again.\n"
+            "Already completed bookings will be skipped.")
+
+    def _on_all_bookings_complete(self, total_bookings: int):
+        """Handle completion of all bookings."""
+        self.is_processing = False
+        self.stop_processing = False
+        self._update_status(f"All {total_bookings} bookings processed!")
+        self.create_bookings_button.config(state="normal")
+        self.stop_button.config(state="disabled")
+
+        # Count successes and failures
+        done_count = sum(1 for _, info in self.booking_statuses.items() if info['status'] == 'done')
+        error_count = sum(1 for _, info in self.booking_statuses.items() if info['status'] == 'error')
+
+        messagebox.showinfo("Complete",
+            f"All {total_bookings} bookings have been processed!\n\n"
+            f"✓ Successfully created: {done_count}\n"
+            f"✗ Failed: {error_count}\n\n"
+            "Check the Status column for details.")
+
+    def _on_booking_error(self, error_msg: str):
+        """Handle booking processing error."""
+        self.is_processing = False
+        self.stop_processing = False
+        self._update_status("Error processing bookings")
+        self.create_bookings_button.config(state="normal")
+        self.stop_button.config(state="disabled")
+        messagebox.showerror("Booking Error", error_msg)
 
     def _clear_file(self):
         """Handle Clear File button click."""
@@ -370,12 +561,20 @@ class MainWindow:
                 self.processed_data = None
                 self.booking_statuses = {}
 
+                # Reset processing state
+                self.bookings_to_process = []
+                self.current_booking_index = 0
+                self.total_bookings = 0
+                self.is_processing = False
+                self.stop_processing = False
+
                 # Clear table
                 for item in self.bookings_tree.get_children():
                     self.bookings_tree.delete(item)
 
                 # Disable buttons
                 self.create_bookings_button.config(state="disabled")
+                self.stop_button.config(state="disabled")
                 self.clear_file_button.config(state="disabled")
 
                 # Reset progress

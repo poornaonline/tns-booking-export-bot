@@ -47,6 +47,51 @@ class WebAutomation:
         # Create user data directory if it doesn't exist
         self.user_data_dir.mkdir(exist_ok=True)
 
+        # UI callback for keeping interface responsive
+        self.ui_callback = None
+
+    def set_ui_callback(self, callback):
+        """Set a callback function to be called periodically to keep UI responsive.
+
+        Args:
+            callback: Function that returns True if processing should stop, False otherwise
+        """
+        self.ui_callback = callback
+
+    def _call_ui_callback(self):
+        """Call the UI callback if set, and check if we should stop."""
+        if self.ui_callback:
+            try:
+                should_stop = self.ui_callback()
+                if should_stop:
+                    logger.info("Stop requested via UI callback")
+                    return True
+            except Exception as e:
+                logger.error(f"Error in UI callback: {e}")
+        return False
+
+    def _sleep_with_ui_update(self, seconds):
+        """Sleep while keeping UI responsive by calling callback periodically.
+
+        Args:
+            seconds: Number of seconds to sleep
+        """
+        # Break sleep into smaller chunks to keep UI responsive
+        chunk_size = 0.1  # 100ms chunks
+        chunks = int(seconds / chunk_size)
+        remainder = seconds % chunk_size
+
+        for _ in range(chunks):
+            time.sleep(chunk_size)
+            if self._call_ui_callback():
+                # Stop requested
+                raise Exception("Processing stopped by user")
+
+        if remainder > 0:
+            time.sleep(remainder)
+            if self._call_ui_callback():
+                raise Exception("Processing stopped by user")
+
     def _save_browser_state(self):
         """Save browser authentication state to file."""
         try:
@@ -189,34 +234,32 @@ class WebAutomation:
             logger.error(f"Error opening portal: {str(e)}")
             return False
 
-    def start_booking_creation(self, processed_data: List[Dict[str, Any]]) -> bool:
-        """Start the booking creation process with processed Excel data using existing browser."""
+    def create_single_booking(self, booking: Dict[str, Any]) -> bool:
+        """
+        Create a single booking.
+
+        Args:
+            booking: Dictionary containing booking data
+
+        Returns:
+            bool: True if successful, False otherwise
+        """
         try:
-            # Check if browser is already initialized
+            # Check if browser is initialized
             if not self.page:
-                logger.error("Browser not initialized. Please open the iCabbi portal first.")
+                logger.error("Browser not initialized")
                 return False
 
-            # Filter valid rows only
-            valid_bookings = [row for row in processed_data if row.get('is_valid', False)]
-
-            if not valid_bookings:
-                logger.error("No valid bookings found in processed data")
-                return False
-
-            logger.info(f"Starting booking creation for {len(valid_bookings)} valid bookings")
-
-            # Navigate to create booking page in the existing tab
+            # Navigate to create booking page
             logger.info(f"Navigating to: {self.ICABBI_CREATE_URL}")
             self.page.goto(self.ICABBI_CREATE_URL)
             self.page.wait_for_load_state('networkidle')
 
-            # Process first booking as example
-            first_booking = valid_bookings[0]
-            driver_name = str(first_booking.get('Driver', '')).strip()
+            # Extract booking data
+            driver_name = str(booking.get('Driver', '')).strip()
 
             if not driver_name or driver_name.lower() == 'nan':
-                logger.error("No valid driver name found in first booking")
+                logger.error("No valid driver name found in booking")
                 return False
 
             logger.info(f"Filling driver name: {driver_name}")
@@ -233,7 +276,7 @@ class WebAutomation:
             name_field.type(driver_name, delay=100)  # Type with delay to trigger autocomplete
 
             # Wait for the form to process the input
-            time.sleep(1)
+            self._sleep_with_ui_update(1)
 
             # Dismiss any dropdown that may have appeared by clicking outside
             # Sometimes typing a name triggers an autocomplete dropdown
@@ -244,12 +287,12 @@ class WebAutomation:
                 if form_title:
                     form_title.click()
                     logger.info("Clicked outside to dismiss any dropdown")
-                    time.sleep(0.5)
+                    self._sleep_with_ui_update(0.5)
             except Exception as e:
                 logger.debug(f"No dropdown to dismiss or error clicking outside: {e}")
 
             # Check if mobile number exists and fill it
-            mobile_number = first_booking.get('Mobile', '')
+            mobile_number = booking.get('Mobile', '')
             if mobile_number and str(mobile_number).strip() and str(mobile_number).lower() != 'nan':
                 # Clean the mobile number - remove all spaces
                 mobile_clean = str(mobile_number).replace(' ', '').strip()
@@ -275,7 +318,7 @@ class WebAutomation:
                     mobile_field.type(mobile_clean, delay=50)
 
                     logger.info(f"Successfully filled mobile number: {mobile_clean}")
-                    time.sleep(0.5)  # Brief wait after filling
+                    self._sleep_with_ui_update(0.5)  # Brief wait after filling
 
                 except Exception as e:
                     logger.warning(f"Could not fill mobile number (field may not exist): {e}")
@@ -293,16 +336,16 @@ class WebAutomation:
             logger.info("Successfully filled driver name and clicked Next button")
 
             # Wait for the next page to load (address/date/time form)
-            time.sleep(2)
+            self._sleep_with_ui_update(2)
 
             # Now fill in the pickup address, destination, date, and time
             logger.info("Filling pickup address, destination, date, and time...")
 
             # Get address data from booking
-            from_location = str(first_booking.get('From', '')).strip()
-            to_location = str(first_booking.get('To', '')).strip()
-            booking_date = first_booking.get('Date', '')
-            booking_time = first_booking.get('Time', '')
+            from_location = str(booking.get('From', '')).strip()
+            to_location = str(booking.get('To', '')).strip()
+            booking_date = booking.get('Date', '')
+            booking_time = booking.get('Time', '')
 
             # Resolve addresses
             pickup_address = self._resolve_address(from_location)
@@ -330,14 +373,14 @@ class WebAutomation:
 
             # Step 3: Intermediate page - just click Next
             logger.info("Waiting for step 3 (intermediate page) to load...")
-            time.sleep(3)  # Wait 3 seconds for page to fully load
+            self._sleep_with_ui_update(3)  # Wait 3 seconds for page to fully load
 
             logger.info("Step 3 page loaded, clicking Next button...")
             try:
                 next_button = self.page.wait_for_selector('button:has-text("Next"):not([disabled])', timeout=10000)
                 next_button.click()
                 logger.info("Successfully clicked Next button on step 3")
-                time.sleep(2)  # Wait for next page to load
+                self._sleep_with_ui_update(2)  # Wait for next page to load
             except Exception as e:
                 logger.error(f"Error clicking Next button on step 3: {e}")
                 raise
@@ -346,7 +389,7 @@ class WebAutomation:
 
             # Step 4: Fill final booking form fields
             logger.info("Waiting for step 4 (final booking form) to load...")
-            time.sleep(3)  # Wait 3 seconds for page to fully load
+            self._sleep_with_ui_update(3)  # Wait 3 seconds for page to fully load
 
             logger.info("Step 4 page loaded, filling booking details...")
 
@@ -371,7 +414,7 @@ class WebAutomation:
                 ordered_by_input.type('Metro', delay=100)
 
                 logger.info("Successfully filled 'Metro' in Ordered By field")
-                time.sleep(1)
+                self._sleep_with_ui_update(1)
             except Exception as e:
                 logger.error(f"Error filling Ordered By field: {e}")
                 raise
@@ -383,13 +426,49 @@ class WebAutomation:
                 book_button = self.page.wait_for_selector('button:has-text("Book now"):not([disabled])', timeout=10000)
                 book_button.click()
                 logger.info("Successfully clicked 'Book now' button")
-                time.sleep(2)  # Wait for booking confirmation
+
+                # Wait for booking to complete (5 seconds minimum)
+                logger.info("Waiting for booking to complete...")
+                self._sleep_with_ui_update(5)
+
+                # Check if booking was successful by looking for success indicators
+                # (You can add more specific checks here if needed)
+                logger.info("Booking completion wait finished")
+
             except Exception as e:
                 logger.error(f"Error clicking 'Book now' button: {e}")
                 raise
 
             logger.info("Booking creation completed successfully!")
             return True
+
+        except Exception as e:
+            logger.error(f"Error during booking creation: {e}")
+            return False
+
+    def start_booking_creation(self, processed_data: List[Dict[str, Any]]) -> bool:
+        """
+        Start the booking creation process with processed Excel data.
+        This method processes only the first booking for backward compatibility.
+
+        Args:
+            processed_data: List of booking dictionaries
+
+        Returns:
+            bool: True if successful, False otherwise
+        """
+        try:
+            # Filter valid rows only
+            valid_bookings = [row for row in processed_data if row.get('is_valid', False)]
+
+            if not valid_bookings:
+                logger.error("No valid bookings found in processed data")
+                return False
+
+            logger.info(f"Processing first booking out of {len(valid_bookings)} valid bookings")
+
+            # Process first booking
+            return self.create_single_booking(valid_bookings[0])
 
         except Exception as e:
             logger.error(f"Error during booking creation: {e}")
@@ -423,7 +502,7 @@ class WebAutomation:
 
             # Click on the multiselect to activate it
             multiselect.click()
-            time.sleep(0.5)
+            self._sleep_with_ui_update(0.5)
 
             # Now find the input field within this multiselect
             # The input becomes visible after clicking
@@ -437,7 +516,7 @@ class WebAutomation:
             address_field.type(address, delay=100)
 
             # Wait for dropdown to appear and populate
-            time.sleep(2)
+            self._sleep_with_ui_update(2)
 
             # Wait for dropdown options to appear
             # The dropdown uses multiselect__option class
@@ -447,16 +526,66 @@ class WebAutomation:
                 content_wrapper = multiselect.query_selector('.multiselect__content-wrapper')
                 if content_wrapper:
                     # Wait a bit more for options to populate
-                    time.sleep(1)
+                    self._sleep_with_ui_update(1)
 
                     # Find options within this specific multiselect
                     options = content_wrapper.query_selector_all('.multiselect__option:not(.multiselect__option--disabled)')
 
                     if options and len(options) > 0:
-                        # Click the first option
-                        options[0].click()
-                        logger.info(f"{field_name} selected from dropdown")
-                        time.sleep(0.5)
+                        logger.info(f"Found {len(options)} dropdown options for {field_name}")
+
+                        # Find the best matching option
+                        best_match = None
+                        best_score = 0
+
+                        # Get the search text (what we typed)
+                        search_text = address.lower().strip()
+
+                        for i, option in enumerate(options):
+                            option_text = option.text_content().strip()
+                            logger.info(f"  Option {i+1}: {option_text}")
+
+                            # Calculate match score
+                            option_lower = option_text.lower()
+                            score = 0
+
+                            # Exact match gets highest score
+                            if option_lower == search_text:
+                                score = 1000
+                            # Starts with search text
+                            elif option_lower.startswith(search_text):
+                                score = 500
+                            # Contains search text
+                            elif search_text in option_lower:
+                                score = 250
+                            # Contains all words from search text
+                            else:
+                                search_words = search_text.split()
+                                matching_words = sum(1 for word in search_words if word in option_lower)
+                                score = matching_words * 50
+
+                            # Prefer shorter matches (more specific)
+                            if score > 0:
+                                score -= len(option_text) * 0.1
+
+                            logger.debug(f"    Score: {score}")
+
+                            if score > best_score:
+                                best_score = score
+                                best_match = (i, option, option_text)
+
+                        if best_match:
+                            idx, option, option_text = best_match
+                            logger.info(f"✅ Best match (score {best_score:.1f}): Option {idx+1} - {option_text}")
+                            option.click()
+                            logger.info(f"{field_name} selected from dropdown")
+                            self._sleep_with_ui_update(0.5)
+                        else:
+                            # No good match, use first option as fallback
+                            logger.warning(f"No good match found, using first option as fallback")
+                            options[0].click()
+                            logger.info(f"{field_name} selected from dropdown (first option)")
+                            self._sleep_with_ui_update(0.5)
                     else:
                         logger.warning(f"No dropdown options found for {field_name}, continuing...")
                 else:
@@ -465,7 +594,7 @@ class WebAutomation:
                 logger.warning(f"Dropdown selection failed for {field_name}: {e}")
                 # Continue anyway - the typed address might be accepted
 
-            time.sleep(1)
+            self._sleep_with_ui_update(1)
 
         except Exception as e:
             logger.error(f"Error filling {field_name}: {e}")
@@ -608,110 +737,238 @@ class WebAutomation:
             else:
                 logger.warning(f"   ⚠️  Could not check field: {field_info.get('error')}")
 
-            # Set the date field using Vue.js component updates
-            js_set_date = f"""
-            (() => {{
-                // Find the date input by section header (avoids multiselect inputs)
-                let dateInput = null;
-                const headers = document.querySelectorAll('h5.section-title');
-                for (const header of headers) {{
-                    if (header.textContent.includes('Date')) {{
-                        const parent = header.closest('.col');
-                        if (parent) {{
-                            dateInput = parent.querySelector('input[readonly][type="text"]');
-                            if (dateInput) break;
+            # Instead of trying to set the date via JavaScript, we'll interact with the date picker
+            # like a user would - by clicking on it and selecting the date
+            logger.info(f"")
+            logger.info(f"🖱️  INTERACTING WITH DATE PICKER:")
+            logger.info(f"   Approach: Click date field → Open picker → Select date")
+
+            try:
+                # Find and click the date input field to open the picker
+                logger.info(f"   Step 1: Finding date input field...")
+                date_input = None
+                headers = self.page.query_selector_all('h5.section-title')
+                for header in headers:
+                    if 'Date' in header.text_content():
+                        parent = header.evaluate_handle('el => el.closest(".col")')
+                        if parent:
+                            date_input = parent.as_element().query_selector('input[readonly][type="text"]')
+                            if date_input:
+                                logger.info(f"   ✅ Found date input field")
+                                break
+
+                if not date_input:
+                    logger.error(f"   ❌ Could not find date input field")
+                    raise Exception("Date input field not found")
+
+                # Click the date input to open the date picker
+                logger.info(f"   Step 2: Clicking date field to open picker...")
+                date_input.click()
+                self._sleep_with_ui_update(1)  # Wait for picker to open
+
+                # Now we need to set the date in the Vue date picker
+                # The picker should be visible now
+                logger.info(f"   Step 3: Setting date in picker via Vue...")
+
+                # Use JavaScript to directly set the Vue component's date value
+                js_set_date = f"""
+                (() => {{
+                    // Find the date input
+                    let dateInput = null;
+                    const headers = document.querySelectorAll('h5.section-title');
+                    for (const header of headers) {{
+                        if (header.textContent.includes('Date')) {{
+                            const parent = header.closest('.col');
+                            if (parent) {{
+                                dateInput = parent.querySelector('input[readonly][type="text"]');
+                                if (dateInput) break;
+                            }}
                         }}
                     }}
-                }}
 
-                if (!dateInput) {{
-                    return {{ success: false, error: 'Date input not found' }};
-                }}
+                    if (!dateInput) {{
+                        return {{ success: false, error: 'Date input not found' }};
+                    }}
 
-                // Date formats to try
-                const isoDate = '{year}-{month:02d}-{day:02d}';
-                const displayDate = '{date_str}';
+                    // ISO date format for Vue
+                    const isoDate = '{year}-{month:02d}-{day:02d}';
 
-                console.log('Setting date with formats:', {{ isoDate, displayDate }});
+                    console.log('Setting date to:', isoDate);
 
-                // Update Vue.js component data model
-                let element = dateInput;
-                let level = 0;
+                    // Find the Vue component instance
+                    let element = dateInput;
+                    let vueInstance = null;
+                    let level = 0;
 
-                while (element && level < 10) {{
-                    if (element.__vue__) {{
-                        const vue = element.__vue__;
+                    // Traverse up to find Vue instance
+                    while (element && level < 15) {{
+                        if (element.__vue__) {{
+                            vueInstance = element.__vue__;
+                            break;
+                        }}
+                        element = element.parentElement;
+                        level++;
+                    }}
 
-                        // Try setting Vue data properties
-                        if (vue.$data) {{
-                            for (const key in vue.$data) {{
-                                if (key.toLowerCase().includes('date') ||
-                                    key.toLowerCase().includes('value') ||
-                                    key.toLowerCase().includes('picker')) {{
-                                    vue.$data[key] = isoDate;
-                                    vue.$data[key] = displayDate;
+                    if (vueInstance) {{
+                        console.log('Found Vue instance at level:', level);
+
+                        // Try to find the parent component that manages the date picker
+                        let parent = vueInstance.$parent;
+                        let parentLevel = 0;
+                        while (parent && parentLevel < 10) {{
+                            // Look for date-related properties
+                            if (parent.$data) {{
+                                for (const key in parent.$data) {{
+                                    if (key.toLowerCase().includes('date') ||
+                                        key.toLowerCase().includes('picker') ||
+                                        key === 'internalValue' ||
+                                        key === 'lazyValue') {{
+                                        console.log('Setting parent.$data.' + key + ' to:', isoDate);
+                                        parent.$data[key] = isoDate;
+                                    }}
                                 }}
                             }}
-                        }}
 
-                        // Try direct Vue properties
-                        const props = ['value', 'internalValue', 'lazyValue', 'date', 'selectedDate', 'pickerDate'];
-                        for (const prop of props) {{
-                            if (vue.hasOwnProperty(prop)) {{
-                                vue[prop] = isoDate;
-                                vue[prop] = displayDate;
+                            // Try setting direct properties
+                            if (parent.internalValue !== undefined) {{
+                                parent.internalValue = isoDate;
+                                console.log('Set parent.internalValue');
                             }}
+                            if (parent.lazyValue !== undefined) {{
+                                parent.lazyValue = isoDate;
+                                console.log('Set parent.lazyValue');
+                            }}
+
+                            // Emit input event
+                            if (parent.$emit) {{
+                                parent.$emit('input', isoDate);
+                                console.log('Emitted input event on parent');
+                            }}
+
+                            parent = parent.$parent;
+                            parentLevel++;
                         }}
 
-                        // Emit Vue events
-                        if (vue.$emit) {{
-                            vue.$emit('input', isoDate);
-                            vue.$emit('input', displayDate);
+                        // Also try on the instance itself
+                        if (vueInstance.internalValue !== undefined) {{
+                            vueInstance.internalValue = isoDate;
                         }}
-
-                        // Call Vue methods if available
-                        if (typeof vue.setValue === 'function') {{
-                            vue.setValue(isoDate);
+                        if (vueInstance.lazyValue !== undefined) {{
+                            vueInstance.lazyValue = isoDate;
                         }}
-                        if (typeof vue.updateValue === 'function') {{
-                            vue.updateValue(isoDate);
-                        }}
-
-                        // Force Vue to update
-                        if (vue.$forceUpdate) {{
-                            vue.$forceUpdate();
+                        if (vueInstance.$emit) {{
+                            vueInstance.$emit('input', isoDate);
                         }}
                     }}
-                    element = element.parentElement;
-                    level++;
-                }}
 
-                // Set input value directly and trigger DOM events
-                dateInput.removeAttribute('readonly');
+                    // Set the input value directly
+                    dateInput.value = '{date_str}';
 
-                // Try setting with display format first (full text)
-                dateInput.value = displayDate;
-                dateInput.dispatchEvent(new Event('input', {{ bubbles: true, cancelable: true }}));
-                dateInput.dispatchEvent(new Event('change', {{ bubbles: true, cancelable: true }}));
+                    // Trigger events
+                    dateInput.dispatchEvent(new Event('input', {{ bubbles: true }}));
+                    dateInput.dispatchEvent(new Event('change', {{ bubbles: true }}));
 
-                // If that didn't work, try ISO format
-                if (dateInput.value === 'Invalid date' || dateInput.value === '') {{
-                    console.log('Display format failed, trying ISO format');
-                    dateInput.value = isoDate;
-                    dateInput.dispatchEvent(new Event('input', {{ bubbles: true, cancelable: true }}));
-                    dateInput.dispatchEvent(new Event('change', {{ bubbles: true, cancelable: true }}));
-                }}
+                    console.log('Final date value:', dateInput.value);
 
-                dateInput.dispatchEvent(new Event('blur', {{ bubbles: true, cancelable: true }}));
-                dateInput.setAttribute('readonly', 'readonly');
+                    return {{ success: true, value: dateInput.value, hadVue: !!vueInstance }};
+                }})()
+                """
 
-                console.log('Final date value:', dateInput.value);
+                date_result = self.page.evaluate(js_set_date)
 
-                return {{ success: true, value: dateInput.value }};
-            }})()
-            """
+                # Try alternative approach: Click on the date in the calendar picker
+                logger.info(f"   Step 4 (Alternative): Looking for calendar picker...")
+                logger.info(f"   Target date: {year}-{month:02d}-{day:02d}")
+                try:
+                    # Wait a bit for the calendar to render
+                    self._sleep_with_ui_update(1)
 
-            date_result = self.page.evaluate(js_set_date)
+                    # Look for the date picker calendar
+                    # Vuetify date pickers typically have v-date-picker-table class
+                    picker = self.page.query_selector('.v-picker, .v-date-picker')
+
+                    if picker:
+                        logger.info(f"   ✅ Found date picker")
+
+                        # First, we need to navigate to the correct month/year
+                        # Check current month/year displayed
+                        header = picker.query_selector('.v-date-picker-header, .v-picker__title')
+                        if header:
+                            current_display = header.text_content()
+                            logger.info(f"   Current picker display: {current_display}")
+
+                        # Navigate to correct month/year if needed
+                        # Click on month/year header to open month/year selector
+                        month_year_button = picker.query_selector('button.v-date-picker-header__value, .v-picker__title__btn')
+                        if month_year_button:
+                            logger.info(f"   Clicking month/year selector...")
+                            month_year_button.click()
+                            self._sleep_with_ui_update(0.5)
+
+                            # Now we should see year selector
+                            # Click on the target year
+                            year_button = picker.query_selector(f'button:has-text("{year}")')
+                            if year_button:
+                                logger.info(f"   Clicking year {year}...")
+                                year_button.click()
+                                self._sleep_with_ui_update(0.5)
+
+                            # Now we should see month selector
+                            # Month names in English
+                            month_names = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                                         'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                            target_month_name = month_names[month - 1]
+
+                            month_button = picker.query_selector(f'button:has-text("{target_month_name}")')
+                            if month_button:
+                                logger.info(f"   Clicking month {target_month_name}...")
+                                month_button.click()
+                                self._sleep_with_ui_update(0.5)
+
+                        # Now we should be on the correct month, click the day
+                        logger.info(f"   Looking for day {day} button...")
+
+                        # Find the calendar table
+                        calendar_table = picker.query_selector('.v-date-picker-table, [role="grid"]')
+                        if calendar_table:
+                            # Look for button with the day number
+                            # Need to be careful to select the right day (not from adjacent months)
+                            day_buttons = calendar_table.query_selector_all('button')
+
+                            for button in day_buttons:
+                                button_text = button.text_content().strip()
+                                if button_text == str(day):
+                                    # Check if button is not disabled (adjacent month)
+                                    classes = button.get_attribute('class') or ''
+                                    if 'v-btn--disabled' not in classes and 'v-btn--outlined' not in classes:
+                                        logger.info(f"   ✅ Clicking day {day} button...")
+                                        button.click()
+                                        self._sleep_with_ui_update(0.5)
+                                        break
+                            else:
+                                logger.warning(f"   ⚠️  Could not find clickable day {day} button")
+                        else:
+                            logger.warning(f"   ⚠️  Calendar table not found")
+                    else:
+                        logger.warning(f"   ⚠️  Date picker not found, trying to close with Escape")
+                        self.page.keyboard.press('Escape')
+
+                except Exception as calendar_error:
+                    logger.warning(f"   ⚠️  Could not interact with calendar: {calendar_error}")
+                    logger.warning(f"   Error details: {type(calendar_error).__name__}: {str(calendar_error)}")
+                    # Try to close picker
+                    try:
+                        self.page.keyboard.press('Escape')
+                    except:
+                        pass
+
+                self._sleep_with_ui_update(0.5)
+
+            except Exception as e:
+                logger.error(f"   ❌ Error interacting with date picker: {e}")
+                # Fall back to direct JavaScript setting
+                date_result = {'success': False, 'error': str(e)}
 
             logger.info(f"")
             logger.info(f"📤 DATE SETTING RESULT:")
@@ -727,7 +984,7 @@ class WebAutomation:
                 error = date_result.get('error', 'Unknown error') if date_result else 'No result'
                 logger.error(f"   ❌ Failed: {error}")
 
-            time.sleep(2)  # Wait for Vue to process updates
+            self._sleep_with_ui_update(2)  # Wait for Vue to process updates
 
             # Verify the date field after Vue processing
             logger.info(f"")
@@ -821,7 +1078,7 @@ class WebAutomation:
             logger.info(f"✅ Date and time filling process completed")
             logger.info("="*70)
 
-            time.sleep(2)  # Wait for form validation
+            self._sleep_with_ui_update(2)  # Wait for form validation
 
         except Exception as e:
             logger.error(f"Error filling date/time: {e}")
